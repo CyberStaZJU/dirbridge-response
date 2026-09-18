@@ -1,6 +1,6 @@
 # DirBridge 当前状态
 
-更新时间：2026-09-14
+更新时间：2026-09-18
 
 ## 当前结论
 
@@ -31,3 +31,15 @@ GitHub 公共仓库 `CyberStaZJU/dirbridge-artifact` 的公开结构与压缩包
 ## 当前限制
 
 共享对话页面标题为“审稿意见回复与实验补充”，但公开抓取没有返回正文内容；本状态基于压缩包、GitHub README 和仓库文件建立。若后续需要把共享对话中的具体审稿要求写入计划，应补充正文或截图。
+
+## 审稿补充实验进度（2026-09-18）
+
+| 实验 | 对应意见 | 状态 | 记录 |
+|---|---|---|---|
+| E4 profile 耦合 | R3-2、R1-D7 | 完成，70/70 审计通过 | `e4-profile-coupling/DESIGN_AND_RESULTS.md` + `RESOURCE_AUDIT_AND_SCOPE.md` |
+| E5 (B, K₀, dₛ) 敏感性 | R1-D4/D6、R2-5 | 完成，65/65 审计通过 | `e5-sensitivity/DESIGN_AND_RESULTS.md` |
+| E2 在线初始化 | R3-1 | 完成，60/60 审计通过；code_e2 已合并回主树 | `e2-online-init/DESIGN_AND_RESULTS.md` |
+
+原始数据与完整日志在台式机 `/home/jczn2/DirBridge_state/{e2,e4,e5}_{runs,logs}/`（仓库外）。
+E1（统一调参 + CA2FL/FADAS 异常诊断）、E3（耦合强度扫描）、E6（内存账本重述）未开始。
+E6 的核心证据（CA2FL 缓存在设备内存 0.984/0.916 实测预测比）已由 E4 资源审计提前给出。
