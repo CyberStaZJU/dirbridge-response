@@ -36,9 +36,16 @@ GitHub 公共仓库 `CyberStaZJU/dirbridge-artifact` 的公开结构与压缩包
 
 | 实验 | 对应意见 | 状态 | 记录 |
 |---|---|---|---|
+| E1 公平调参 + 异常诊断 | R3-3、R1-D2 | dev 120/120 完成；正式仅 CIFAR-10 CA2FL 5 seed 完成 | `e1-fair-tuning/DESIGN_AND_RESULTS.md` + `REPLY_DRAFT.md` |
+| E2 在线初始化 | R3-1 | 完成，60/60 审计通过；code_e2 已合并回主树 | `e2-online-init/DESIGN_AND_RESULTS.md` |
 | E4 profile 耦合 | R3-2、R1-D7 | 完成，70/70 审计通过 | `e4-profile-coupling/DESIGN_AND_RESULTS.md` + `RESOURCE_AUDIT_AND_SCOPE.md` |
 | E5 (B, K₀, dₛ) 敏感性 | R1-D4/D6、R2-5 | 完成，65/65 审计通过 | `e5-sensitivity/DESIGN_AND_RESULTS.md` |
-| E2 在线初始化 | R3-1 | 完成，60/60 审计通过；code_e2 已合并回主树 | `e2-online-init/DESIGN_AND_RESULTS.md` |
+
+E1 的关键结论与限制：CA2FL 与 FADAS 的异常都是**配置性**的（server 步长 /
+自适应分母失效），调参后 CA2FL 从 5 seed 全 10.00 恢复到均值 49.47；但
+DirBridge 的 +22.67 分配对 CI 为 [−4.43, +49.77]，**不显著**，原因是调参后
+CA2FL 的 seed 方差（±19.73）是 DirBridge（±3.58）的 5.5 倍。FEMNIST 正式
+与 CIFAR-10 的 FedBuff/FADAS 正式跑未完成，不可外推。逃生时间优势已撤回。
 
 原始数据与完整日志在台式机 `/home/jczn2/DirBridge_state/{e2,e4,e5}_{runs,logs}/`（仓库外）。
 E1（统一调参 + CA2FL/FADAS 异常诊断）、E3（耦合强度扫描）、E6（内存账本重述）未开始。
