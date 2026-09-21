@@ -58,9 +58,10 @@ def run_round(state, args, random_cost):
     selected_updates = [state['delta'][i] for i in buffer_list]
     aggregated_diff = sd_average(selected_updates)
 
+    server_lr = float(args.global_lr if args.global_lr is not None else 1.0)
     with torch.no_grad():
         for key in aggregated_diff.keys():
-            state['w_glob'][key] += aggregated_diff[key]
+            state['w_glob'][key] += server_lr * aggregated_diff[key]
     load_param_dict_(state['net_glob'], state['w_glob'])
     state['iterations'] += 1
 

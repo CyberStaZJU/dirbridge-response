@@ -45,7 +45,7 @@ def init_state(state, args, random_cost):
 def run_round(state, args, dataset_train, dict_users, num_samples, random_cost):
     cost = state["cost"]
     buffer_list = []
-    eta = 1
+    eta = float(args.global_lr if args.global_lr is not None else 1.0)
     server_v = sd_zero_like(state["w_glob"])
 
     active_list = [i for i, c in enumerate(cost) if c > 0]

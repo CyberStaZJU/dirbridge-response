@@ -68,8 +68,8 @@ experiments.
 
 ## 5. Code identity
 
-Development tree `/home/jczn2/DirBridge/code_e2`, **merged into the main tree**
-`/home/jczn2/DirBridge/code` after the final audit (md5-verified identical for
+Development tree `$DIRBRIDGE_CODE_E2`, **merged into the main tree**
+`$DIRBRIDGE_CODE_ROOT` after the final audit (md5-verified identical for
 `algorithm/dirbridge.py`, `algorithm/casa.py`, `utils/options.py`,
 `utils/direction_skew_logging.py`, `main_fed.py`, plus new
 `utils/e2_online.py`). Changed behavior is confined to: init mode branching,

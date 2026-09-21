@@ -94,7 +94,7 @@ Desktop working tree is not a git checkout; identity is recorded by file hash:
   groups when coupling is active
 - Baseline-fairness guards: `algorithm/ca2fl.py`, `algorithm/fedbuff.py` cap buffer
   construction at the number of positive-cost clients (no `min()` on empty sequences)
-- Python: `/home/jczn2/.conda/envs/yibo/bin/python`; single RTX 5090 D (32 GB)
+- Python: `python`; single RTX 5090 D (32 GB)
 
 `PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True` was set for the launcher; each job
 used 1 CPU thread (`OMP/MKL/OPENBLAS/NUMEXPR_NUM_THREADS=1`).
@@ -196,7 +196,7 @@ Reading (tail-10 emphasizes the *converged* regime rather than the final round):
   interrupted first attempt; the audited files are single-writer.
 - GSpeech's 35 runs were completed in one clean pass with no reruns.
 - Raw per-round accuracy files and metrics CSVs remain on the desktop host under
-  `/home/jczn2/DirBridge_state/e4_runs/profile_coupled_valid/fedscale_correct/{femnist,gspeech}/`
+  `$DIRBRIDGE_STATE_ROOT/e4_runs/profile_coupled_valid/fedscale_correct/{femnist,gspeech}/`
   and are not copied into this repository (size policy).
 
 ## 6. Reproducing

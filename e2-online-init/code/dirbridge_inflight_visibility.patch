@@ -1,0 +1,89 @@
+--- before/algorithm/dirbridge.py
++++ after/algorithm/dirbridge.py
+@@ -788,18 +788,33 @@
+     np.random.shuffle(sampled_idx)
+     sampled_idx = sampled_idx[:num_to_launch]
+ 
++    inflight = state.setdefault('inflight', {})
+     for idx in sampled_idx:
+         delta = local_train_delta(state, args, idx)
+-        state['delta'][idx] = delta
+-        state['client_features'][idx] = encode_client_feature(
+-            state,
+-            args,
+-            idx,
+-        )
+-        if state.get('e2_oracle_enabled'):
+-            state['oracle_features'][idx] = state['client_features'][idx].clone()
+-        state['stamp'][idx] = state['iterations']
+-        state['cost'][idx] = state['global_cost'] + random_cost(idx)
++        feature = encode_feature_from_delta(state, args, delta)
++        launch_stamp = int(state['iterations'])
++        arrival_cost = state['global_cost'] + random_cost(idx)
++        inflight[idx] = {
++            'delta': delta,
++            'feature': feature,
++            'stamp': launch_stamp,
++        }
++        state['stamp'][idx] = launch_stamp
++        state['cost'][idx] = arrival_cost
++
++
++def _materialize_arrivals(state, buffer_list):
++    """Make completed in-flight results visible to the server."""
++    inflight = state.setdefault('inflight', {})
++    for idx in buffer_list:
++        record = inflight.pop(idx, None)
++        if record is None:
++            raise RuntimeError(
++                f'Client {idx} arrived without an in-flight result'
++            )
++        state['delta'][idx] = record['delta']
++        state['client_features'][idx] = record['feature']
++        state['stamp'][idx] = int(record['stamp'])
+ 
+ 
+ def init_state(state, args, random_cost):
+@@ -838,6 +853,7 @@
+     state['group_counts'] = [0] * state['num_groups']
+     state['group_weights'] = [0.0] * state['num_groups']
+     state['client_features'] = [None] * num_users
++    state['inflight'] = {}
+     state['client_embeds'] = [None] * num_users
+     state['last_group_rebuild'] = 0
+     state['last_group_rebuild_reason'] = 'init'
+@@ -871,11 +887,13 @@
+         _populate_oracle_features(state, args)
+         state['e2_init_oracle_time_sec'] = time.perf_counter() - oracle_start
+ 
+-        sampled_idx = random.sample(
+-            range(num_users), min(int(args.concurrency), num_users)
++        _schedule_new_clients(
++            state,
++            args,
++            active_list=[],
++            num_to_launch=min(int(args.concurrency), num_users),
++            random_cost=random_cost,
+         )
+-        for idx in sampled_idx:
+-            state['cost'][idx] = random_cost(idx)
+         _update_e2_metrics(state, args)
+         return state
+@@ -909,6 +927,11 @@
+ 
+     sampled_idx = random.sample(range(num_users), min(int(args.concurrency), num_users))
+     for idx in sampled_idx:
++        state['inflight'][idx] = {
++            'delta': state['delta'][idx],
++            'feature': state['client_features'][idx],
++            'stamp': int(state['stamp'][idx]),
++        }
+         state['cost'][idx] = random_cost(idx)
+@@ -939,6 +962,7 @@
+     state['last_buffer_list'] = list(buffer_list)
+     state['last_selected_item_summary'] = []
+     state['last_regrouped'] = False
++    _materialize_arrivals(state, buffer_list)
+     _record_arrivals(state, buffer_list)
+ 
+     sync_client_delays(state)

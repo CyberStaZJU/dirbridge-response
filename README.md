@@ -15,7 +15,20 @@ This artifact is intended to support the following checks:
 
 The repository does not include raw datasets. Some full experiments are compute-intensive; use the smoke test first to validate the environment.
 
-## 1. Repository Layout
+The reviewer-response records are organized as follows:
+
+- `e1-fair-tuning/`: tuning protocol, anomaly diagnostics, and the original E1 reply draft;
+- `e2-online-init/`: online-initialization design and audited historical control matrix;
+- `e3-profile-coupling/STATUS.md`: explicit paused status and scope boundary;
+- `e4-profile-coupling/`: profile-coupling design, resource audit, and audited results;
+- `e5-sensitivity/`: buffer, group-count, and sketch-dimension sensitivity;
+- `e6-resource-accounting/STATUS.md`: explicit status of the unfinished standalone E6;
+- `SUPPLEMENTAL_RESULTS_20260921.md`: later E1-E6 status and additional CIFAR comparisons;
+- `CODE_CORRECTIONS_20260921.md`: code changes, online-state repair, and verification boundaries;
+- `RESPONSE_ADDENDUM_20260921.md`: concise reviewer-facing response language.
+
+The supplemental records distinguish audited results, interrupted runs, pending fixes, and paused experiments. They do not treat unfinished work as a result.
+
 
 ```text
 dirbridge-artifact/
@@ -33,7 +46,7 @@ dirbridge-artifact/
 
 ## 2. Environment
 
-The desktop reference environment is `/home/jczn2/.conda/envs/yibo`. Install dependencies with:
+The reference environment is described generically; set `PYTHON_BIN` to the interpreter available on your system. Set `DIRBRIDGE_STATE_ROOT` to an external directory for logs, checkpoints, and experiment outputs; do not place runtime state in this repository.
 
 ```bash
 conda activate yibo
@@ -287,7 +300,7 @@ If this artifact is used, please cite the corresponding DirBridge paper.
 ```bibtex
 @article{chen2026dirbridge,
   title   = {DirBridge: Scalable Direction-Group Memory for Latency-Biased Asynchronous Federated Data Streams},
-  author  = {Chen, Yibo and Liu, Zhizhong and Qin, Yunchuan and Tang, Zhuo and Li, Kenli},
+  author  = {Anonymous authors},
   journal = {IEEE Transactions on Knowledge and Data Engineering},
   year    = {2026},
   note    = {Under review}

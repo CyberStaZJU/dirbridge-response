@@ -711,9 +711,10 @@ def run_round(state, args, random_cost):
         return state
 
     aggregated_diff = grouped_buffered_aggregation(selected_items, state['w_glob'])
+    server_lr = float(args.global_lr if args.global_lr is not None else 1.0)
     with torch.no_grad():
         for key in aggregated_diff.keys():
-            state['w_glob'][key] += aggregated_diff[key]
+            state['w_glob'][key] += server_lr * aggregated_diff[key]
     load_param_dict_(state['net_glob'], state['w_glob'])
 
     _update_ema_group_cache(state, args, selected_items)
