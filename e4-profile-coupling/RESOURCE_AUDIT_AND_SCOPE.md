@@ -65,16 +65,9 @@ process RSS**: process-peak difference vs FedBuff is −0.5 MiB (FEMNIST) and
 population, do not present as exact). The paper's Table VI reported the wrong
 column.
 
-DirBridge's own overhead: +78.1 MiB on FEMNIST against a predicted
-K₀ × model = 10.2 MiB (K₀ = 6); the extra ~68 MiB is the Count-Sketch machinery
-(per-parameter bucket/sign arrays over 444k coordinates) — confirming the
-under-count flagged in the planning document (the paper's 832 KiB sketch figure
-assumed one plan). On GSpeech the overhead is indistinguishable from zero
-(−3.7 MiB); the 0.37 MiB model is too small for either term to register.
+DirBridge's own device-peak overhead is +78.1 MiB on FEMNIST and indistinguishable from zero on GSpeech in this multi-job measurement. The observation is compatible with group caches and sketch-related allocations, but the CSV peak alone does not identify the exact allocation by component. We therefore do not attribute the full ~68 MiB residual to sketch arrays without a direct persistent-state ledger.
 
-**Headline comparison**: on FEMNIST, CA2FL +1666 MiB vs DirBridge +78 MiB of
-persistent state (21× difference), with DirBridge ahead by 10.0 points of
-accuracy (76.49 vs 66.48).
+**Headline comparison**: the measured FEMNIST device-peak difference was +1666 MiB for CA2FL versus +78 MiB for DirBridge. These are historical per-run peaks, not by themselves a proof of persistent state or a complete logical-memory decomposition.
 
 **Methodological warning for Table VI**: process peak is within 1–3 MiB across
 all seven algorithms on both datasets (FEMNIST: 3513–3514 for every algorithm),
@@ -94,6 +87,4 @@ within a dataset, not single-job latency. `simulated_wall_time` varies > 3×
 across seeds on the same algorithm here (sampler draw sensitivity) and must not
 be used for matched-work comparisons in this matrix (unlike E5).
 
-Peaks are per-run maxima but the allocations are genuinely persistent:
-round-resolved FEMNIST values show CA2FL reaching 3514 MiB by round 10 and
-holding exactly through round 500 (FedBuff: 1860, equally flat).
+The reported values are per-run maxima from the system-metrics CSVs. A flat historical peak does not by itself prove current persistent residency; current allocation, reserved allocation, and logical state must be measured separately. The public audit therefore treats these values as historical device-peak evidence, not a complete persistence ledger.

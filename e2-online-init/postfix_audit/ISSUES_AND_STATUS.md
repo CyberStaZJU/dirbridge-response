@@ -2,7 +2,7 @@
 
 The completed B/C follow-up is documented in `RESULTS_BC_CURRENT.md`. All five online+oracle and five online+arrival-frequency runs reached 500 rounds. The oracle arm has severe numerical-health failures in four of five seeds, so it is retained as a diagnostic control rather than clean causal convergence evidence.
 
-Audit basis: public repository HEAD `6c298fc37d74650d5b60b75f6526cfba25e4e2f7` plus the uncommitted changes in this worktree. No push was performed. The ten completed CIFAR-100 runs were read from the authorized desktop state directories and were not rerun.
+Audit basis: the repaired public implementation and the completed B/C follow-up outputs read from the authorized desktop state directories. Raw logs and checkpoints remain external to this repository.
 
 ## Status table
 
@@ -23,7 +23,7 @@ Audit basis: public repository HEAD `6c298fc37d74650d5b60b75f6526cfba25e4e2f7` p
 | Historical `Test loss nan` is only a formatting bug | **refuted** | Original stdout shows repeated `Test loss nan` interleaved with finite losses and low/variable accuracies, starting at rounds 2–3. The evaluator used standard `F.cross_entropy`; no per-batch finite diagnostics were present. This is not a proven formatter-only issue. |
 | Historical non-finite loss proves parameters or BN buffers were non-finite | **unresolved** | No checkpoints or parameter/BN snapshots were retained. Historical logs cannot distinguish non-finite logits, finite logits with non-finite loss accumulation, or BN/state corruption. |
 | Historical accuracy is automatically invalid | **unresolved, qualified** | Accuracy files are complete and finite, but historical evaluation did not check logits before argmax. Finite accuracy is usable as an accuracy trace with a numerical-health qualification, not as proof of healthy finite logits/parameters. |
-| B/C oracle-vs-estimated comparison exists in the repaired ten runs | **refuted** | The ten commands contain only online+unique and full+full-count. No repaired B (`online+oracle`) or C (`online+arrival_freq`) command/output exists in the authorized run directories. Historical 60-run E2 matrix is a different code identity and cannot fill this gap. |
+| B/C oracle-vs-estimated comparison exists in the repaired follow-up | **confirmed, completed with numerical limitation** | Five B (`online+oracle`) and five C (`online+arrival_freq`) runs each reached 500 rounds. B has non-finite final evaluation loss/logits in four seeds; C has finite final evaluation diagnostics in all five. Results are in `RESULTS_BC_CURRENT.md`. |
 | Existing E2 oracle is an exact current-training population oracle | **refuted / renamed** | It is a full-population direction snapshot at initialization or an offline reference evaluated against current representatives. It is a non-deployable reference-snapshot oracle, not automatically an exact later-training population assignment. |
 | Full-client initialization is required for the algorithm to execute | **refuted for this configuration** | Repaired online runs completed 5/5 seeds and 500 rounds with only first-wave dispatch at initialization. Evidence strength is execution-level and configuration-specific, not a universal deployment guarantee. |
 
@@ -38,4 +38,4 @@ The new evaluator records these missing fields for future short diagnostics and 
 - Historical 60-run E2 matrix: separate pre-repair identity; do not merge with the repaired ten-run comparison.
 - Repaired ten-run comparison: CIFAR-100 only, online+unique versus full+full-count, five paired seeds, 500 rounds; finite accuracy files, shared non-finite test-loss limitation.
 - Post-fix code audit: event semantics and metric persistence tested in synthetic/reference-environment regression tests; no new full matrix launched.
-- Repaired oracle comparison: pending; no B/C results in the new code identity.
+- Repaired B/C follow-up: complete; results and numerical limitations are in `RESULTS_BC_CURRENT.md`.

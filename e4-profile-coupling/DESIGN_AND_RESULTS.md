@@ -1,5 +1,7 @@
 # E4 (R3-2): Profile-coupled delay experiment — design, configuration, and audited results
 
+> **Interpretation correction (supersedes the historical wording below):** This file records a controlled data–system coupling experiment driven by real FedScale device-capability profiles. It is not evidence of naturally observed label–latency coupling or measured end-to-end latency. The statistical and resource corrections in `revision_audit_non_e2/E4_REANALYSIS.md` supersede older narrative claims in this document, including “higher more often,” cross-dataset monotonicity, and unsupported persistent-memory explanations.
+
 ## 1. Purpose
 
 Reviewer question R3-2 asks whether DirBridge's gains depend on the *specific* way data
@@ -166,26 +168,11 @@ Per-seed tail-10:
 
 Reading (tail-10 emphasizes the *converged* regime rather than the final round):
 
-1. **DirBridge has both the highest mean tail-10 and the most stable best-case
-   behavior.** Its per-seed best accuracy is 80.21 ± 1.12 — every seed reaches the same
-   ceiling — while FedBuff (76.32 ± 1.95) and CASA (75.12 ± 3.22) top out lower.
-2. **FedBuff's tail-10 (73.28 ± 2.18) is close to DirBridge's (73.60 ± 5.22)** on
-   FEMNIST: on this milder-heterogeneity dataset the buffering baselines do learn, and
-   DirBridge's margin is +0.3 mean but with a higher ceiling (best 80.2 vs 76.3) and a
-   better worst-seed tail-10 (66.10 vs 69.71 — FedBuff's worst is actually higher, so
-   the per-seed story on FEMNIST is "DirBridge higher and more often", not "always
-   higher").
-3. **CASA is seed-sensitive** (74.40 on s1 vs 66.71 on s2), CA2FL more so (75.69 vs
-   55.90). FADAS is stable but capped ~1.2 points below DirBridge's mean and ~5 below
-   its ceiling.
-4. **FedBuffMALight fails to learn on FEMNIST under profile coupling** (four of five
-   seeds stuck at the 5.7 plateau; the 12.41 mean is driven entirely by seed 4's 39.52).
-   This must be reported as a failure mode, not as variance.
-5. **Cross-dataset pattern.** GSpeech (extreme heterogeneity + real-profile delays)
-   separates the methods sharply: only DirBridge and FedASMU learn at all, and
-   DirBridge's tail-10 is +16.6 over FedASMU. FEMNIST (milder heterogeneity) lets every
-   baseline except FedBuffMALight learn, and DirBridge still leads on mean, ceiling, and
-   tail-10. The method's advantage grows with the severity of the coupled skew.
+1. DirBridge has the highest mean tail-10 in this matrix, but the margin is small relative to seed variation and must be reported with paired uncertainty.
+2. FedBuff's tail-10 is close to DirBridge's on FEMNIST. The per-seed comparison is mixed: DirBridge wins 2 seeds and FedBuff wins 3. We do not claim that DirBridge wins more often, has a uniformly higher ceiling, or is always better.
+3. CASA is seed-sensitive (74.40 on s1 versus 66.71 on s2), and CA2FL is also variable (75.69 versus 55.90). FADAS is lower in this recorded matrix.
+4. FedBuffMALight fails to learn on FEMNIST under profile coupling in four of five seeds; this is reported as a recorded failure mode, not generalized beyond this configuration.
+5. GSpeech separates the methods more strongly in this recorded matrix, but the dataset, model, local learning rate, batch size, and task difficulty differ from FEMNIST. We do not interpret the cross-dataset difference as a monotonic coupling-strength result.
 
 ### 5.4 Provenance notes
 

@@ -84,13 +84,7 @@ The default is the closed-form rule K₀ = ceil(log₂ #classes) — CIFAR-10 �
 CIFAR-100 → 7, FEMNIST → 6, GSpeech → 6, TinyImageNet → 8 — with **no
 per-dataset tuning**. On CIFAR-100 the default 7 sits at the foot of a plateau
 (47.11 → 49.51 → 49.03 for 7 → 12 → 16; gains inside the 1–2 point
-reproducibility band). The plateau has a mechanism: at K₀ = 12/16, 6.4/10.0 of
-the groups are served purely from cache each round (too many groups for the
-arrivals to feed), so finer partitions stop paying. At K₀ = 1 the grouping
-collapses (stability −0.459, single centroid flips; 5× seed variance) —
-diagnosed with the algorithm-independent reference monitor because the method's
-own Φ_t is degenerate at K₀ = 1. K₀'s compute cost is negligible: total
-recluster time 0.63–5.60 s over 500 rounds (< 0.4 %).
+reproducibility band). The K₀=12/16 cache-only-group values are descriptive and do not by themselves establish the mechanism of the accuracy plateau. The K₀=1 result is also descriptive: the existing record does not establish a centroid-flip explanation, and a one-group system has no alternate group assignment to flip between. A direct K₀=1 equivalence test would be needed before retaining that mechanism claim. K₀'s recorded recluster time is 0.63–5.60 s over 500 rounds (< 0.4 %).
 
 ### dₛ (R2-5)
 
@@ -113,8 +107,8 @@ Device peak memory rises monotonically with K₀ (5314 → 7302 MiB for K₀ = 1
 — the actual memory cost of K₀ groups. Process peak RSS stays flat
 (~2015–2031 MiB) and **must not** be read as "K₀ costs nothing": the caches live
 in accelerator memory (the same column-separation issue R3-4 raises; see E4's
-resource audit, where CA2FL's N-model cache appears entirely in device memory).
-Round runtimes across configurations were logged under different scheduler
+resource audit, where the device-peak difference is measured but the exact
+persistent allocation requires a separate state ledger). Round runtimes across configurations were logged under different scheduler
 concurrency phases and are comparable only within a phase; matched-work
 comparisons use `simulated_wall_time`.
 
