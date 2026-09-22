@@ -11,20 +11,16 @@ All twenty runs across these two comparisons are separate five-seed groups; no r
 
 ## A/D: online execution control
 
-Configuration: CIFAR-100, alpha 0.5, non-IID, `mild_label_correlated_hierarchical`, 100 clients, concurrency 40, buffer 10, ResNet, local learning rate 0.01, server learning rate 1.0, K0=7, sketch dimension 2048, recluster interval 5, 500 rounds.
+The earlier D values were generated before the first-arrival assignment and same-round unique-client weight-refresh fixes. They are retained only as historical provenance and are not used as the final D control.
+
+The final frozen-code D rerun is reported in `RESULTS_D_REPAIRED_FINAL.md`:
 
 | Variant | Final | Tail-10 | Tail-50 |
 |---|---:|---:|---:|
-| Online + unique observed clients | 47.928 ± 0.327 | 47.296 ± 1.185 | 46.463 ± 0.812 |
-| Full warm + full counts | 47.070 ± 2.021 | 47.269 ± 1.164 | 46.596 ± 0.936 |
+| Final repaired online + unique-client, seeds 1–5 | 47.362 ± 2.231 | 46.601 ± 0.936 | 46.138 ± 0.822 |
+| Full warm + full counts, historical control | 47.070 ± 2.021 | 47.269 ± 1.164 | 46.596 ± 0.936 |
 
-Paired online-minus-full differences:
-
-- Final: `+0.858` percentage points, 95% CI `[-1.571, +3.287]`;
-- Tail-10: `+0.028` percentage points, 95% CI `[-1.301, +1.356]`;
-- Tail-50: `-0.132` percentage points, 95% CI `[-1.156, +0.891]`.
-
-These support “no clearly detected accuracy difference under this configuration,” not strict equivalence and not unbiasedness of the unique-client estimator.
+The historical paired online-minus-full differences are not a valid final A/D comparison because the historical D arm predates the two fixes. The final D rerun is the authoritative online control; a paired comparison against full-warm would require a same-code full-warm rerun, which was not performed here.
 
 ## B/C: completed weight-source controls
 
