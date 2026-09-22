@@ -14,14 +14,14 @@ The resource audit records `computation` as ms/sample and `communication` as ban
 
 ## Statistical correction
 
-For FEMNIST tail-10 values listed in the source record:
+For FEMNIST tail-10 values recomputed from the raw accuracy files:
 
-- DirBridge: 72.32, 73.53, 75.61, 80.46, 66.10
-- FedBuff: 73.03, 73.93, 75.49, 74.24, 69.71
+- DirBridge: 72.3225395, 73.5250546, 75.6065880, 80.4615349, 66.0978619
+- FedBuff: 73.0320976, 73.9321587, 75.4946404, 74.2444305, 69.7062454
 
-DirBridge wins 2 of 5 seeds and loses 3. The correct summary is a small positive mean difference with seed-level uncertainty, not “higher more often” or an always-higher claim. The final response should report paired differences and confidence intervals rather than best-round values.
+The paired differences have mean `+0.3208012`, SD `3.5999996`, two-sided paired 95% t interval `[-4.1491887, +4.7907912]`, with DirBridge winning 2 seeds and losing 3. The correct summary is a small, uncertain mean difference, not “higher more often” or an always-higher claim. The final response reports paired differences and confidence intervals rather than best-round values.
 
-GSpeech shows a large separation in the recorded tail-10 summary, but it also contains transient non-finite test-loss rows. Finite accuracy files are usable as a constrained accuracy summary; they do not establish fully numerically healthy training. The cause of the loss pathology remains unresolved without lower-level logits, parameter, and BatchNorm snapshots.
+For GSpeech, the strongest valid baseline by tail-10 is FedASMU. The raw paired differences (DirBridge minus FedASMU) have mean `+16.6560655`, SD `8.4936203`, two-sided paired 95% t interval `[+6.1098429, +27.2022880]`, with 5 wins and 0 losses. This result remains subject to the unresolved GSpeech non-finite-loss limitation. Finite accuracy files are usable as a constrained accuracy summary; they do not establish fully numerically healthy training.
 
 ## Correct interpretation
 

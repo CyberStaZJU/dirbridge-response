@@ -57,15 +57,9 @@ Aggregated from per-run system-metrics CSVs (500 rows each), 7 algorithms ×
 
 ### This resolves R3-4's memory puzzle quantitatively
 
-CA2FL's N × model client cache appears **entirely in device memory, not in
-process RSS**: process-peak difference vs FedBuff is −0.5 MiB (FEMNIST) and
-+82.9 MiB (GSpeech) — essentially zero — while the device-peak difference is
-+1666.1 and +340.3 MiB against predictions of 1694.0 and 371.6 MiB
-(ratios 0.984 and 0.916; GSpeech's shortfall is consistent with lazy cache
-population, do not present as exact). The paper's Table VI reported the wrong
-column.
+CA2FL has a much larger historical device-peak difference than process-peak difference in this matrix: process-peak differences versus FedBuff are −0.5 MiB (FEMNIST) and +82.9 MiB (GSpeech), while device-peak differences are +1666.1 and +340.3 MiB. These measurements are compatible with accelerator-resident algorithm state, but the peak columns alone do not prove that all client-cache bytes are persistent or identify the exact allocation by component.
 
-DirBridge's own device-peak overhead is +78.1 MiB on FEMNIST and indistinguishable from zero on GSpeech in this multi-job measurement. The observation is compatible with group caches and sketch-related allocations, but the CSV peak alone does not identify the exact allocation by component. We therefore do not attribute the full ~68 MiB residual to sketch arrays without a direct persistent-state ledger.
+DirBridge's own device-peak overhead is +78.1 MiB on FEMNIST and indistinguishable from zero on GSpeech in this multi-job measurement. The observation is compatible with group caches and sketch-related allocations, but the CSV peak alone does not identify the exact allocation by component. We therefore do not attribute the residual to sketch arrays without a direct persistent-state ledger.
 
 **Headline comparison**: the measured FEMNIST device-peak difference was +1666 MiB for CA2FL versus +78 MiB for DirBridge. These are historical per-run peaks, not by themselves a proof of persistent state or a complete logical-memory decomposition.
 

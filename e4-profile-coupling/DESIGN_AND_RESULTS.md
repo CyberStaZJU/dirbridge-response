@@ -107,7 +107,7 @@ used 1 CPU thread (`OMP/MKL/OPENBLAS/NUMEXPR_NUM_THREADS=1`).
 
 Every run was required to have: exactly 500 accuracy lines (one per round), all values
 finite, a metrics CSV covering rounds 1–500 uniquely, and no `Traceback`/OOM/`Killed`
-in its scheduler log. All 70 runs (35 FEMNIST + 35 GSpeech) pass this audit.
+in its scheduler log. All 70 runs (35 FEMNIST + 35 GSpeech) have complete 500-row accuracy files and corresponding metrics files in the audited external result tree. GSpeech logs contain the numerical-health limitation documented in `revision_audit_non_e2/e4_final/E4_NUMERICAL_HEALTH.csv`; completeness of accuracy does not imply fully finite evaluation loss.
 
 ### 5.2 GSpeech 5-seed summary
 
@@ -136,11 +136,7 @@ Per-seed tail-10:
 | FedBuff | 1.50 | 1.50 | 1.50 | 1.50 | 1.50 |
 | CA2FL | 1.50 | 1.50 | 1.50 | 1.50 | 1.50 |
 
-DirBridge's tail-10 exceeds the strongest baseline (FedASMU) by **+16.6 points on
-average**, and its *worst* seed (41.25) is above FedASMU's *best* seed (39.47). On
-GSpeech the delay-induced direction skew with real-profile coupling collapses three of
-six baselines to the plateau entirely and degrades the rest; only DirBridge maintains
-stable learning.
+DirBridge's tail-10 exceeds FedASMU by a mean paired difference of **+16.656 points** (SD 8.494; two-sided paired 95% t interval [+6.110, +27.202]); it wins all five paired seeds. The GSpeech logs nevertheless contain non-finite test loss in multiple methods, including DirBridge, and the existing records do not log parameters, logits, or BatchNorm buffers around those events. The numerical pathology is therefore unresolved; finite accuracy must not be described as proof of stable numerical learning.
 
 ### 5.3 FEMNIST 5-seed summary
 
