@@ -1,20 +1,22 @@
-# E5 K0=1 and fixed-threshold tests
+# E5 numerical gate and K0=1 tests
 
-## Deterministic test
-
-`python scripts/test_e5_sensitivity.py` was executed in the remote PyTorch environment against the public `algorithm/dirbridge.py` implementation. The test includes:
-
-1. a threshold override check with updates at staleness values around the override, verifying that the valid list changes at exactly the requested threshold;
-2. two consecutive K0=1 aggregation steps with a nonempty valid buffer, comparing the DirBridge grouped aggregate against the arithmetic mean of the same valid client deltas.
-
-The test was staged against the final public code and corrected to include the required state fields. The current final test source is committed with this audit. A final remote rerun after the last test-fixture-only correction is required before publication; no training rerun is involved.
-
-## Mathematical result
-
-For one group with stored group weight 1, every valid client belongs to the sole group, and the target count is the valid-buffer size. No group deficit exists. Thus the selected group delta is the mean of the valid deltas and the server displacement is:
+The corrected test `scripts/test_e5_sensitivity.py` executed successfully in an isolated CPU PyTorch environment against the public DirBridge functions:
 
 ```text
-server_lr * mean(valid_delta_i)
+k1_two_steps_cache_and_displacement=PASS
+e5_sensitivity=PASS
 ```
 
-There is no alternate cluster assignment at K0=1. The old “single centroid flips” explanation is not used.
+Earlier test-fixture failures were not algorithm failures and did not establish equivalence. The successful test now supplies the full required state.
+
+## Tested behavior
+
+- B=5,10,20 rule gates are 8,4,2. Delays 1,2,3,4,5,8,9 test both sides and equality at each threshold.
+- Override 4 accepts precisely delays <=4 for each B.
+- Two consecutive K0=1 steps include an invalid update and share exactly the same valid buffer with the FedBuff `sd_average` function.
+- Both steps use server LR 0.37 and identical initial model state.
+- The production cache-update function runs after step one; step two uses an existing nonzero cache and different client deltas.
+- Aggregates and cumulative model displacement agree within absolute tolerance 1e-12, with zero relative tolerance.
+- Cache fill remains zero because the sole group has no representation deficit.
+
+This verifies the current public aggregation functions, not an entire training trajectory or a recovered historical executable. Historical code identity remains a separate provenance question. No training run was launched and no E2 file was changed.
