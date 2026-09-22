@@ -1,6 +1,7 @@
 import copy
 import random
 import time
+from contextlib import contextmanager
 from typing import Dict, List, Optional, Tuple
 
 import numpy as np
@@ -20,6 +21,25 @@ from utils.e2_online import (
     uninitialized_group_mass,
 )
 from utils.state_dict_ops import load_param_dict_, model_param_dict, sd_copy, sd_sub, sd_zero_like
+
+
+@contextmanager
+def _preserve_measurement_rng():
+    """Keep an oracle-only measurement pass out of the training RNG stream."""
+    python_state = random.getstate()
+    numpy_state = np.random.get_state()
+    torch_state = torch.get_rng_state()
+    cuda_states = None
+    if torch.cuda.is_available():
+        cuda_states = torch.cuda.get_rng_state_all()
+    try:
+        yield
+    finally:
+        random.setstate(python_state)
+        np.random.set_state(numpy_state)
+        torch.set_rng_state(torch_state)
+        if cuda_states is not None:
+            torch.cuda.set_rng_state_all(cuda_states)
 
 
 def _getattr(args, name, default):
@@ -541,13 +561,60 @@ def _remap_ema_group_cache_from_previous(state, previous):
     _refresh_ema_cache_delays(state)
 
 
+def _assign_arrivals_to_existing_groups(state, newly_seen):
+    """Assign newly observed clients without forcing a full reclustering pass."""
+    centroids = state.get('group_centroids')
+    if centroids is None or not newly_seen:
+        return []
+
+    assigned = []
+    for idx in newly_seen:
+        if idx < 0 or idx >= len(state.get('group_ids', [])):
+            continue
+        if int(state['group_ids'][idx]) >= 0:
+            continue
+        feature = state['client_features'][idx]
+        if feature is None:
+            continue
+        group_id = int(torch.argmax(centroids.float() @ feature.float()).item())
+        state['group_ids'][idx] = group_id
+        state['client_embeds'][idx] = feature.clone()
+        while len(state['group_members']) <= group_id:
+            state['group_members'].append([])
+            state['group_counts'].append(0)
+        state['group_members'][group_id].append(idx)
+        state['group_counts'][group_id] += 1
+        assigned.append(idx)
+
+    if assigned:
+        state['last_assignment_reason'] = 'existing_centroid'
+        state['last_assigned_clients'] = list(assigned)
+    return assigned
+
+
+def _refresh_group_weights_from_current_assignments(state, args):
+    assigned_idx = [
+        idx for idx, gid in enumerate(state.get('group_ids', []))
+        if int(gid) >= 0 and state.get('client_features', [None] * len(state.get('group_ids', [])))[idx] is not None
+    ]
+    if not assigned_idx or state.get('group_centroids') is None:
+        return
+    _update_e2_group_weights(
+        state,
+        args,
+        assigned_idx,
+        [int(state['group_ids'][idx]) for idx in assigned_idx],
+        state['group_centroids'],
+    )
+
+
 def _update_e2_group_weights(state, args, clustered_idx, group_ids, group_centroids):
     """Resolve the population group weights used by the refill rule.
 
-    full_count    counts every population client (needs a warm start)
-    oracle        population counts from the direction snapshot (control)
-    arrival_freq  counts accepted arrivals per group
-    unique_client counts distinct observed clients per group
+    full_count counts every population client (needs a warm start).
+    oracle uses the full-population reference snapshot.
+    arrival_freq counts accepted arrivals per group.
+    unique_client counts distinct observed clients per group.
     """
     num_users = int(args.num_users)
     num_groups = int(state['num_groups'])
@@ -587,6 +654,11 @@ def _update_e2_group_weights(state, args, clustered_idx, group_ids, group_centro
     if weights is None:
         weights = oracle_weights
     if weights is None:
+        if source == 'oracle':
+            raise RuntimeError(
+                'E2 oracle weights require a full-population reference snapshot; '
+                'no matching oracle weights are available'
+            )
         representatives = group_representatives(
             state.get('client_embeds') or [],
             state.get('group_ids') or [],
@@ -597,23 +669,29 @@ def _update_e2_group_weights(state, args, clustered_idx, group_ids, group_centro
             representatives,
             num_groups,
         )
-        weights = oracle_weights or normalize_counts([1.0] * num_groups)
 
     state['group_weights'] = list(weights)
     state['e2_oracle_weights'] = list(oracle_weights) if oracle_weights else None
     state['e2_last_weight_source'] = source
+    state['e2_weight_update_round'] = int(state.get('iterations', 0))
 
 
 def _record_arrivals(state, buffer_list):
-    """Mark the clients whose update was accepted by the current buffer."""
+    """Record raw arrivals and return the newly observed client IDs."""
     num_users = len(state['delta'])
     seen_set = state.setdefault('seen_set', set())
     arrival_count = state.setdefault('arrival_count', [0] * num_users)
     last_arrival = state.setdefault('e2_client_last_arrival', [-1] * num_users)
+    newly_seen = []
     for idx in buffer_list:
+        if idx not in seen_set:
+            newly_seen.append(idx)
         seen_set.add(idx)
         arrival_count[idx] = int(arrival_count[idx]) + 1
         last_arrival[idx] = int(state['iterations'])
+    state['last_raw_arrival_count'] = len(buffer_list)
+    state['last_newly_seen_count'] = len(newly_seen)
+    return newly_seen
 
 
 def _update_e2_metrics(state, args):
@@ -630,11 +708,20 @@ def _update_e2_metrics(state, args):
         'coverage_bound': coverage_bound(num_seen, num_users),
         'clustered_clients': int(state.get('e2_clustered_clients', 0)),
         'weight_source': state.get('e2_last_weight_source', ''),
+        'weight_l1_status': 'reference_unavailable',
+        'raw_arrivals': int(state.get('last_raw_arrival_count', 0)),
+        'valid_updates': int(state.get('last_valid_buffer_count', 0)),
+        'used_updates': int(sum(
+            int(item.get('member_count', 0))
+            for item in state.get('last_selected_item_summary', [])
+        )),
+        'assigned_clients': int(sum(1 for gid in state.get('group_ids', []) if int(gid) >= 0)),
     }
     weights = state.get('group_weights')
     oracle_weights = state.get('e2_oracle_weights')
     if weights and oracle_weights:
         metrics['weight_l1_oracle'] = l1_distance(weights, oracle_weights)
+        metrics['weight_l1_status'] = 'available'
     metrics['uninit_group_mass'] = uninitialized_group_mass(
         state.get('group_ids') or [],
         seen_flags,
@@ -657,12 +744,13 @@ def _populate_oracle_features(state, args):
     """
     if not state.get('e2_oracle_enabled'):
         return
-    for idx in range(int(args.num_users)):
-        if state['oracle_features'][idx] is not None:
-            continue
-        delta = local_train_delta(state, args, idx)
-        state['oracle_features'][idx] = encode_feature_from_delta(state, args, delta)
-        del delta
+    with _preserve_measurement_rng():
+        for idx in range(int(args.num_users)):
+            if state['oracle_features'][idx] is not None:
+                continue
+            delta = local_train_delta(state, args, idx)
+            state['oracle_features'][idx] = encode_feature_from_delta(state, args, delta)
+            del delta
 
 
 def _build_ema_group_updates(state, args, buffer_list):
@@ -684,9 +772,14 @@ def _build_ema_group_updates(state, args, buffer_list):
     state['last_invalid_buffer_count'] = len(invalid_buffer_list)
 
     group_to_members = {}
+    unassigned_valid = []
     for idx in valid_buffer_list:
-        group_id = state['group_ids'][idx]
+        group_id = int(state['group_ids'][idx])
+        if group_id < 0:
+            unassigned_valid.append(idx)
+            continue
         group_to_members.setdefault(group_id, []).append(idx)
+    state['last_unassigned_valid_count'] = len(unassigned_valid)
 
     selected_items = []
     num_groups = int(state['num_groups'])
@@ -875,6 +968,8 @@ def init_state(state, args, random_cost):
     state['e2_oracle_weights'] = None
     state['e2_init_oracle_time_sec'] = 0.0
     state['e2_clustered_clients'] = 0
+    state['e2_init_cost_status'] = 'training_init_only_until_main_wrap'
+    state['e2_online_bootstrap_time_sec'] = 0.0
     state['e2_last_weight_source'] = state['e2_weight_source']
 
     if online_init:
@@ -887,9 +982,11 @@ def init_state(state, args, random_cost):
             oracle_start = time.perf_counter()
             _populate_oracle_features(state, args)
             state['e2_init_oracle_time_sec'] = time.perf_counter() - oracle_start
+            state['e2_init_cost_status'] = 'oracle_measurement_included'
         else:
             state['e2_init_oracle_time_sec'] = 0.0
 
+        bootstrap_start = time.perf_counter()
         _schedule_new_clients(
             state,
             args,
@@ -897,6 +994,7 @@ def init_state(state, args, random_cost):
             num_to_launch=min(int(args.concurrency), num_users),
             random_cost=random_cost,
         )
+        state['e2_online_bootstrap_time_sec'] = time.perf_counter() - bootstrap_start
         _update_e2_metrics(state, args)
         return state
 
@@ -966,7 +1064,14 @@ def run_round(state, args, random_cost):
     state['last_selected_item_summary'] = []
     state['last_regrouped'] = False
     _materialize_arrivals(state, buffer_list)
-    _record_arrivals(state, buffer_list)
+    newly_seen = _record_arrivals(state, buffer_list)
+    assigned_on_arrival = _assign_arrivals_to_existing_groups(state, newly_seen)
+    state['last_assigned_on_arrival_count'] = len(assigned_on_arrival)
+    if (
+        assigned_on_arrival
+        or state.get('e2_last_weight_source') == 'arrival_freq'
+    ) and not should_rebuild_groups(state, args):
+        _refresh_group_weights_from_current_assignments(state, args)
 
     sync_client_delays(state)
 

@@ -1,0 +1,11 @@
+experiment,method,dataset,seed,effective_hyperparameters,code_identity,log_path,completion_status,numerical_health_status,usable
+E1_dev,FedBuff,CIFAR-10,100,"150 rounds; local_lr grid; intended 20 per method",response-tree archived commands,e1-fair-tuning/commands_dev_cifar.sh,command-audited,"not available per run in repository",limited development evidence
+E1_dev,CA2FL,CIFAR-10,100,"150 rounds; local_lr x global_lr grid; intended 20 per method",response-tree archived commands,e1-fair-tuning/commands_dev_cifar.sh,command-audited,"diagnostic summaries archived",limited development evidence
+E1_dev,FADAS,CIFAR-10,100,"150 rounds; local_lr x global_lr/delay-adaptive grid; intended 20 per method",response-tree archived commands,e1-fair-tuning/commands_dev_cifar.sh,command-audited,"diagnostic summaries archived",limited development evidence
+E1_formal,CA2FL,CIFAR-10,1-5,"local_lr=0.03; global_lr=0.5; 500 rounds",pre-E2 E1 identity,e1-fair-tuning/commands_final_cifar_ca2fl.sh,reported complete,"historical diagnostics; not fully revalidated here",usable with conservative claims
+E3,all,not run,NA,"rho endpoint diagnostic not completed",NA,e3-profile-coupling/STATUS.md,not completed,NA,not usable
+E4,DirBridge,FEMNIST,1-5,"profile coupling; 500 rounds; lr=0.01; B=100; Mc=400",archived E4 pre-E2 identity,e4-profile-coupling/DESIGN_AND_RESULTS.md,70-run matrix audited,"finite accuracy; GSpeech loss limitation",usable with interpretation correction
+E4,DirBridge,GSpeech,1-5,"profile coupling; 500 rounds; lr=0.2; local_bs=6",archived E4 pre-E2 identity,e4-profile-coupling/DESIGN_AND_RESULTS.md,70-run matrix audited,"transient non-finite loss acknowledged",usable as constrained accuracy summary
+E5,DirBridge,CIFAR-100,1-5,"B/K0/ds sensitivity; 13 configurations; 500 rounds",archived E5 pre-E2 identity,e5-sensitivity/DESIGN_AND_RESULTS.md,65/65 audited,"finite accuracy; resource terminology correction",usable with interpretation correction
+E6,CA2FL,NA,NA,"incremental cache-mean repair",current response worktree,algorithm/ca2fl.py,no standalone matrix,"deterministic equivalence test passed",code repair only
+E2,DirBridge,CIFAR-100,1-5,"online oracle/arrival-frequency comparison; 500 rounds",separate frozen scheduler,e2_postfix_bc_runs_20260922_125738/,completed after this audit,"excluded from non-E2 audit",excluded

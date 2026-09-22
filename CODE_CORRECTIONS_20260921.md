@@ -65,7 +65,7 @@ e2-online-init/code/e2_online_repaired.py
 
 The public port includes the E2 helper module, in-flight/server-visible state separation, online first-wave dispatch, arrival materialization, and the five-argument parser/profile integration documented in `PUBLIC_ENTRYPOINT_AUDIT_20260922.md`. The snapshot files remain useful for comparing the public artifact with the desktop experiment identity.
 
-The public port passed the deterministic in-flight visibility test and the five-argument wiring test in the desktop reference environment. The repaired online five-seed run also completed without OOM, traceback, killed-process, or scheduler-failure evidence. The full-warm control is audited separately because its later seeds showed numerical instability.
+The public port passed the deterministic in-flight visibility test and the five-argument wiring test in the desktop reference environment. The repaired online five-seed run also completed without OOM, traceback, killed-process, or scheduler-failure evidence. The full-warm control also completed, but both arms contain historical non-finite test-loss rows; finite accuracy files do not establish fully healthy logits, parameters, or BatchNorm state. The detailed numerical timeline and current limitations are in `e2-online-init/postfix_audit/NUMERICAL_HEALTH.csv` and `ISSUES_AND_STATUS.md`.
 
 ## 5. Code identity boundary
 

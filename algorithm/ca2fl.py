@@ -9,12 +9,53 @@ except ImportError:
 import random
 from models.local_update import LocalSGD
 from utils.aggregation import buffered_aggregation
-from utils.state_dict_ops import sd_sub, load_param_dict_, model_param_dict, sd_zero_like
+from utils.state_dict_ops import (
+    sd_copy,
+    sd_sub,
+    load_param_dict_,
+    model_param_dict,
+    sd_zero_like,
+)
+
+
+def _cache_mean_full_scan(cache, num_users):
+    """Reference cache mean used for initialization and equivalence tests."""
+    mean = sd_zero_like(cache[0])
+    for client_cache in cache:
+        for key in mean:
+            mean[key].add_(client_cache[key], alpha=1.0 / float(num_users))
+    return mean
+
+
+def _ensure_cache_mean(state, num_users):
+    """Return the maintained h_t, backfilling it for legacy state objects."""
+    if state.get('cache_mean') is None:
+        state['cache_mean'] = _cache_mean_full_scan(state['cache'], num_users)
+    return state['cache_mean']
+
+
+def _ca2fl_calibration_full_scan(cache, buffer_list, num_users, buffer_size):
+    """Original full-scan calibration reference for deterministic tests."""
+    calibrated = _cache_mean_full_scan(cache, num_users)
+    for idx in buffer_list:
+        for key in calibrated:
+            calibrated[key].add_(cache[idx][key], alpha=-1.0 / float(buffer_size))
+    return calibrated
+
+
+def _ca2fl_calibration_incremental(state, buffer_list, num_users, buffer_size):
+    """Compute CA2FL calibration from h_t in O(BP), retaining event multiplicity."""
+    calibrated = sd_copy(_ensure_cache_mean(state, num_users))
+    for idx in buffer_list:
+        for key in calibrated:
+            calibrated[key].add_(state['cache'][idx][key], alpha=-1.0 / float(buffer_size))
+    return calibrated
 
 
 def init_state(state, args, random_cost):
     state['delta'] = [sd_zero_like(state["w_glob"]) for _ in range(args.num_users)]
     state['cache'] = [sd_zero_like(state["w_glob"]) for _ in range(args.num_users)]
+    state['cache_mean'] = sd_zero_like(state["w_glob"])
     state['cost'] = [-1 for _ in range(args.num_users)]
     state['iterations'] = 0
     
@@ -46,7 +87,10 @@ def run_round(state, args, dataset_train, dict_users, num_samples, random_cost):
     cost = state["cost"]
     buffer_list = []
     eta = float(args.global_lr if args.global_lr is not None else 1.0)
-    server_v = sd_zero_like(state["w_glob"])
+    num_users = int(args.num_users)
+    server_v = _ca2fl_calibration_incremental(
+        state, [], num_users, int(args.buffer_size)
+    )
 
     active_list = [i for i, c in enumerate(cost) if c > 0]
 
@@ -65,14 +109,10 @@ def run_round(state, args, dataset_train, dict_users, num_samples, random_cost):
     state['last_selected_item_summary'] = []
     state['last_regrouped'] = False
 
-    for i in range(args.num_users):
-        if state['cache'][i] is not None:
-            for key in server_v.keys():
-                server_v[key] += state['cache'][i][key] / args.num_users
-            if i in buffer_list:
-                for key in server_v.keys():
-                    server_v[key] -= state['cache'][i][key] / args.buffer_size
-
+    # Use the old cache values for this update, before replacing selected caches.
+    server_v = _ca2fl_calibration_incremental(
+        state, buffer_list, num_users, int(args.buffer_size)
+    )
     weights = [1.0 / int(args.buffer_size) for _ in range(args.buffer_size)]
     selected_updates = [state["delta"][i] for i in buffer_list]
     aggregated_diff = buffered_aggregation(weights, selected_updates, state["w_glob"])
@@ -85,7 +125,14 @@ def run_round(state, args, dataset_train, dict_users, num_samples, random_cost):
     load_param_dict_(state["net_glob"], state["w_glob"])
 
     for idx in buffer_list:
-        state['cache'][idx] = state["delta"][idx]
+        old_cache = state['cache'][idx]
+        new_cache = state['delta'][idx]
+        for key in state['cache_mean']:
+            state['cache_mean'][key].add_(
+                new_cache[key] - old_cache[key],
+                alpha=1.0 / float(num_users),
+            )
+        state['cache'][idx] = new_cache
 
     state["iterations"] += 1
 

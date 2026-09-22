@@ -25,7 +25,8 @@ The reviewer-response records are organized as follows:
 - `e6-resource-accounting/STATUS.md`: explicit status of the unfinished standalone E6;
 - `SUPPLEMENTAL_RESULTS_20260921.md`: later E1-E6 status and additional CIFAR comparisons;
 - `CODE_CORRECTIONS_20260921.md`: code changes, online-state repair, and verification boundaries;
-- `RESPONSE_ADDENDUM_20260921.md`: concise reviewer-facing response language.
+- `RESPONSE_ADDENDUM_20260921.md`: concise reviewer-facing response language;
+- `e2-online-init/postfix_audit/`: current E2 correctness audit, B/C completion analysis, provenance, numerical-health table, metric definitions, R3-1 reply, and minimal rerun plan.
 
 The supplemental records distinguish audited results, interrupted runs, pending fixes, and paused experiments. They do not treat unfinished work as a result.
 

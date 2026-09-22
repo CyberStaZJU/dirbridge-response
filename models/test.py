@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 # @python: 3.6
 
+import math
+
 import torch
 try:
     import torch_npu
@@ -12,28 +14,70 @@ import torch.nn.functional as F
 from torch.utils.data import DataLoader
 
 
-def test_img(net_g, datatest, args):
+def test_img(net_g, datatest, args, return_diagnostics=False):
+    """Evaluate an image model and optionally expose numerical-health facts.
+
+    The legacy two-value return is preserved. Diagnostics deliberately record
+    non-finite inputs, logits, and per-batch losses instead of replacing them
+    with zeros or dropping affected batches.
+    """
     net_g.eval()
-    # testing
-    test_loss = 0
+    test_loss = 0.0
     correct = 0
     data_loader = DataLoader(datatest, batch_size=args.bs, num_workers=args.num_workers)
-    l = len(data_loader)
-    for idx, (data, target) in enumerate(data_loader):
+    diagnostics = {
+        'eval_batches': 0,
+        'eval_nonfinite_input_batches': 0,
+        'eval_nonfinite_logit_batches': 0,
+        'eval_nonfinite_loss_batches': 0,
+        'eval_nonfinite_prediction_batches': 0,
+        'eval_loss_finite': True,
+        'eval_logits_finite': True,
+        'eval_inputs_finite': True,
+        'eval_predictions_valid': True,
+    }
+    for data, target in data_loader:
+        diagnostics['eval_batches'] += 1
         data = data.to(args.device)
         target = target.to(args.device)
+        inputs_finite = bool(torch.isfinite(data).all().item())
+        diagnostics['eval_inputs_finite'] &= inputs_finite
+        if not inputs_finite:
+            diagnostics['eval_nonfinite_input_batches'] += 1
+
         log_probs = net_g(data)
-        # sum up batch loss
-        test_loss += F.cross_entropy(log_probs, target, reduction='sum').item()
-        # get the index of the max log-probability
+        logits_finite = bool(torch.isfinite(log_probs).all().item())
+        diagnostics['eval_logits_finite'] &= logits_finite
+        if not logits_finite:
+            diagnostics['eval_nonfinite_logit_batches'] += 1
+
+        batch_loss = F.cross_entropy(log_probs, target, reduction='sum')
+        loss_finite = bool(torch.isfinite(batch_loss).item())
+        diagnostics['eval_loss_finite'] &= loss_finite
+        if not loss_finite:
+            diagnostics['eval_nonfinite_loss_batches'] += 1
+        test_loss += float(batch_loss.item())
+
+        # An argmax over non-finite logits can still produce an integer and a
+        # superficially finite accuracy. Mark that accuracy as numerically
+        # unqualified rather than silently treating it as valid evidence.
+        if not logits_finite:
+            diagnostics['eval_predictions_valid'] = False
+            diagnostics['eval_nonfinite_prediction_batches'] += 1
         y_pred = log_probs.data.max(1, keepdim=True)[1]
         correct += y_pred.eq(target.data.view_as(y_pred)).long().cpu().sum()
 
-    test_loss /= len(data_loader.dataset)
-    accuracy = 100.00 * correct / len(data_loader.dataset)
+    dataset_size = len(data_loader.dataset)
+    if dataset_size <= 0:
+        raise ValueError('test_img requires a non-empty evaluation dataset')
+    test_loss /= float(dataset_size)
+    accuracy = 100.00 * correct / dataset_size
+    diagnostics['eval_loss_finite'] &= math.isfinite(test_loss)
     if args.verbose:
-        print('\nTest set: Average loss: {:.4f} \nAccuracy: {}/{} ({:.2f}%)\n'.format(
-            test_loss, correct, len(data_loader.dataset), accuracy))
+        print('\\nTest set: Average loss: {:.4f} \\nAccuracy: {}/{} ({:.2f}%)\\n'.format(
+            test_loss, correct, dataset_size, accuracy))
+    if return_diagnostics:
+        return accuracy.item(), test_loss, diagnostics
     return accuracy.item(), test_loss
 
 def test_text(net, dataset, args):

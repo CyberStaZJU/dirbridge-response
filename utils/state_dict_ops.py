@@ -60,8 +60,8 @@ def model_param_dict(model: nn.Module, device=None):
 @torch.no_grad()
 def load_param_dict_(model: nn.Module, param_dict):
     """
-    把参数字典写回模型。
-    只覆盖 named_parameters() 中出现的参数。
+    把参数和浮点 buffer 字典写回模型；`num_batches_tracked` 等被导出端排除的计数器不在字典中。
+    只覆盖当前模型 state_dict() 中存在的键。
     """
     cur = model.state_dict()
     for name, v in param_dict.items():

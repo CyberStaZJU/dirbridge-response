@@ -1,4 +1,6 @@
-# E2 (R3-1): Online initialization without full-client warm start — design, configuration, and audited results
+# E2 (R3-1): Online initialization without full-client warm start — historical design and audited results
+
+> **Historical-version notice (current audit, 2026-09-22).** This file records the earlier 60-run E2 matrix under its original code identity. It is not the current repaired ten-run comparison. Its initialization timing, oracle terminology, buffer-mixture diagnostics, and “no measurable cost” statements must not be transferred to the current code without the qualifications in `postfix_audit/`. The current repaired A/D results are in `postfix_audit/RESULTS_CURRENT.md`; repaired B/C oracle-versus-estimated results are not yet available.
 
 ## 1. Purpose
 
@@ -74,7 +76,7 @@ Development tree `$DIRBRIDGE_CODE_E2`, **merged into the main tree**
 `utils/direction_skew_logging.py`, `main_fed.py`, plus new
 `utils/e2_online.py`). Changed behavior is confined to: init mode branching,
 seen-only reclustering, weight-source selection, the five `e2_*` metric columns,
-and init-cost accounting (`init_time_sec` inside the runtime timeline).
+and the historical init-cost accounting field. The current version uses separate named process-wall timing fields documented in `postfix_audit/METRIC_DEFINITIONS.md`.
 
 ## 6. Audited results
 
@@ -94,14 +96,12 @@ direction-skew CSVs complete; no partials or orphans.
 
 ### The three findings
 
-1. **Online estimation costs nothing measurable.** All four DirBridge variants
-   sit inside each other's seed noise on both datasets. Paired per-seed tests on
-   FEMNIST finals (df = 4): D−B +0.14 (ns), D−C +1.03 (ns), D−A +4.66 (ns,
-   dominated by A seed 2, see below). Even the deliberately biased negative
-   control C does not degrade accuracy within 500 rounds. The arrival-mixture
-   bias is real (next section quantifies it), but it does not translate into an
-   accuracy gap at these settings — the honest formulation is "no measurable
-   accuracy cost", not "no bias".
+1. **Historical matrix finding, not a current universal claim.** Within that
+   earlier code identity and its FEMNIST/CIFAR-100 settings, the four variants
+   fell within the reported five-seed variation. This does not establish zero
+   deployment cost, unbiasedness, strict equivalence, or transfer to the current
+   repaired code. The current A/D comparison and its numerical-health boundary
+   are reported separately in `postfix_audit/RESULTS_CURRENT.md`.
 2. **FEMNIST A's large spread is a full-init cold-start pathology, not an
    online effect.** A seed 2 collapses mid-run (19.6 at r100, 47–49 through
    r200–r300, 53.8 final; 335 of 500 rounds below 60) while B/C/D on the same
@@ -109,8 +109,7 @@ direction-skew CSVs complete; no partials or orphans.
    79.53 ± 1.91. Report A both ways and attribute the spread to the full-init
    start.
 3. **Init cost**: A 23.3 s, B 31.7 s (its oracle still trains all N clients at
-   w₀ — by definition), **C/D 1.5 s** (15× faster than full init), measured via
-   `init_time_sec` inside the runtime timeline.
+   w₀ — by definition), and C/D 1.5 s using the then-current `init_time_sec` field. These historical numbers are not a current-version 15× claim: the older timing did not separately identify dataset/model construction, online bootstrap work, oracle-only measurement, and the main training timer. The current code writes separately named process-wall timing fields, but the repaired ten-run records predate those fields.
 
 ### Arrival-mixture bias, quantified offline (fixed 4-group reference monitor)
 
@@ -135,17 +134,15 @@ empty in the truncated 1000-client set.
 
 Coverage diagnostics (per-round means, clean runs): seen-ratio 0.99 by mid-run
 and uninit-group-mass 0 for online variants on both datasets; coverage bound
-2(1 − N_seen/N) ≈ 0.019 (CIFAR-100). Known instrumentation gap: the
-algorithm-internal ‖p̂_t − p_t‖₁ column (`e2_weight_l1`) is NaN in clean runs
-because it required the in-process oracle snapshot; the offline substitute
-(arrival-mixture L1 above) is what the reply should cite.
+2(1 − N_seen/N) ≈ 0.019 (CIFAR-100). Known historical instrumentation gap: the algorithm-internal population-weight L1 column (`e2_weight_l1`) was unavailable in those clean runs because it required an in-process oracle snapshot. The reported arrival-mixture L1 is a buffer-mixture diagnostic, not a population-weight estimation error, and must not be cited as a substitute. The current code reports `reference_unavailable`/NA when no compatible reference exists.
 
 ## 7. What this experiment does and does not claim
 
-- Does: full-init is **not required** for DirBridge's grouping/refill; a
-  deployable online variant (D) with 15× cheaper init matches the original
-  setting on both datasets.
-- Does not: claim the arrival stream is unbiased (it is measurably biased,
-  L1 ≈ 0.14–0.43 persistently), or that ID de-duplication is finite-time
-  unbiased (it is not), or that the null result transfers to settings where
-  arrival mixtures are more skewed than these (untested).
+- Does: within the historical settings and code identity, the online variants
+  executed without a full-client warm start and the reported accuracy values
+  were close across the four controls.
+- Does not: claim a current-version 15× initialization speedup, strict
+  equivalence, unbiasedness of ID de-duplication, or transfer to settings where
+  arrival mixtures are more skewed than these. The current repaired A/D result,
+  numerical-health qualification, and pending B/C gap are documented in
+  `postfix_audit/RESULTS_CURRENT.md`.

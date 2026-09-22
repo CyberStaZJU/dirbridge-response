@@ -165,11 +165,10 @@ def uninitialized_group_mass(
             counts[gid] += 1.0
 
     if weights is None:
-        if sum(counts) <= 0.0:
-            return float("nan")
-        return float(sum(
-            w for w, c in zip(normalize_counts(counts), counts) if c <= 0.0
-        ))
+        # A group assignment for observed clients is not a population-mass
+        # reference. Keep the population quantity undefined until a matching
+        # reference snapshot is available.
+        return None
 
     total = float(sum(max(0.0, float(w)) for w in weights[:num_groups]))
     if total <= 0.0:
