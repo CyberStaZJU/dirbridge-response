@@ -1,0 +1,9 @@
+method,device,representative_P,representative_N,representative_K0,representative_ds,logical_persistent_tensor_bytes,unique_physical_persistent_tensor_bytes,process_peak_rss_mb,current_allocated_mb,current_reserved_mb,historical_peak_allocated_mb,measurement_status
+FedBuff,cpu,10000,100,7,2048,40000,40000,496.6,NA,NA,NA,measured direct CPU ledger; no CUDA
+CA2FL,cpu,10000,100,7,2048,4040000,4040000,496.6,NA,NA,NA,measured direct CPU ledger; N client caches plus running mean
+DirBridge,cpu,10000,100,7,2048,1126400,1126400,496.6,NA,NA,NA,measured direct CPU ledger; explicit bucket/sign plans included
+FADAS,cpu,10000,100,7,2048,120000,120000,496.6,NA,NA,NA,measured direct CPU ledger; m/v/vhat
+FedBuff,cuda,10000,100,7,2048,NA,NA,NA,not_available,not_available,not_available,CUDA unavailable on authorized test environment
+CA2FL,cuda,10000,100,7,2048,NA,NA,NA,not_available,not_available,not_available,CUDA unavailable on authorized test environment
+DirBridge,cuda,10000,100,7,2048,NA,NA,NA,not_available,not_available,not_available,CUDA unavailable on authorized test environment
+FADAS,cuda,10000,100,7,2048,NA,NA,NA,not_available,not_available,not_available,CUDA unavailable on authorized test environment
