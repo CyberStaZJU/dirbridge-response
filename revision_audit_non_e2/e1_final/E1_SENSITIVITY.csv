@@ -1,0 +1,5 @@
+setting,method,threshold,validation_response_surface,selection_status
+CIFAR-10,FedBuff,NA,not_available_until_confirmatory_grid,planned_not_launched
+CIFAR-10,DirBridge,NA,not_available_until_confirmatory_grid,planned_not_launched
+FEMNIST,FedBuff,NA,not_available_until_confirmatory_grid,planned_not_launched
+FEMNIST,DirBridge,NA,not_available_until_confirmatory_grid,planned_not_launched

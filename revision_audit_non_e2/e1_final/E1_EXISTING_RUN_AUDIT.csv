@@ -1,0 +1,9 @@
+method,dataset,submitted_runs,unique_configs,valid_configs,development_seed,rounds,selection_metric,selection_data,test_used_for_selection,selected_config,status
+FedBuff,CIFAR-10,20,20,20,100,150,tail-10 accuracy,test set,true,"local_lr=0.003; batch_size=50",exploratory test-guided
+CA2FL,CIFAR-10,20,20,20,100,150,tail-10 accuracy,test set,true,"local_lr=0.03; global_lr=0.5",exploratory test-guided
+FADAS,CIFAR-10,20,20,20,100,150,tail-10 accuracy,test set,true,"local_lr=0.03; global_lr=1e-4; delay_adaptive=false",exploratory test-guided
+FedBuff,FEMNIST,20,20,20,100,150,tail-10 accuracy,test set,true,"local_lr=0.05; batch_size=100; local_period=10",exploratory test-guided
+CA2FL,FEMNIST,20,20,20,100,150,tail-10 accuracy,test set,true,"local_lr=0.05; global_lr=1.0",exploratory test-guided
+FADAS,FEMNIST,20,20,20,100,150,tail-10 accuracy,test set,true,"local_lr=0.03; global_lr=1e-4; delay_adaptive=false",exploratory test-guided
+DirBridge,CIFAR-10,0,0,0,NA,NA,NA,NA,NA,"previous default retained",not tuned in historical E1 search
+DirBridge,FEMNIST,0,0,0,NA,NA,NA,NA,NA,"previous default retained",not tuned in historical E1 search

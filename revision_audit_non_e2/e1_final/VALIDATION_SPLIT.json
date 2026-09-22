@@ -1,0 +1,10 @@
+{
+  "status": "not_yet_created",
+  "historical_protocol": "No independent validation split exists in the historical E1 runs.",
+  "selection_data": "test_set",
+  "selection_metric": "tail-10 test accuracy on development seed 100",
+  "test_set_touched_during_selection": true,
+  "confirmatory_policy": "Create a deterministic server-side validation subset from training data only, preserve client partitions, record indices, and never use evaluation-seed test accuracy for selection.",
+  "split_indices": null,
+  "reason": "This task produces the protocol and required-run plan; it does not silently launch a new confirmatory matrix."
+}
