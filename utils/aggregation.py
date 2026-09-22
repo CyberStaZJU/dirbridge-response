@@ -13,9 +13,37 @@ DELAY_PROFILE_RANGES = {
         'Medium': (3.0, 5.0),
         'Large': (5.0, 8.0),
     },
+    'hierarchical': {
+        'Small': (1.0, 2.0),
+        'Medium': (3.0, 5.0),
+        'Large': (5.0, 8.0),
+    },
+    'label_correlated_hierarchical': {
+        'BlockFast': (1.0, 2.0),
+        'BlockMidFast': (2.0, 4.0),
+        'BlockMedium': (4.0, 7.0),
+        'BlockSlow': (7.0, 11.0),
+        'BlockVerySlow': (10.0, 16.0),
+    },
+    'mild_label_correlated_hierarchical': {
+        'Small': (1.0, 2.0),
+        'Medium': (3.0, 5.0),
+        'Large': (5.0, 8.0),
+    },
 }
 
-DELAY_PROFILE_MIXTURES = {}
+DELAY_PROFILE_MIXTURES = {
+    'label_correlated_hierarchical': {
+        'BlockSlow': (
+            (0.15, (1.0, 2.5)),
+            (0.85, (7.0, 11.0)),
+        ),
+        'BlockVerySlow': (
+            (0.10, (1.0, 3.0)),
+            (0.90, (10.0, 16.0)),
+        ),
+    },
+}
 
 
 def normalize_delay_profile(profile):
@@ -50,7 +78,7 @@ def build_client_delay_profile(num_users, gamma=1.0, seed=None):
     return groups, category_probs
 
 
-def sample_client_delay(client_delay_groups, idx, profile='dir-skew', rng=None):
+def sample_client_delay(client_delay_groups, idx, profile='hierarchical', rng=None):
     """Sample one wall-clock time from a client's fixed delay category."""
     profile = normalize_delay_profile(profile)
     if profile not in DELAY_PROFILE_RANGES:
@@ -71,8 +99,12 @@ def sample_client_delay(client_delay_groups, idx, profile='dir-skew', rng=None):
     return float(rng.uniform(low, high))
 
 
-def random_cost(distribution='dir-skew'):
+def random_cost(distribution='pareto'):
     distribution = normalize_delay_profile(distribution)
+    if distribution == 'pareto':
+        return 10 * np.random.pareto(2)
+    if distribution == 'gauss':
+        return np.abs(np.random.normal(scale=12.5))
     if distribution == 'dir-skew':
         return np.abs(np.random.normal(scale=12.5))
     raise ValueError(f"Unsupported random_cost distribution: {distribution}")

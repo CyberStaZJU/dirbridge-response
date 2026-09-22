@@ -49,16 +49,23 @@ Before the current repair, `_schedule_new_clients()` computed a local delta and 
 
 ### Minimal repair
 
-The repair introduces an `state['inflight']` map:
+The exact repaired implementation is now included as:
 
-- dispatch computes the result and stores it only in `inflight`;
-- the scheduler cost remains available only for event ordering;
-- arrival first moves the record from `inflight` into server-visible `delta` and `client_features`;
-- only then does the code update `seen_set`, rebuild groups, compute weights, and aggregate;
-- the initial online wave uses the same dispatch path;
-- full warm-start keeps a compatibility record so the existing control path is not broken.
+```text
+e2-online-init/code/dirbridge_online_repaired.py
+e2-online-init/code/e2_online_repaired.py
+```
 
-The exact patch was deployed to the desktop development tree with a rollback copy and passed Python syntax compilation using the reference environment. A behavioral smoke and a post-fix multi-seed online audit were not completed before this document was written. This correction must therefore be labeled **syntax-checked, behaviorally pending** until those tests pass.
+The repaired implementation is now integrated into the public runtime entry point and is also preserved as the exact desktop experiment snapshot in:
+
+```text
+e2-online-init/code/dirbridge_online_repaired.py
+e2-online-init/code/e2_online_repaired.py
+```
+
+The public port includes the E2 helper module, in-flight/server-visible state separation, online first-wave dispatch, arrival materialization, and the five-argument parser/profile integration documented in `PUBLIC_ENTRYPOINT_AUDIT_20260922.md`. The snapshot files remain useful for comparing the public artifact with the desktop experiment identity.
+
+The public port passed the deterministic in-flight visibility test and the five-argument wiring test in the desktop reference environment. The repaired online five-seed run also completed without OOM, traceback, killed-process, or scheduler-failure evidence. The full-warm control is audited separately because its later seeds showed numerical instability.
 
 ## 5. Code identity boundary
 

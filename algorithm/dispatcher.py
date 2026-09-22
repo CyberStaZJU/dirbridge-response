@@ -13,11 +13,23 @@ from algorithm import ca2fl, casa, dirbridge, fadas, fedasmu, fedbuff, fedbuffma
 DIRSKEW_COSTS = {
     'dir-skew',
 }
+FADAS_UNIFORM_COSTS = {
+    'hierarchical',
+    'label_correlated_hierarchical',
+    'mild_label_correlated_hierarchical',
+}
 FEDSCALE_TRACE_COSTS = {
     'fedscale_trace',
 }
 DIRSKEW_SPEED_CATEGORIES = DELAY_CATEGORIES
-
+LABEL_CORRELATED_SPEED_CATEGORIES = (
+    'BlockFast',
+    'BlockMidFast',
+    'BlockMedium',
+    'BlockSlow',
+    'BlockVerySlow',
+)
+MILD_LABEL_CORRELATED_SPEED_CATEGORIES = DELAY_CATEGORIES
 
 SUPPORTED_ALGORITHMS = {
     'FedBuff',
@@ -35,38 +47,51 @@ def _is_dirskew(args):
     return normalize_delay_profile(getattr(args, 'random_cost', 'dir-skew')) in DIRSKEW_COSTS
 
 
+def _is_uniform_delay(args):
+    return normalize_delay_profile(getattr(args, 'random_cost', 'dir-skew')) in FADAS_UNIFORM_COSTS
+
+
+def _is_label_correlated_hierarchical(args):
+    return normalize_delay_profile(getattr(args, 'random_cost', 'dir-skew')) in {
+        'label_correlated_hierarchical',
+        'mild_label_correlated_hierarchical',
+    }
 
 
 def _is_fedscale_trace(args):
     return normalize_delay_profile(getattr(args, 'random_cost', 'dir-skew')) in FEDSCALE_TRACE_COSTS
 
 
-def _build_dirskew_delay_profile(state, args, seed):
+def _build_label_correlated_hierarchical_delay_profile(state, args, seed):
     if state is None:
-        raise ValueError("dir-skew delay requires dataset state")
+        raise ValueError("label-correlated hierarchical delay requires dataset state")
 
+    attr_prefix = normalize_delay_profile(getattr(args, 'random_cost', 'label_correlated_hierarchical'))
     group_ids = getattr(args, 'label_correlated_group_ids', None)
     num_blocks = int(getattr(args, 'label_correlated_num_groups', 0) or 0)
-
     if group_ids is None:
         raise ValueError(
-            "dir-skew delay requires label-derived client groups; "
-            "use --distribution noniid or --distribution label_correlated"
+            f"{attr_prefix} delay requires label-derived client groups; "
+            "use --distribution label_correlated or --distribution noniid"
         )
 
     group_ids = np.asarray(group_ids, dtype=np.int64)
     num_users = int(args.num_users)
     if group_ids.size != num_users:
         raise ValueError(
-            f"dir-skew expected {num_users} client group ids, found {group_ids.size}"
+            f"{attr_prefix} expected {num_users} client group ids, found {group_ids.size}"
         )
-
     if num_blocks <= 0:
         num_blocks = int(group_ids.max()) + 1
-    speed_categories = DIRSKEW_SPEED_CATEGORIES
+
+    speed_categories = (
+        MILD_LABEL_CORRELATED_SPEED_CATEGORIES
+        if attr_prefix == 'mild_label_correlated_hierarchical'
+        else LABEL_CORRELATED_SPEED_CATEGORIES
+    )
     if num_blocks != len(speed_categories):
         raise ValueError(
-            f"dir-skew currently expects exactly {len(speed_categories)} label groups; "
+            f"{attr_prefix} currently expects exactly {len(speed_categories)} label groups; "
             f"found {num_blocks}"
         )
 
@@ -81,12 +106,10 @@ def _build_dirskew_delay_profile(state, args, seed):
     probs = [count / float(max(1, num_users)) for count in speed_counts]
 
     block_counts = np.bincount(group_ids, minlength=num_blocks)
-    args.dirskew_direction_group_ids = group_ids.astype(int).tolist()
-    args.dirskew_direction_group_counts = block_counts.astype(int).tolist()
-    args.dirskew_speed_order = speed_order.astype(int).tolist()
-    args.dirskew_block_to_speed = {
-        int(block_id): speed_name for block_id, speed_name in block_to_speed.items()
-    }
+    setattr(args, f'{attr_prefix}_direction_group_ids', group_ids.astype(int).tolist())
+    setattr(args, f'{attr_prefix}_direction_group_counts', block_counts.astype(int).tolist())
+    setattr(args, f'{attr_prefix}_speed_order', speed_order.astype(int).tolist())
+    setattr(args, f'{attr_prefix}_block_to_speed', dict(block_to_speed))
     return delay_groups, probs
 
 
@@ -105,8 +128,8 @@ def _ensure_client_delay_profile(args, state=None):
     if seed is None:
         seed = int(getattr(args, 'seed', 0))
 
-    if _is_dirskew(args):
-        groups, probs = _build_dirskew_delay_profile(state, args, seed)
+    if _is_label_correlated_hierarchical(args):
+        groups, probs = _build_label_correlated_hierarchical_delay_profile(state, args, seed)
     else:
         groups, probs = build_client_delay_profile(
             num_users=num_users,
@@ -126,7 +149,7 @@ def _paper_uniform_cost(args, idx):
     return sample_client_delay(
         groups,
         idx,
-        profile=getattr(args, 'random_cost', 'dir-skew'),
+        profile=getattr(args, 'random_cost', 'hierarchical'),
         rng=args.client_delay_rng,
     )
 
@@ -136,16 +159,24 @@ def _attach_delay_metadata(state, args):
         ensure_fedscale_trace_sampler(args, state)
         return
 
-    if not _is_dirskew(args):
+    if not (_is_dirskew(args) or _is_uniform_delay(args)):
         return
     _ensure_client_delay_profile(args, state)
     state['client_delay_groups'] = list(args.client_delay_groups)
     state['client_delay_group_probs'] = list(args.client_delay_group_probs)
-    if hasattr(args, 'dirskew_direction_group_ids'):
-        state['dirskew_direction_group_ids'] = list(args.dirskew_direction_group_ids)
-        state['dirskew_direction_group_counts'] = list(args.dirskew_direction_group_counts)
-        state['dirskew_speed_order'] = list(args.dirskew_speed_order)
-        state['dirskew_block_to_speed'] = dict(args.dirskew_block_to_speed)
+    attr_prefix = normalize_delay_profile(getattr(args, 'random_cost', 'dir-skew'))
+    direction_group_attr = f'{attr_prefix}_direction_group_ids'
+    if hasattr(args, direction_group_attr):
+        state[direction_group_attr] = list(getattr(args, direction_group_attr))
+        state[f'{attr_prefix}_direction_group_counts'] = list(
+            getattr(args, f'{attr_prefix}_direction_group_counts')
+        )
+        speed_order_attr = f'{attr_prefix}_speed_order'
+        block_to_speed_attr = f'{attr_prefix}_block_to_speed'
+        if hasattr(args, speed_order_attr):
+            state[speed_order_attr] = list(getattr(args, speed_order_attr))
+        if hasattr(args, block_to_speed_attr):
+            state[block_to_speed_attr] = dict(getattr(args, block_to_speed_attr))
 
 
 def _random_cost(args, state=None):
@@ -155,7 +186,7 @@ def _random_cost(args, state=None):
             idx,
             float(state.get('global_cost', 0.0)) if state is not None else 0.0,
         )
-    if _is_dirskew(args):
+    if _is_uniform_delay(args):
         _ensure_client_delay_profile(args, state)
         return lambda idx=None: _paper_uniform_cost(args, idx)
     return lambda idx=None: random_cost(getattr(args, 'random_cost', 'dir-skew'))

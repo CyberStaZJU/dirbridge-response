@@ -26,7 +26,7 @@ def _load_torchvision():
 def _attach_dirichlet_direction_groups(dataset_train, dict_users, args):
     labels = extract_labels(dataset_train)
     classes = np.sort(np.unique(labels))
-    if getattr(args, 'random_cost', '') == 'dir-skew':
+    if getattr(args, 'random_cost', '') == 'mild_label_correlated_hierarchical' or getattr(args, 'fedscale_profile_coupling', '') == 'label_group':
         num_groups = 3
     else:
         num_groups = int(getattr(args, 'label_block_groups', 5))
@@ -61,7 +61,7 @@ def _partition_vision_dataset(dataset_train, args):
         return generate_iid(dataset_train, args.num_users)
     if distribution == 'noniid':
         dict_users = generate_noniid(dataset_train, args.num_users, args.alpha)
-        if getattr(args, 'random_cost', '') == 'dir-skew':
+        if getattr(args, 'random_cost', '') in ('label_correlated_hierarchical', 'mild_label_correlated_hierarchical') or getattr(args, 'fedscale_profile_coupling', '') == 'label_group':
             _attach_dirichlet_direction_groups(dataset_train, dict_users, args)
         return dict_users
     if distribution in {'label_block', 'label_blocks', 'block_label', 'label_disjoint'}:
@@ -274,7 +274,8 @@ def _build_femnist(args):
         selected_client_ids = list(dataset_train.client_ids)
     args.num_users = len(selected_client_ids)
     num_samples = np.array([len(dict_users[i]) for i in range(args.num_users)])
-    if getattr(args, 'random_cost', '') == 'dir-skew':
+    rc = getattr(args, 'random_cost', '')
+    if rc in ('label_correlated_hierarchical', 'mild_label_correlated_hierarchical') or getattr(args, 'fedscale_profile_coupling', '') == 'label_group':
         _attach_dirichlet_direction_groups(dataset_train, dict_users, args)
     return dataset_train, dataset_test, dict_users, num_samples, {
         "img_size": dataset_train[0][0].shape,
@@ -301,6 +302,9 @@ def _build_gspeech(args):
     dict_users = dataset_train.get_dict_clients()
     args.num_users = len(selected_client_ids)
     num_samples = np.array([len(dict_users[i]) for i in range(args.num_users)])
+    rc = getattr(args, 'random_cost', '')
+    if rc in ('label_correlated_hierarchical', 'mild_label_correlated_hierarchical') or getattr(args, 'fedscale_profile_coupling', '') == 'label_group':
+        _attach_dirichlet_direction_groups(dataset_train, dict_users, args)
     return dataset_train, dataset_test, dict_users, num_samples, {
         "img_size": dataset_train[0][0].shape,
         "selected_client_ids": selected_client_ids,

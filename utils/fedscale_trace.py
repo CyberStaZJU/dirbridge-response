@@ -7,6 +7,7 @@ from collections import defaultdict
 from pathlib import Path
 
 import numpy as np
+from utils.fedscale_profile_coupling import build_profile_coupling
 
 
 PROFILE_CONTAINER_KEYS = (
@@ -488,6 +489,24 @@ class FedScaleTraceSampler:
         )
         self.availability_client_ids = self._map_availability_clients(len(self.client_ids))
 
+        self.profile_coupling = None
+        if getattr(args, 'fedscale_profile_coupling', '') == 'label_group':
+            groups = getattr(args, 'label_correlated_group_ids', None)
+            if groups is None:
+                raise ValueError('label_group profile coupling requires label-derived client groups')
+            self.profile_coupling = build_profile_coupling(
+                profile_path,
+                groups,
+                getattr(args, 'local_bs', 1),
+                getattr(args, 'local_period', 1),
+                getattr(args, 'fedscale_upload_size_mb', 1.0),
+                getattr(args, 'fedscale_download_size_mb', 1.0),
+                int(seed),
+                3,
+            )
+            self.client_ids = [row['profile_id'] for row in self.profile_coupling['mapping']]
+        self.availability_client_ids = self._map_availability_clients(len(self.client_ids))
+
         self.base_durations = {
             client_id: max(
                 self.min_duration,
@@ -622,6 +641,7 @@ class FedScaleTraceSampler:
             'fedscale_trace_availability_client_ids': list(self.availability_client_ids),
             'fedscale_trace_wrap': self.trace_wrap,
             'fedscale_trace_time_scale': self.time_scale,
+            'fedscale_profile_coupling': getattr(self, 'profile_coupling', None),
         }
 
 

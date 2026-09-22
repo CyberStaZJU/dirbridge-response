@@ -238,12 +238,16 @@ def _add_data_args(parser):
         default='dir-skew',
         choices=[
             'dir-skew',
+            'hierarchical',
+            'label_correlated_hierarchical',
+            'mild_label_correlated_hierarchical',
             'fedscale_trace',
         ],
         help='client delay profile',
     )
     group.add_argument('--delay_gamma', type=float, default=1.0, help='delay-profile compatibility parameter')
     group.add_argument('--delay_seed', type=int, default=None, help='optional seed for fixed client delay groups')
+    group.add_argument('--fedscale_profile_coupling', type=str, default='', choices=['', 'label_group'], help='couple FedScale profiles to label-derived groups')
     group.add_argument('--fedscale_client_profile_path', type=str, default='', help='FedScale client profile path')
     group.add_argument('--fedscale_availability_trace_path', type=str, default='', help='optional FedScale availability trace path')
     group.add_argument('--fedscale_time_scale', type=float, default=1.0, help='FedScale time multiplier')
@@ -271,6 +275,10 @@ def _add_grouping_args(parser):
     group.add_argument('--dirbridge_num_groups', type=int, default=5, help='number of DirBridge direction groups')
     group.add_argument('--dirbridge_feature_mode', type=str, default='count_sketch', choices=['count_sketch'], help='DirBridge grouping feature')
     group.add_argument('--dirbridge_sketch_dim', type=int, default=2048, help='DirBridge Count Sketch dimension')
+    group.add_argument('--dirbridge_buffer_delay_limit', type=float, default=None, help='override the DirBridge staleness threshold; defaults to concurrency/buffer_size')
+    group.add_argument('--e2_init_mode', type=str, default='full', choices=['full', 'online'], help='E2 initialization mode')
+    group.add_argument('--e2_weight_source', type=str, default='full_count', choices=['full_count', 'oracle', 'arrival_freq', 'unique_client'], help='E2 group-weight source')
+    group.add_argument('--e2_oracle_features', action='store_true', help='retain a full-population E2 feature snapshot as a measurement reference')
     group.add_argument('--dirbridge_count_sketch_seed', type=int, default=None, help='DirBridge Count Sketch seed')
     group.add_argument('--dirbridge_kmeans_iters', type=int, default=20, help='spherical k-means iterations')
     group.add_argument('--dirbridge_recluster_interval', type=int, default=None, help='DirBridge reclustering interval')

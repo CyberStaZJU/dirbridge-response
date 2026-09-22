@@ -73,13 +73,16 @@ The evidence supports a narrower claim: a tuned FedBuff can match DirBridge on s
 
 The earlier E2 record contains an audited control matrix for full initialization, online grouping with oracle weights, arrival-frequency weights, and unique-client weights. That record remains a separate code identity and result set.
 
-A later audit of the current desktop main tree found that strict online semantics are not yet safe to claim for the current implementation:
+The repaired online five-seed run and same-code full-warm control both completed 500 rounds for seeds 1–5. Accuracy files were complete and finite in all ten runs. Both groups nevertheless contained logged `Test loss nan` rows, so these are accuracy comparisons with an explicit numerical-diagnostic limitation, not fully clean convergence evidence.
 
-- the default full mode still computes all client directions before the simulated stream;
-- the dispatch path previously wrote future client deltas and features into shared server state before arrival;
-- the online first-wave path previously scheduled costs without materializing the actual local result through the arrival event.
+| Initialization | final mean±std | tail-10 mean±std | tail-50 mean±std |
+|---|---:|---:|---:|
+| Online + unique observed clients | 47.928±0.327 | 47.296±1.185 | 46.463±0.812 |
+| Full warm + full counts | 47.070±2.021 | 47.269±1.164 | 46.596±0.936 |
 
-A minimal `inflight`/server-visible state separation patch was staged in the desktop development tree and syntax-checked with the reference Python environment. A short online smoke and a post-fix multi-seed audit were not completed in this work session. The patch and its status are documented in `CODE_CORRECTIONS_20260921.md`; no current paper claim should rely on it until those tests pass.
+Paired difference (`online - full-warm`, percentage points; seeds 1–5) was `+0.858` with 95% CI `[-1.571, +3.287]` for final accuracy, `+0.028` with CI `[-1.301, +1.356]` for tail-10, and `-0.132` with CI `[-1.156, +0.891]` for tail-50. With five seeds, these intervals support a statement of no detected practically clear difference under this configuration, not strict equivalence. The shared NaN-loss rows remain an unresolved numerical-health limitation and are disclosed rather than hidden.
+
+The public parser and execution-path port for the historical supplemental flags is independently documented in `PUBLIC_ENTRYPOINT_AUDIT_20260922.md` and tested by `scripts/test_flag_wiring.py`.
 
 ## E3: stronger profile experiment
 

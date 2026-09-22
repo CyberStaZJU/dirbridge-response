@@ -1,6 +1,6 @@
 # DirBridge 当前状态
 
-更新时间：2026-09-18
+更新时间：2026-09-22
 
 ## 当前结论
 
@@ -37,7 +37,7 @@ GitHub 公共仓库 `CyberStaZJU/dirbridge-artifact` 的公开结构与压缩包
 | 实验 | 当前状态 | 记录 |
 |---|---|---|
 | E1 公平调参与异常诊断 | 早期 E1 记录已提交；后续 CIFAR-10/CIFAR-100 对照已补充；FedBuff mild alpha=0.1 新网格已暂停 | `e1-fair-tuning/` + `SUPPLEMENTAL_RESULTS_20260921.md` |
-| E2 在线初始化 | 历史 60/60 控制矩阵保留；当前主树重新审计发现严格 online 状态边界仍需修复；修复已 syntax-check，行为 smoke pending | `e2-online-init/` + `CODE_CORRECTIONS_20260921.md` |
+| E2 在线初始化 | 修复后的 online/full-warm 各 5 个 seed 均完成 500 rounds；accuracy 全部有限，配对差异未显示清晰优势，但两组均有 loss NaN 诊断记录 | `e2-online-init/` + `PUBLIC_ENTRYPOINT_AUDIT_20260922.md` + `CODE_CORRECTIONS_20260921.md` |
 | E3 耦合强度扫描 | 暂停；无有效结果 | `e3-profile-coupling/STATUS.md` |
 | E4 profile 耦合 | 70/70 审计通过 | `e4-profile-coupling/` |
 | E5 (B, K0, ds) 敏感性 | 65/65 审计通过 | `e5-sensitivity/` |
