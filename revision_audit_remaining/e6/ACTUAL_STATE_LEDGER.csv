@@ -1,0 +1,617 @@
+method,run_device,phase,path,ownership,kind,shape,dtype,device,storage_ptr,storage_offset,storage_bytes,logical_bytes,unique_physical_bytes,alias_of,python_shallow_bytes
+FedBuff,cpu,init,state.net_glob.weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792446926848,0,32,32,32,,0
+FedBuff,cpu,init,state.w_glob.weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792444985600,0,32,32,32,,0
+FedBuff,cpu,init,state.dataset_train,shared,list_metadata,,,,,,0,0,0,,104
+FedBuff,cpu,init,state.dict_users.0,shared,list_metadata,,,,,,0,0,0,,64
+FedBuff,cpu,init,state.dict_users.1,shared,list_metadata,,,,,,0,0,0,,64
+FedBuff,cpu,init,state.dict_users.2,shared,list_metadata,,,,,,0,0,0,,64
+FedBuff,cpu,init,state.dict_users.3,shared,list_metadata,,,,,,0,0,0,,64
+FedBuff,cpu,init,state.dict_users.4,shared,list_metadata,,,,,,0,0,0,,64
+FedBuff,cpu,init,state.dict_users.5,shared,list_metadata,,,,,,0,0,0,,64
+FedBuff,cpu,init,state.num_samples,shared,list_metadata,,,,,,0,0,0,,104
+FedBuff,cpu,init,state.delta,shared,list_metadata,,,,,,0,0,0,,120
+FedBuff,cpu,init,state.delta[0].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792446548800,0,32,32,32,,0
+FedBuff,cpu,init,state.delta[1].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792446716992,0,32,32,32,,0
+FedBuff,cpu,init,state.delta[2].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792447093632,0,32,32,32,,0
+FedBuff,cpu,init,state.delta[3].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792447308992,0,32,32,32,,0
+FedBuff,cpu,init,state.delta[4].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792444944320,0,32,32,32,,0
+FedBuff,cpu,init,state.delta[5].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792447300096,0,32,32,32,,0
+FedBuff,cpu,init,state.stamp,shared,list_metadata,,,,,,0,0,0,,104
+FedBuff,cpu,init,state.cost,shared,list_metadata,,,,,,0,0,0,,104
+FedBuff,cpu,init,state.client_delay_groups,method_owned,list_metadata,,,,,,0,0,0,,104
+FedBuff,cpu,init,state.client_delay_group_probs,method_owned,list_metadata,,,,,,0,0,0,,88
+FedBuff,cpu,after5,state.net_glob.weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792446926848,0,32,32,32,,0
+FedBuff,cpu,after5,state.w_glob.weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792444985600,0,32,32,32,,0
+FedBuff,cpu,after5,state.dataset_train,shared,list_metadata,,,,,,0,0,0,,104
+FedBuff,cpu,after5,state.dict_users.0,shared,list_metadata,,,,,,0,0,0,,64
+FedBuff,cpu,after5,state.dict_users.1,shared,list_metadata,,,,,,0,0,0,,64
+FedBuff,cpu,after5,state.dict_users.2,shared,list_metadata,,,,,,0,0,0,,64
+FedBuff,cpu,after5,state.dict_users.3,shared,list_metadata,,,,,,0,0,0,,64
+FedBuff,cpu,after5,state.dict_users.4,shared,list_metadata,,,,,,0,0,0,,64
+FedBuff,cpu,after5,state.dict_users.5,shared,list_metadata,,,,,,0,0,0,,64
+FedBuff,cpu,after5,state.num_samples,shared,list_metadata,,,,,,0,0,0,,104
+FedBuff,cpu,after5,state.delta,shared,list_metadata,,,,,,0,0,0,,120
+FedBuff,cpu,after5,state.delta[0].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792447854656,0,32,32,32,,0
+FedBuff,cpu,after5,state.delta[1].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792447857728,0,32,32,32,,0
+FedBuff,cpu,after5,state.delta[2].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792445008832,0,32,32,32,,0
+FedBuff,cpu,after5,state.delta[3].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792447856640,0,32,32,32,,0
+FedBuff,cpu,after5,state.delta[4].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792446692416,0,32,32,32,,0
+FedBuff,cpu,after5,state.delta[5].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792447853568,0,32,32,32,,0
+FedBuff,cpu,after5,state.stamp,shared,list_metadata,,,,,,0,0,0,,104
+FedBuff,cpu,after5,state.cost,shared,list_metadata,,,,,,0,0,0,,104
+FedBuff,cpu,after5,state.last_buffer_list,shared,list_metadata,,,,,,0,0,0,,72
+FedBuff,cpu,after5,state.last_valid_buffer_list,shared,list_metadata,,,,,,0,0,0,,72
+FedBuff,cpu,after5,state.last_invalid_buffer_list,shared,list_metadata,,,,,,0,0,0,,56
+FedBuff,cpu,after5,state.last_selected_item_summary,shared,list_metadata,,,,,,0,0,0,,56
+FedBuff,cpu,after5,state.client_delay_groups,method_owned,list_metadata,,,,,,0,0,0,,104
+FedBuff,cpu,after5,state.client_delay_group_probs,method_owned,list_metadata,,,,,,0,0,0,,88
+CA2FL,cpu,init,state.net_glob.weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792447300096,0,32,32,32,,0
+CA2FL,cpu,init,state.w_glob.weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792447149888,0,32,32,32,,0
+CA2FL,cpu,init,state.dataset_train,shared,list_metadata,,,,,,0,0,0,,104
+CA2FL,cpu,init,state.dict_users.0,shared,list_metadata,,,,,,0,0,0,,64
+CA2FL,cpu,init,state.dict_users.1,shared,list_metadata,,,,,,0,0,0,,64
+CA2FL,cpu,init,state.dict_users.2,shared,list_metadata,,,,,,0,0,0,,64
+CA2FL,cpu,init,state.dict_users.3,shared,list_metadata,,,,,,0,0,0,,64
+CA2FL,cpu,init,state.dict_users.4,shared,list_metadata,,,,,,0,0,0,,64
+CA2FL,cpu,init,state.dict_users.5,shared,list_metadata,,,,,,0,0,0,,64
+CA2FL,cpu,init,state.num_samples,shared,list_metadata,,,,,,0,0,0,,104
+CA2FL,cpu,init,state.delta,shared,list_metadata,,,,,,0,0,0,,120
+CA2FL,cpu,init,state.delta[0].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792444998656,0,32,32,32,,0
+CA2FL,cpu,init,state.delta[1].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792447298112,0,32,32,32,,0
+CA2FL,cpu,init,state.delta[2].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792348919296,0,32,32,32,,0
+CA2FL,cpu,init,state.delta[3].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792446959360,0,32,32,32,,0
+CA2FL,cpu,init,state.delta[4].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792446686400,0,32,32,32,,0
+CA2FL,cpu,init,state.delta[5].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792447854784,0,32,32,32,,0
+CA2FL,cpu,init,state.cost,shared,list_metadata,,,,,,0,0,0,,120
+CA2FL,cpu,init,state.client_delay_groups,method_owned,list_metadata,,,,,,0,0,0,,104
+CA2FL,cpu,init,state.client_delay_group_probs,method_owned,list_metadata,,,,,,0,0,0,,88
+CA2FL,cpu,init,state.cache,method_owned,list_metadata,,,,,,0,0,0,,120
+CA2FL,cpu,init,state.cache[0].weight,method_owned,tensor,"(2, 4)",torch.float32,cpu,94792446548800,0,32,32,32,,0
+CA2FL,cpu,init,state.cache[1].weight,method_owned,tensor,"(2, 4)",torch.float32,cpu,94792444944192,0,32,32,32,,0
+CA2FL,cpu,init,state.cache[2].weight,method_owned,tensor,"(2, 4)",torch.float32,cpu,94792447149568,0,32,32,32,,0
+CA2FL,cpu,init,state.cache[3].weight,method_owned,tensor,"(2, 4)",torch.float32,cpu,94792447857536,0,32,32,32,,0
+CA2FL,cpu,init,state.cache[4].weight,method_owned,tensor,"(2, 4)",torch.float32,cpu,94792447854464,0,32,32,32,,0
+CA2FL,cpu,init,state.cache[5].weight,method_owned,tensor,"(2, 4)",torch.float32,cpu,94792445000256,0,32,32,32,,0
+CA2FL,cpu,init,state.cache_mean.weight,method_owned,tensor,"(2, 4)",torch.float32,cpu,94792446721664,0,32,32,32,,0
+CA2FL,cpu,after5,state.net_glob.weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792447300096,0,32,32,32,,0
+CA2FL,cpu,after5,state.w_glob.weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792447149888,0,32,32,32,,0
+CA2FL,cpu,after5,state.dataset_train,shared,list_metadata,,,,,,0,0,0,,104
+CA2FL,cpu,after5,state.dict_users.0,shared,list_metadata,,,,,,0,0,0,,64
+CA2FL,cpu,after5,state.dict_users.1,shared,list_metadata,,,,,,0,0,0,,64
+CA2FL,cpu,after5,state.dict_users.2,shared,list_metadata,,,,,,0,0,0,,64
+CA2FL,cpu,after5,state.dict_users.3,shared,list_metadata,,,,,,0,0,0,,64
+CA2FL,cpu,after5,state.dict_users.4,shared,list_metadata,,,,,,0,0,0,,64
+CA2FL,cpu,after5,state.dict_users.5,shared,list_metadata,,,,,,0,0,0,,64
+CA2FL,cpu,after5,state.num_samples,shared,list_metadata,,,,,,0,0,0,,104
+CA2FL,cpu,after5,state.delta,shared,list_metadata,,,,,,0,0,0,,120
+CA2FL,cpu,after5,state.delta[0].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792447865728,0,32,32,32,,0
+CA2FL,cpu,after5,state.delta[1].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792447870400,0,32,32,32,,0
+CA2FL,cpu,after5,state.delta[2].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792446923200,0,32,32,32,,0
+CA2FL,cpu,after5,state.delta[3].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792447869120,0,32,32,32,,0
+CA2FL,cpu,after5,state.delta[4].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792447861056,0,32,32,32,,0
+CA2FL,cpu,after5,state.delta[5].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792447864448,0,32,32,32,,0
+CA2FL,cpu,after5,state.cost,shared,list_metadata,,,,,,0,0,0,,120
+CA2FL,cpu,after5,state.last_buffer_list,shared,list_metadata,,,,,,0,0,0,,72
+CA2FL,cpu,after5,state.last_valid_buffer_list,shared,list_metadata,,,,,,0,0,0,,72
+CA2FL,cpu,after5,state.last_invalid_buffer_list,shared,list_metadata,,,,,,0,0,0,,56
+CA2FL,cpu,after5,state.last_selected_item_summary,shared,list_metadata,,,,,,0,0,0,,56
+CA2FL,cpu,after5,state.client_delay_groups,method_owned,list_metadata,,,,,,0,0,0,,104
+CA2FL,cpu,after5,state.client_delay_group_probs,method_owned,list_metadata,,,,,,0,0,0,,88
+CA2FL,cpu,after5,state.cache,method_owned,list_metadata,,,,,,0,0,0,,120
+CA2FL,cpu,after5,state.cache[0].weight,method_owned,tensor,"(2, 4)",torch.float32,cpu,94792447865728,0,32,32,0,state.delta[0].weight,0
+CA2FL,cpu,after5,state.cache[1].weight,method_owned,tensor,"(2, 4)",torch.float32,cpu,94792447859776,0,32,32,32,,0
+CA2FL,cpu,after5,state.cache[2].weight,method_owned,tensor,"(2, 4)",torch.float32,cpu,94792446923200,0,32,32,0,state.delta[2].weight,0
+CA2FL,cpu,after5,state.cache[3].weight,method_owned,tensor,"(2, 4)",torch.float32,cpu,94792446641856,0,32,32,32,,0
+CA2FL,cpu,after5,state.cache[4].weight,method_owned,tensor,"(2, 4)",torch.float32,cpu,94792446686400,0,32,32,32,,0
+CA2FL,cpu,after5,state.cache[5].weight,method_owned,tensor,"(2, 4)",torch.float32,cpu,94792447854784,0,32,32,32,,0
+CA2FL,cpu,after5,state.cache_mean.weight,method_owned,tensor,"(2, 4)",torch.float32,cpu,94792446721664,0,32,32,32,,0
+DirBridge,cpu,init,state.net_glob.weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792447298112,0,32,32,32,,0
+DirBridge,cpu,init,state.w_glob.weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792349002880,0,32,32,32,,0
+DirBridge,cpu,init,state.dataset_train,shared,list_metadata,,,,,,0,0,0,,104
+DirBridge,cpu,init,state.dict_users.0,shared,list_metadata,,,,,,0,0,0,,64
+DirBridge,cpu,init,state.dict_users.1,shared,list_metadata,,,,,,0,0,0,,64
+DirBridge,cpu,init,state.dict_users.2,shared,list_metadata,,,,,,0,0,0,,64
+DirBridge,cpu,init,state.dict_users.3,shared,list_metadata,,,,,,0,0,0,,64
+DirBridge,cpu,init,state.dict_users.4,shared,list_metadata,,,,,,0,0,0,,64
+DirBridge,cpu,init,state.dict_users.5,shared,list_metadata,,,,,,0,0,0,,64
+DirBridge,cpu,init,state.num_samples,shared,list_metadata,,,,,,0,0,0,,104
+DirBridge,cpu,init,state.delta,shared,list_metadata,,,,,,0,0,0,,120
+DirBridge,cpu,init,state.delta[0].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792349002560,0,32,32,32,,0
+DirBridge,cpu,init,state.delta[1].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792448578496,0,32,32,32,,0
+DirBridge,cpu,init,state.delta[2].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792447857408,0,32,32,32,,0
+DirBridge,cpu,init,state.delta[3].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792447883776,0,32,32,32,,0
+DirBridge,cpu,init,state.delta[4].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792447886272,0,32,32,32,,0
+DirBridge,cpu,init,state.delta[5].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792447888768,0,32,32,32,,0
+DirBridge,cpu,init,state.stamp,shared,list_metadata,,,,,,0,0,0,,104
+DirBridge,cpu,init,state.cost,shared,list_metadata,,,,,,0,0,0,,104
+DirBridge,cpu,init,state.delays,shared,list_metadata,,,,,,0,0,0,,104
+DirBridge,cpu,init,state.client_delay_groups,method_owned,list_metadata,,,,,,0,0,0,,104
+DirBridge,cpu,init,state.client_delay_group_probs,method_owned,list_metadata,,,,,,0,0,0,,88
+DirBridge,cpu,init,state.group_ids,method_owned,list_metadata,,,,,,0,0,0,,104
+DirBridge,cpu,init,state.count_sketch_plan,method_owned,list_metadata,,,,,,0,0,0,,88
+DirBridge,cpu,init,state.count_sketch_plan[0],method_owned,tuple_metadata,,,,,,0,0,0,,64
+DirBridge,cpu,init,state.count_sketch_plan[0][1],method_owned,tensor,"(8,)",torch.int64,cpu,94792444944192,0,64,64,64,,0
+DirBridge,cpu,init,state.count_sketch_plan[0][2],method_owned,tensor,"(8,)",torch.int8,cpu,94792447870400,0,8,8,8,,0
+DirBridge,cpu,init,state.group_centroids,method_owned,tensor,"(2, 8)",torch.float32,cpu,94792446863296,0,64,64,64,,0
+DirBridge,cpu,init,state.group_cache,method_owned,list_metadata,,,,,,0,0,0,,88
+DirBridge,cpu,init,state.group_cache[0].weight,method_owned,tensor,"(2, 4)",torch.float32,cpu,94792446864960,0,32,32,32,,0
+DirBridge,cpu,init,state.group_cache[1].weight,method_owned,tensor,"(2, 4)",torch.float32,cpu,94792447884864,0,32,32,32,,0
+DirBridge,cpu,init,state.group_cache_stamp,method_owned,list_metadata,,,,,,0,0,0,,72
+DirBridge,cpu,init,state.group_cache_delay,method_owned,list_metadata,,,,,,0,0,0,,72
+DirBridge,cpu,init,state.group_members,method_owned,list_metadata,,,,,,0,0,0,,88
+DirBridge,cpu,init,state.group_members[0],method_owned,list_metadata,,,,,,0,0,0,,120
+DirBridge,cpu,init,state.group_members[1],method_owned,list_metadata,,,,,,0,0,0,,56
+DirBridge,cpu,init,state.group_counts,method_owned,list_metadata,,,,,,0,0,0,,72
+DirBridge,cpu,init,state.group_weights,method_owned,list_metadata,,,,,,0,0,0,,72
+DirBridge,cpu,init,state.client_features,method_owned,list_metadata,,,,,,0,0,0,,104
+DirBridge,cpu,init,state.client_features[0],method_owned,tensor,"(8,)",torch.float32,cpu,94792348936896,0,32,32,32,,0
+DirBridge,cpu,init,state.client_features[1],method_owned,tensor,"(8,)",torch.float32,cpu,94792447865728,0,32,32,32,,0
+DirBridge,cpu,init,state.client_features[2],method_owned,tensor,"(8,)",torch.float32,cpu,94792447864896,0,32,32,32,,0
+DirBridge,cpu,init,state.client_features[3],method_owned,tensor,"(8,)",torch.float32,cpu,94792447884992,0,32,32,32,,0
+DirBridge,cpu,init,state.client_features[4],method_owned,tensor,"(8,)",torch.float32,cpu,94792447887488,0,32,32,32,,0
+DirBridge,cpu,init,state.client_features[5],method_owned,tensor,"(8,)",torch.float32,cpu,94792447889984,0,32,32,32,,0
+DirBridge,cpu,init,state.inflight.5.delta.weight,method_owned,tensor,"(2, 4)",torch.float32,cpu,94792447888768,0,32,32,0,state.delta[5].weight,0
+DirBridge,cpu,init,state.inflight.5.feature,method_owned,tensor,"(8,)",torch.float32,cpu,94792447889984,0,32,32,0,state.client_features[5],0
+DirBridge,cpu,init,state.inflight.0.delta.weight,method_owned,tensor,"(2, 4)",torch.float32,cpu,94792349002560,0,32,32,0,state.delta[0].weight,0
+DirBridge,cpu,init,state.inflight.0.feature,method_owned,tensor,"(8,)",torch.float32,cpu,94792348936896,0,32,32,0,state.client_features[0],0
+DirBridge,cpu,init,state.inflight.4.delta.weight,method_owned,tensor,"(2, 4)",torch.float32,cpu,94792447886272,0,32,32,0,state.delta[4].weight,0
+DirBridge,cpu,init,state.inflight.4.feature,method_owned,tensor,"(8,)",torch.float32,cpu,94792447887488,0,32,32,0,state.client_features[4],0
+DirBridge,cpu,init,state.inflight.2.delta.weight,method_owned,tensor,"(2, 4)",torch.float32,cpu,94792447857408,0,32,32,0,state.delta[2].weight,0
+DirBridge,cpu,init,state.inflight.2.feature,method_owned,tensor,"(8,)",torch.float32,cpu,94792447864896,0,32,32,0,state.client_features[2],0
+DirBridge,cpu,init,state.client_embeds,method_owned,list_metadata,,,,,,0,0,0,,104
+DirBridge,cpu,init,state.client_embeds[0],method_owned,tensor,"(8,)",torch.float32,cpu,94792447865024,0,32,32,32,,0
+DirBridge,cpu,init,state.client_embeds[1],method_owned,tensor,"(8,)",torch.float32,cpu,94792447865152,0,32,32,32,,0
+DirBridge,cpu,init,state.client_embeds[2],method_owned,tensor,"(8,)",torch.float32,cpu,94792446863808,0,32,32,32,,0
+DirBridge,cpu,init,state.client_embeds[3],method_owned,tensor,"(8,)",torch.float32,cpu,94792446864000,0,32,32,32,,0
+DirBridge,cpu,init,state.client_embeds[4],method_owned,tensor,"(8,)",torch.float32,cpu,94792446864128,0,32,32,32,,0
+DirBridge,cpu,init,state.client_embeds[5],method_owned,tensor,"(8,)",torch.float32,cpu,94792446864320,0,32,32,32,,0
+DirBridge,cpu,init,state.oracle_features,method_owned,list_metadata,,,,,,0,0,0,,104
+DirBridge,cpu,init,state.oracle_features[0],method_owned,tensor,"(8,)",torch.float32,cpu,94792447890112,0,32,32,32,,0
+DirBridge,cpu,init,state.oracle_features[1],method_owned,tensor,"(8,)",torch.float32,cpu,94792447890304,0,32,32,32,,0
+DirBridge,cpu,init,state.oracle_features[2],method_owned,tensor,"(8,)",torch.float32,cpu,94792447890432,0,32,32,32,,0
+DirBridge,cpu,init,state.oracle_features[3],method_owned,tensor,"(8,)",torch.float32,cpu,94792447890624,0,32,32,32,,0
+DirBridge,cpu,init,state.oracle_features[4],method_owned,tensor,"(8,)",torch.float32,cpu,94792447890752,0,32,32,32,,0
+DirBridge,cpu,init,state.oracle_features[5],method_owned,tensor,"(8,)",torch.float32,cpu,94792447890944,0,32,32,32,,0
+DirBridge,cpu,init,state.arrival_count,method_owned,list_metadata,,,,,,0,0,0,,104
+DirBridge,cpu,init,state.e2_client_last_arrival,method_owned,list_metadata,,,,,,0,0,0,,104
+DirBridge,cpu,init,state.e2_oracle_weights,method_owned,list_metadata,,,,,,0,0,0,,72
+DirBridge,cpu,init,state.prev_rebuild_centroids,method_owned,tensor,"(2, 8)",torch.float32,cpu,94792446868544,0,64,64,64,,0
+DirBridge,cpu,init,state.prev_rebuild_group_ids,method_owned,list_metadata,,,,,,0,0,0,,104
+DirBridge,cpu,after5,state.net_glob.weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792447298112,0,32,32,32,,0
+DirBridge,cpu,after5,state.w_glob.weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792349002880,0,32,32,32,,0
+DirBridge,cpu,after5,state.dataset_train,shared,list_metadata,,,,,,0,0,0,,104
+DirBridge,cpu,after5,state.dict_users.0,shared,list_metadata,,,,,,0,0,0,,64
+DirBridge,cpu,after5,state.dict_users.1,shared,list_metadata,,,,,,0,0,0,,64
+DirBridge,cpu,after5,state.dict_users.2,shared,list_metadata,,,,,,0,0,0,,64
+DirBridge,cpu,after5,state.dict_users.3,shared,list_metadata,,,,,,0,0,0,,64
+DirBridge,cpu,after5,state.dict_users.4,shared,list_metadata,,,,,,0,0,0,,64
+DirBridge,cpu,after5,state.dict_users.5,shared,list_metadata,,,,,,0,0,0,,64
+DirBridge,cpu,after5,state.num_samples,shared,list_metadata,,,,,,0,0,0,,104
+DirBridge,cpu,after5,state.delta,shared,list_metadata,,,,,,0,0,0,,120
+DirBridge,cpu,after5,state.delta[0].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792447228352,0,32,32,32,,0
+DirBridge,cpu,after5,state.delta[1].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792447190016,0,32,32,32,,0
+DirBridge,cpu,after5,state.delta[2].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792446864512,0,32,32,32,,0
+DirBridge,cpu,after5,state.delta[3].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792446863680,0,32,32,32,,0
+DirBridge,cpu,after5,state.delta[4].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792447886272,0,32,32,32,,0
+DirBridge,cpu,after5,state.delta[5].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792447888768,0,32,32,32,,0
+DirBridge,cpu,after5,state.stamp,shared,list_metadata,,,,,,0,0,0,,104
+DirBridge,cpu,after5,state.cost,shared,list_metadata,,,,,,0,0,0,,104
+DirBridge,cpu,after5,state.delays,shared,list_metadata,,,,,,0,0,0,,104
+DirBridge,cpu,after5,state.last_buffer_list,shared,list_metadata,,,,,,0,0,0,,72
+DirBridge,cpu,after5,state.last_selected_item_summary,shared,list_metadata,,,,,,0,0,0,,88
+DirBridge,cpu,after5,state.last_valid_buffer_list,shared,list_metadata,,,,,,0,0,0,,72
+DirBridge,cpu,after5,state.last_invalid_buffer_list,shared,list_metadata,,,,,,0,0,0,,56
+DirBridge,cpu,after5,state.client_delay_groups,method_owned,list_metadata,,,,,,0,0,0,,104
+DirBridge,cpu,after5,state.client_delay_group_probs,method_owned,list_metadata,,,,,,0,0,0,,88
+DirBridge,cpu,after5,state.group_ids,method_owned,list_metadata,,,,,,0,0,0,,104
+DirBridge,cpu,after5,state.count_sketch_plan,method_owned,list_metadata,,,,,,0,0,0,,88
+DirBridge,cpu,after5,state.count_sketch_plan[0],method_owned,tuple_metadata,,,,,,0,0,0,,64
+DirBridge,cpu,after5,state.count_sketch_plan[0][1],method_owned,tensor,"(8,)",torch.int64,cpu,94792444944192,0,64,64,64,,0
+DirBridge,cpu,after5,state.count_sketch_plan[0][2],method_owned,tensor,"(8,)",torch.int8,cpu,94792447870400,0,8,8,8,,0
+DirBridge,cpu,after5,state.group_centroids,method_owned,tensor,"(2, 8)",torch.float32,cpu,94792447239104,0,64,64,64,,0
+DirBridge,cpu,after5,state.group_cache,method_owned,list_metadata,,,,,,0,0,0,,88
+DirBridge,cpu,after5,state.group_cache[0].weight,method_owned,tensor,"(2, 4)",torch.float32,cpu,94792447751616,0,32,32,32,,0
+DirBridge,cpu,after5,state.group_cache[1].weight,method_owned,tensor,"(2, 4)",torch.float32,cpu,94792447191744,0,32,32,32,,0
+DirBridge,cpu,after5,state.group_cache_stamp,method_owned,list_metadata,,,,,,0,0,0,,72
+DirBridge,cpu,after5,state.group_cache_delay,method_owned,list_metadata,,,,,,0,0,0,,72
+DirBridge,cpu,after5,state.group_members,method_owned,list_metadata,,,,,,0,0,0,,88
+DirBridge,cpu,after5,state.group_members[0],method_owned,list_metadata,,,,,,0,0,0,,120
+DirBridge,cpu,after5,state.group_members[1],method_owned,list_metadata,,,,,,0,0,0,,56
+DirBridge,cpu,after5,state.group_counts,method_owned,list_metadata,,,,,,0,0,0,,72
+DirBridge,cpu,after5,state.group_weights,method_owned,list_metadata,,,,,,0,0,0,,72
+DirBridge,cpu,after5,state.client_features,method_owned,list_metadata,,,,,,0,0,0,,104
+DirBridge,cpu,after5,state.client_features[0],method_owned,tensor,"(8,)",torch.float32,cpu,94792447229568,0,32,32,32,,0
+DirBridge,cpu,after5,state.client_features[1],method_owned,tensor,"(8,)",torch.float32,cpu,94792447191232,0,32,32,32,,0
+DirBridge,cpu,after5,state.client_features[2],method_owned,tensor,"(8,)",torch.float32,cpu,94792446851008,0,32,32,32,,0
+DirBridge,cpu,after5,state.client_features[3],method_owned,tensor,"(8,)",torch.float32,cpu,94792447865920,0,32,32,32,,0
+DirBridge,cpu,after5,state.client_features[4],method_owned,tensor,"(8,)",torch.float32,cpu,94792447887488,0,32,32,32,,0
+DirBridge,cpu,after5,state.client_features[5],method_owned,tensor,"(8,)",torch.float32,cpu,94792447889984,0,32,32,32,,0
+DirBridge,cpu,after5,state.inflight.4.delta.weight,method_owned,tensor,"(2, 4)",torch.float32,cpu,94792447192704,0,32,32,32,,0
+DirBridge,cpu,after5,state.inflight.4.feature,method_owned,tensor,"(8,)",torch.float32,cpu,94792447193920,0,32,32,32,,0
+DirBridge,cpu,after5,state.inflight.5.delta.weight,method_owned,tensor,"(2, 4)",torch.float32,cpu,94792447225664,0,32,32,32,,0
+DirBridge,cpu,after5,state.inflight.5.feature,method_owned,tensor,"(8,)",torch.float32,cpu,94792447226880,0,32,32,32,,0
+DirBridge,cpu,after5,state.inflight.1.delta.weight,method_owned,tensor,"(2, 4)",torch.float32,cpu,94792447752896,0,32,32,32,,0
+DirBridge,cpu,after5,state.inflight.1.feature,method_owned,tensor,"(8,)",torch.float32,cpu,94792447754112,0,32,32,32,,0
+DirBridge,cpu,after5,state.inflight.3.delta.weight,method_owned,tensor,"(2, 4)",torch.float32,cpu,94792447755584,0,32,32,32,,0
+DirBridge,cpu,after5,state.inflight.3.feature,method_owned,tensor,"(8,)",torch.float32,cpu,94792447756800,0,32,32,32,,0
+DirBridge,cpu,after5,state.client_embeds,method_owned,list_metadata,,,,,,0,0,0,,104
+DirBridge,cpu,after5,state.client_embeds[0],method_owned,tensor,"(8,)",torch.float32,cpu,94792447231488,0,32,32,32,,0
+DirBridge,cpu,after5,state.client_embeds[1],method_owned,tensor,"(8,)",torch.float32,cpu,94792447233088,0,32,32,32,,0
+DirBridge,cpu,after5,state.client_embeds[2],method_owned,tensor,"(8,)",torch.float32,cpu,94792447239680,0,32,32,32,,0
+DirBridge,cpu,after5,state.client_embeds[3],method_owned,tensor,"(8,)",torch.float32,cpu,94792447239808,0,32,32,32,,0
+DirBridge,cpu,after5,state.client_embeds[4],method_owned,tensor,"(8,)",torch.float32,cpu,94792447240000,0,32,32,32,,0
+DirBridge,cpu,after5,state.client_embeds[5],method_owned,tensor,"(8,)",torch.float32,cpu,94792447240128,0,32,32,32,,0
+DirBridge,cpu,after5,state.oracle_features,method_owned,list_metadata,,,,,,0,0,0,,104
+DirBridge,cpu,after5,state.oracle_features[0],method_owned,tensor,"(8,)",torch.float32,cpu,94792447890112,0,32,32,32,,0
+DirBridge,cpu,after5,state.oracle_features[1],method_owned,tensor,"(8,)",torch.float32,cpu,94792447890304,0,32,32,32,,0
+DirBridge,cpu,after5,state.oracle_features[2],method_owned,tensor,"(8,)",torch.float32,cpu,94792447890432,0,32,32,32,,0
+DirBridge,cpu,after5,state.oracle_features[3],method_owned,tensor,"(8,)",torch.float32,cpu,94792447890624,0,32,32,32,,0
+DirBridge,cpu,after5,state.oracle_features[4],method_owned,tensor,"(8,)",torch.float32,cpu,94792447890752,0,32,32,32,,0
+DirBridge,cpu,after5,state.oracle_features[5],method_owned,tensor,"(8,)",torch.float32,cpu,94792447890944,0,32,32,32,,0
+DirBridge,cpu,after5,state.arrival_count,method_owned,list_metadata,,,,,,0,0,0,,104
+DirBridge,cpu,after5,state.e2_client_last_arrival,method_owned,list_metadata,,,,,,0,0,0,,104
+DirBridge,cpu,after5,state.e2_oracle_weights,method_owned,list_metadata,,,,,,0,0,0,,72
+DirBridge,cpu,after5,state.prev_rebuild_centroids,method_owned,tensor,"(2, 8)",torch.float32,cpu,94792447746304,0,64,64,64,,0
+DirBridge,cpu,after5,state.prev_rebuild_group_ids,method_owned,list_metadata,,,,,,0,0,0,,104
+FADAS,cpu,init,state.net_glob.weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792447300096,0,32,32,32,,0
+FADAS,cpu,init,state.w_glob.weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792446719168,0,32,32,32,,0
+FADAS,cpu,init,state.dataset_train,shared,list_metadata,,,,,,0,0,0,,104
+FADAS,cpu,init,state.dict_users.0,shared,list_metadata,,,,,,0,0,0,,64
+FADAS,cpu,init,state.dict_users.1,shared,list_metadata,,,,,,0,0,0,,64
+FADAS,cpu,init,state.dict_users.2,shared,list_metadata,,,,,,0,0,0,,64
+FADAS,cpu,init,state.dict_users.3,shared,list_metadata,,,,,,0,0,0,,64
+FADAS,cpu,init,state.dict_users.4,shared,list_metadata,,,,,,0,0,0,,64
+FADAS,cpu,init,state.dict_users.5,shared,list_metadata,,,,,,0,0,0,,64
+FADAS,cpu,init,state.num_samples,shared,list_metadata,,,,,,0,0,0,,104
+FADAS,cpu,init,state.delta,shared,list_metadata,,,,,,0,0,0,,120
+FADAS,cpu,init,state.delta[0].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792447274880,0,32,32,32,,0
+FADAS,cpu,init,state.delta[1].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792447889856,0,32,32,32,,0
+FADAS,cpu,init,state.delta[2].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792447756224,0,32,32,32,,0
+FADAS,cpu,init,state.delta[3].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792447753984,0,32,32,32,,0
+FADAS,cpu,init,state.delta[4].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792447249856,0,32,32,32,,0
+FADAS,cpu,init,state.delta[5].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792446866624,0,32,32,32,,0
+FADAS,cpu,init,state.stamp,shared,list_metadata,,,,,,0,0,0,,104
+FADAS,cpu,init,state.cost,shared,list_metadata,,,,,,0,0,0,,104
+FADAS,cpu,init,state.delays,shared,list_metadata,,,,,,0,0,0,,104
+FADAS,cpu,init,state.client_delay_groups,method_owned,list_metadata,,,,,,0,0,0,,104
+FADAS,cpu,init,state.client_delay_group_probs,method_owned,list_metadata,,,,,,0,0,0,,88
+FADAS,cpu,init,state.fadas_m.weight,method_owned,tensor,"(2, 4)",torch.float32,cpu,94792447755904,0,32,32,32,,0
+FADAS,cpu,init,state.fadas_v.weight,method_owned,tensor,"(2, 4)",torch.float32,cpu,94792448578176,0,32,32,32,,0
+FADAS,cpu,init,state.fadas_vhat.weight,method_owned,tensor,"(2, 4)",torch.float32,cpu,94792447236096,0,32,32,32,,0
+FADAS,cpu,after5,state.net_glob.weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792447300096,0,32,32,32,,0
+FADAS,cpu,after5,state.w_glob.weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792446719168,0,32,32,32,,0
+FADAS,cpu,after5,state.dataset_train,shared,list_metadata,,,,,,0,0,0,,104
+FADAS,cpu,after5,state.dict_users.0,shared,list_metadata,,,,,,0,0,0,,64
+FADAS,cpu,after5,state.dict_users.1,shared,list_metadata,,,,,,0,0,0,,64
+FADAS,cpu,after5,state.dict_users.2,shared,list_metadata,,,,,,0,0,0,,64
+FADAS,cpu,after5,state.dict_users.3,shared,list_metadata,,,,,,0,0,0,,64
+FADAS,cpu,after5,state.dict_users.4,shared,list_metadata,,,,,,0,0,0,,64
+FADAS,cpu,after5,state.dict_users.5,shared,list_metadata,,,,,,0,0,0,,64
+FADAS,cpu,after5,state.num_samples,shared,list_metadata,,,,,,0,0,0,,104
+FADAS,cpu,after5,state.delta,shared,list_metadata,,,,,,0,0,0,,120
+FADAS,cpu,after5,state.delta[0].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792447888896,0,32,32,32,,0
+FADAS,cpu,after5,state.delta[1].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792447167936,0,32,32,32,,0
+FADAS,cpu,after5,state.delta[2].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792446878912,0,32,32,32,,0
+FADAS,cpu,after5,state.delta[3].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792447166848,0,32,32,32,,0
+FADAS,cpu,after5,state.delta[4].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792447884544,0,32,32,32,,0
+FADAS,cpu,after5,state.delta[5].weight,shared,tensor,"(2, 4)",torch.float32,cpu,94792446922688,0,32,32,32,,0
+FADAS,cpu,after5,state.stamp,shared,list_metadata,,,,,,0,0,0,,104
+FADAS,cpu,after5,state.cost,shared,list_metadata,,,,,,0,0,0,,104
+FADAS,cpu,after5,state.delays,shared,list_metadata,,,,,,0,0,0,,104
+FADAS,cpu,after5,state.last_buffer_list,shared,list_metadata,,,,,,0,0,0,,72
+FADAS,cpu,after5,state.last_valid_buffer_list,shared,list_metadata,,,,,,0,0,0,,72
+FADAS,cpu,after5,state.last_invalid_buffer_list,shared,list_metadata,,,,,,0,0,0,,56
+FADAS,cpu,after5,state.last_selected_item_summary,shared,list_metadata,,,,,,0,0,0,,56
+FADAS,cpu,after5,state.client_delay_groups,method_owned,list_metadata,,,,,,0,0,0,,104
+FADAS,cpu,after5,state.client_delay_group_probs,method_owned,list_metadata,,,,,,0,0,0,,88
+FADAS,cpu,after5,state.fadas_m.weight,method_owned,tensor,"(2, 4)",torch.float32,cpu,94792447755904,0,32,32,32,,0
+FADAS,cpu,after5,state.fadas_v.weight,method_owned,tensor,"(2, 4)",torch.float32,cpu,94792448578176,0,32,32,32,,0
+FADAS,cpu,after5,state.fadas_vhat.weight,method_owned,tensor,"(2, 4)",torch.float32,cpu,94792446882368,0,32,32,32,,0
+FedBuff,cuda,init,state.net_glob.weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052449792,0,32,32,32,,0
+FedBuff,cuda,init,state.w_glob.weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052450304,0,32,32,32,,0
+FedBuff,cuda,init,state.dataset_train,shared,list_metadata,,,,,,0,0,0,,104
+FedBuff,cuda,init,state.dict_users.0,shared,list_metadata,,,,,,0,0,0,,64
+FedBuff,cuda,init,state.dict_users.1,shared,list_metadata,,,,,,0,0,0,,64
+FedBuff,cuda,init,state.dict_users.2,shared,list_metadata,,,,,,0,0,0,,64
+FedBuff,cuda,init,state.dict_users.3,shared,list_metadata,,,,,,0,0,0,,64
+FedBuff,cuda,init,state.dict_users.4,shared,list_metadata,,,,,,0,0,0,,64
+FedBuff,cuda,init,state.dict_users.5,shared,list_metadata,,,,,,0,0,0,,64
+FedBuff,cuda,init,state.num_samples,shared,list_metadata,,,,,,0,0,0,,104
+FedBuff,cuda,init,state.delta,shared,list_metadata,,,,,,0,0,0,,120
+FedBuff,cuda,init,state.delta[0].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052454400,0,32,32,32,,0
+FedBuff,cuda,init,state.delta[1].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052451328,0,32,32,32,,0
+FedBuff,cuda,init,state.delta[2].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052453376,0,32,32,32,,0
+FedBuff,cuda,init,state.delta[3].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052452352,0,32,32,32,,0
+FedBuff,cuda,init,state.delta[4].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052453888,0,32,32,32,,0
+FedBuff,cuda,init,state.delta[5].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052454912,0,32,32,32,,0
+FedBuff,cuda,init,state.stamp,shared,list_metadata,,,,,,0,0,0,,104
+FedBuff,cuda,init,state.cost,shared,list_metadata,,,,,,0,0,0,,104
+FedBuff,cuda,init,state.client_delay_groups,method_owned,list_metadata,,,,,,0,0,0,,104
+FedBuff,cuda,init,state.client_delay_group_probs,method_owned,list_metadata,,,,,,0,0,0,,88
+FedBuff,cuda,after5,state.net_glob.weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052449792,0,32,32,32,,0
+FedBuff,cuda,after5,state.w_glob.weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052450304,0,32,32,32,,0
+FedBuff,cuda,after5,state.dataset_train,shared,list_metadata,,,,,,0,0,0,,104
+FedBuff,cuda,after5,state.dict_users.0,shared,list_metadata,,,,,,0,0,0,,64
+FedBuff,cuda,after5,state.dict_users.1,shared,list_metadata,,,,,,0,0,0,,64
+FedBuff,cuda,after5,state.dict_users.2,shared,list_metadata,,,,,,0,0,0,,64
+FedBuff,cuda,after5,state.dict_users.3,shared,list_metadata,,,,,,0,0,0,,64
+FedBuff,cuda,after5,state.dict_users.4,shared,list_metadata,,,,,,0,0,0,,64
+FedBuff,cuda,after5,state.dict_users.5,shared,list_metadata,,,,,,0,0,0,,64
+FedBuff,cuda,after5,state.num_samples,shared,list_metadata,,,,,,0,0,0,,104
+FedBuff,cuda,after5,state.delta,shared,list_metadata,,,,,,0,0,0,,120
+FedBuff,cuda,after5,state.delta[0].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052454912,0,32,32,32,,0
+FedBuff,cuda,after5,state.delta[1].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052452352,0,32,32,32,,0
+FedBuff,cuda,after5,state.delta[2].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052452864,0,32,32,32,,0
+FedBuff,cuda,after5,state.delta[3].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052453888,0,32,32,32,,0
+FedBuff,cuda,after5,state.delta[4].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052455424,0,32,32,32,,0
+FedBuff,cuda,after5,state.delta[5].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052454400,0,32,32,32,,0
+FedBuff,cuda,after5,state.stamp,shared,list_metadata,,,,,,0,0,0,,104
+FedBuff,cuda,after5,state.cost,shared,list_metadata,,,,,,0,0,0,,104
+FedBuff,cuda,after5,state.last_buffer_list,shared,list_metadata,,,,,,0,0,0,,72
+FedBuff,cuda,after5,state.last_valid_buffer_list,shared,list_metadata,,,,,,0,0,0,,72
+FedBuff,cuda,after5,state.last_invalid_buffer_list,shared,list_metadata,,,,,,0,0,0,,56
+FedBuff,cuda,after5,state.last_selected_item_summary,shared,list_metadata,,,,,,0,0,0,,56
+FedBuff,cuda,after5,state.client_delay_groups,method_owned,list_metadata,,,,,,0,0,0,,104
+FedBuff,cuda,after5,state.client_delay_group_probs,method_owned,list_metadata,,,,,,0,0,0,,88
+CA2FL,cuda,init,state.net_glob.weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052449792,0,32,32,32,,0
+CA2FL,cuda,init,state.w_glob.weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052450304,0,32,32,32,,0
+CA2FL,cuda,init,state.dataset_train,shared,list_metadata,,,,,,0,0,0,,104
+CA2FL,cuda,init,state.dict_users.0,shared,list_metadata,,,,,,0,0,0,,64
+CA2FL,cuda,init,state.dict_users.1,shared,list_metadata,,,,,,0,0,0,,64
+CA2FL,cuda,init,state.dict_users.2,shared,list_metadata,,,,,,0,0,0,,64
+CA2FL,cuda,init,state.dict_users.3,shared,list_metadata,,,,,,0,0,0,,64
+CA2FL,cuda,init,state.dict_users.4,shared,list_metadata,,,,,,0,0,0,,64
+CA2FL,cuda,init,state.dict_users.5,shared,list_metadata,,,,,,0,0,0,,64
+CA2FL,cuda,init,state.num_samples,shared,list_metadata,,,,,,0,0,0,,104
+CA2FL,cuda,init,state.delta,shared,list_metadata,,,,,,0,0,0,,120
+CA2FL,cuda,init,state.delta[0].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052457984,0,32,32,32,,0
+CA2FL,cuda,init,state.delta[1].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052451328,0,32,32,32,,0
+CA2FL,cuda,init,state.delta[2].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052453376,0,32,32,32,,0
+CA2FL,cuda,init,state.delta[3].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052452352,0,32,32,32,,0
+CA2FL,cuda,init,state.delta[4].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052457472,0,32,32,32,,0
+CA2FL,cuda,init,state.delta[5].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052458496,0,32,32,32,,0
+CA2FL,cuda,init,state.cost,shared,list_metadata,,,,,,0,0,0,,120
+CA2FL,cuda,init,state.client_delay_groups,method_owned,list_metadata,,,,,,0,0,0,,104
+CA2FL,cuda,init,state.client_delay_group_probs,method_owned,list_metadata,,,,,,0,0,0,,88
+CA2FL,cuda,init,state.cache,method_owned,list_metadata,,,,,,0,0,0,,120
+CA2FL,cuda,init,state.cache[0].weight,method_owned,tensor,"(2, 4)",torch.float32,cuda:0,139915052453888,0,32,32,32,,0
+CA2FL,cuda,init,state.cache[1].weight,method_owned,tensor,"(2, 4)",torch.float32,cuda:0,139915052454400,0,32,32,32,,0
+CA2FL,cuda,init,state.cache[2].weight,method_owned,tensor,"(2, 4)",torch.float32,cuda:0,139915052454912,0,32,32,32,,0
+CA2FL,cuda,init,state.cache[3].weight,method_owned,tensor,"(2, 4)",torch.float32,cuda:0,139915052455424,0,32,32,32,,0
+CA2FL,cuda,init,state.cache[4].weight,method_owned,tensor,"(2, 4)",torch.float32,cuda:0,139915052455936,0,32,32,32,,0
+CA2FL,cuda,init,state.cache[5].weight,method_owned,tensor,"(2, 4)",torch.float32,cuda:0,139915052456448,0,32,32,32,,0
+CA2FL,cuda,init,state.cache_mean.weight,method_owned,tensor,"(2, 4)",torch.float32,cuda:0,139915052456960,0,32,32,32,,0
+CA2FL,cuda,after5,state.net_glob.weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052449792,0,32,32,32,,0
+CA2FL,cuda,after5,state.w_glob.weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052450304,0,32,32,32,,0
+CA2FL,cuda,after5,state.dataset_train,shared,list_metadata,,,,,,0,0,0,,104
+CA2FL,cuda,after5,state.dict_users.0,shared,list_metadata,,,,,,0,0,0,,64
+CA2FL,cuda,after5,state.dict_users.1,shared,list_metadata,,,,,,0,0,0,,64
+CA2FL,cuda,after5,state.dict_users.2,shared,list_metadata,,,,,,0,0,0,,64
+CA2FL,cuda,after5,state.dict_users.3,shared,list_metadata,,,,,,0,0,0,,64
+CA2FL,cuda,after5,state.dict_users.4,shared,list_metadata,,,,,,0,0,0,,64
+CA2FL,cuda,after5,state.dict_users.5,shared,list_metadata,,,,,,0,0,0,,64
+CA2FL,cuda,after5,state.num_samples,shared,list_metadata,,,,,,0,0,0,,104
+CA2FL,cuda,after5,state.delta,shared,list_metadata,,,,,,0,0,0,,120
+CA2FL,cuda,after5,state.delta[0].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052455936,0,32,32,32,,0
+CA2FL,cuda,after5,state.delta[1].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052457984,0,32,32,32,,0
+CA2FL,cuda,after5,state.delta[2].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052451840,0,32,32,32,,0
+CA2FL,cuda,after5,state.delta[3].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052456448,0,32,32,32,,0
+CA2FL,cuda,after5,state.delta[4].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052454400,0,32,32,32,,0
+CA2FL,cuda,after5,state.delta[5].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052455424,0,32,32,32,,0
+CA2FL,cuda,after5,state.cost,shared,list_metadata,,,,,,0,0,0,,120
+CA2FL,cuda,after5,state.last_buffer_list,shared,list_metadata,,,,,,0,0,0,,72
+CA2FL,cuda,after5,state.last_valid_buffer_list,shared,list_metadata,,,,,,0,0,0,,72
+CA2FL,cuda,after5,state.last_invalid_buffer_list,shared,list_metadata,,,,,,0,0,0,,56
+CA2FL,cuda,after5,state.last_selected_item_summary,shared,list_metadata,,,,,,0,0,0,,56
+CA2FL,cuda,after5,state.client_delay_groups,method_owned,list_metadata,,,,,,0,0,0,,104
+CA2FL,cuda,after5,state.client_delay_group_probs,method_owned,list_metadata,,,,,,0,0,0,,88
+CA2FL,cuda,after5,state.cache,method_owned,list_metadata,,,,,,0,0,0,,120
+CA2FL,cuda,after5,state.cache[0].weight,method_owned,tensor,"(2, 4)",torch.float32,cuda:0,139915052455936,0,32,32,0,state.delta[0].weight,0
+CA2FL,cuda,after5,state.cache[1].weight,method_owned,tensor,"(2, 4)",torch.float32,cuda:0,139915052451328,0,32,32,32,,0
+CA2FL,cuda,after5,state.cache[2].weight,method_owned,tensor,"(2, 4)",torch.float32,cuda:0,139915052451840,0,32,32,0,state.delta[2].weight,0
+CA2FL,cuda,after5,state.cache[3].weight,method_owned,tensor,"(2, 4)",torch.float32,cuda:0,139915052453888,0,32,32,32,,0
+CA2FL,cuda,after5,state.cache[4].weight,method_owned,tensor,"(2, 4)",torch.float32,cuda:0,139915052457472,0,32,32,32,,0
+CA2FL,cuda,after5,state.cache[5].weight,method_owned,tensor,"(2, 4)",torch.float32,cuda:0,139915052458496,0,32,32,32,,0
+CA2FL,cuda,after5,state.cache_mean.weight,method_owned,tensor,"(2, 4)",torch.float32,cuda:0,139915052456960,0,32,32,32,,0
+DirBridge,cuda,init,state.net_glob.weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052449792,0,32,32,32,,0
+DirBridge,cuda,init,state.w_glob.weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052450304,0,32,32,32,,0
+DirBridge,cuda,init,state.dataset_train,shared,list_metadata,,,,,,0,0,0,,104
+DirBridge,cuda,init,state.dict_users.0,shared,list_metadata,,,,,,0,0,0,,64
+DirBridge,cuda,init,state.dict_users.1,shared,list_metadata,,,,,,0,0,0,,64
+DirBridge,cuda,init,state.dict_users.2,shared,list_metadata,,,,,,0,0,0,,64
+DirBridge,cuda,init,state.dict_users.3,shared,list_metadata,,,,,,0,0,0,,64
+DirBridge,cuda,init,state.dict_users.4,shared,list_metadata,,,,,,0,0,0,,64
+DirBridge,cuda,init,state.dict_users.5,shared,list_metadata,,,,,,0,0,0,,64
+DirBridge,cuda,init,state.num_samples,shared,list_metadata,,,,,,0,0,0,,104
+DirBridge,cuda,init,state.delta,shared,list_metadata,,,,,,0,0,0,,120
+DirBridge,cuda,init,state.delta[0].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052455936,0,32,32,32,,0
+DirBridge,cuda,init,state.delta[1].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052455424,0,32,32,32,,0
+DirBridge,cuda,init,state.delta[2].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052451328,0,32,32,32,,0
+DirBridge,cuda,init,state.delta[3].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052454912,0,32,32,32,,0
+DirBridge,cuda,init,state.delta[4].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052452352,0,32,32,32,,0
+DirBridge,cuda,init,state.delta[5].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052452864,0,32,32,32,,0
+DirBridge,cuda,init,state.stamp,shared,list_metadata,,,,,,0,0,0,,104
+DirBridge,cuda,init,state.cost,shared,list_metadata,,,,,,0,0,0,,104
+DirBridge,cuda,init,state.delays,shared,list_metadata,,,,,,0,0,0,,104
+DirBridge,cuda,init,state.client_delay_groups,method_owned,list_metadata,,,,,,0,0,0,,104
+DirBridge,cuda,init,state.client_delay_group_probs,method_owned,list_metadata,,,,,,0,0,0,,88
+DirBridge,cuda,init,state.group_ids,method_owned,list_metadata,,,,,,0,0,0,,104
+DirBridge,cuda,init,state.count_sketch_plan,method_owned,list_metadata,,,,,,0,0,0,,88
+DirBridge,cuda,init,state.count_sketch_plan[0],method_owned,tuple_metadata,,,,,,0,0,0,,64
+DirBridge,cuda,init,state.count_sketch_plan[0][1],method_owned,tensor,"(8,)",torch.int64,cpu,94512644663872,0,64,64,64,,0
+DirBridge,cuda,init,state.count_sketch_plan[0][2],method_owned,tensor,"(8,)",torch.int8,cpu,94512644673984,0,8,8,8,,0
+DirBridge,cuda,init,state.group_centroids,method_owned,tensor,"(2, 8)",torch.float32,cpu,94512644731904,0,64,64,64,,0
+DirBridge,cuda,init,state.group_cache,method_owned,list_metadata,,,,,,0,0,0,,88
+DirBridge,cuda,init,state.group_cache[0].weight,method_owned,tensor,"(2, 4)",torch.float32,cuda:0,139915052450816,0,32,32,32,,0
+DirBridge,cuda,init,state.group_cache[1].weight,method_owned,tensor,"(2, 4)",torch.float32,cuda:0,139915052451840,0,32,32,32,,0
+DirBridge,cuda,init,state.group_cache_stamp,method_owned,list_metadata,,,,,,0,0,0,,72
+DirBridge,cuda,init,state.group_cache_delay,method_owned,list_metadata,,,,,,0,0,0,,72
+DirBridge,cuda,init,state.group_members,method_owned,list_metadata,,,,,,0,0,0,,88
+DirBridge,cuda,init,state.group_members[0],method_owned,list_metadata,,,,,,0,0,0,,120
+DirBridge,cuda,init,state.group_members[1],method_owned,list_metadata,,,,,,0,0,0,,56
+DirBridge,cuda,init,state.group_counts,method_owned,list_metadata,,,,,,0,0,0,,72
+DirBridge,cuda,init,state.group_weights,method_owned,list_metadata,,,,,,0,0,0,,72
+DirBridge,cuda,init,state.client_features,method_owned,list_metadata,,,,,,0,0,0,,104
+DirBridge,cuda,init,state.client_features[0],method_owned,tensor,"(8,)",torch.float32,cpu,94512644706432,0,32,32,32,,0
+DirBridge,cuda,init,state.client_features[1],method_owned,tensor,"(8,)",torch.float32,cpu,94512644708032,0,32,32,32,,0
+DirBridge,cuda,init,state.client_features[2],method_owned,tensor,"(8,)",torch.float32,cpu,94512644709696,0,32,32,32,,0
+DirBridge,cuda,init,state.client_features[3],method_owned,tensor,"(8,)",torch.float32,cpu,94512644711424,0,32,32,32,,0
+DirBridge,cuda,init,state.client_features[4],method_owned,tensor,"(8,)",torch.float32,cpu,94512644713088,0,32,32,32,,0
+DirBridge,cuda,init,state.client_features[5],method_owned,tensor,"(8,)",torch.float32,cpu,94512644714880,0,32,32,32,,0
+DirBridge,cuda,init,state.inflight.5.delta.weight,method_owned,tensor,"(2, 4)",torch.float32,cuda:0,139915052452864,0,32,32,0,state.delta[5].weight,0
+DirBridge,cuda,init,state.inflight.5.feature,method_owned,tensor,"(8,)",torch.float32,cpu,94512644714880,0,32,32,0,state.client_features[5],0
+DirBridge,cuda,init,state.inflight.0.delta.weight,method_owned,tensor,"(2, 4)",torch.float32,cuda:0,139915052455936,0,32,32,0,state.delta[0].weight,0
+DirBridge,cuda,init,state.inflight.0.feature,method_owned,tensor,"(8,)",torch.float32,cpu,94512644706432,0,32,32,0,state.client_features[0],0
+DirBridge,cuda,init,state.inflight.4.delta.weight,method_owned,tensor,"(2, 4)",torch.float32,cuda:0,139915052452352,0,32,32,0,state.delta[4].weight,0
+DirBridge,cuda,init,state.inflight.4.feature,method_owned,tensor,"(8,)",torch.float32,cpu,94512644713088,0,32,32,0,state.client_features[4],0
+DirBridge,cuda,init,state.inflight.2.delta.weight,method_owned,tensor,"(2, 4)",torch.float32,cuda:0,139915052451328,0,32,32,0,state.delta[2].weight,0
+DirBridge,cuda,init,state.inflight.2.feature,method_owned,tensor,"(8,)",torch.float32,cpu,94512644709696,0,32,32,0,state.client_features[2],0
+DirBridge,cuda,init,state.client_embeds,method_owned,list_metadata,,,,,,0,0,0,,104
+DirBridge,cuda,init,state.client_embeds[0],method_owned,tensor,"(8,)",torch.float32,cpu,94512644723456,0,32,32,32,,0
+DirBridge,cuda,init,state.client_embeds[1],method_owned,tensor,"(8,)",torch.float32,cpu,94512644725568,0,32,32,32,,0
+DirBridge,cuda,init,state.client_embeds[2],method_owned,tensor,"(8,)",torch.float32,cpu,94512644732416,0,32,32,32,,0
+DirBridge,cuda,init,state.client_embeds[3],method_owned,tensor,"(8,)",torch.float32,cpu,94512644732608,0,32,32,32,,0
+DirBridge,cuda,init,state.client_embeds[4],method_owned,tensor,"(8,)",torch.float32,cpu,94512644732736,0,32,32,32,,0
+DirBridge,cuda,init,state.client_embeds[5],method_owned,tensor,"(8,)",torch.float32,cpu,94512644732928,0,32,32,32,,0
+DirBridge,cuda,init,state.oracle_features,method_owned,list_metadata,,,,,,0,0,0,,104
+DirBridge,cuda,init,state.oracle_features[0],method_owned,tensor,"(8,)",torch.float32,cpu,94512644715008,0,32,32,32,,0
+DirBridge,cuda,init,state.oracle_features[1],method_owned,tensor,"(8,)",torch.float32,cpu,94512644715200,0,32,32,32,,0
+DirBridge,cuda,init,state.oracle_features[2],method_owned,tensor,"(8,)",torch.float32,cpu,94512644715328,0,32,32,32,,0
+DirBridge,cuda,init,state.oracle_features[3],method_owned,tensor,"(8,)",torch.float32,cpu,94512644715520,0,32,32,32,,0
+DirBridge,cuda,init,state.oracle_features[4],method_owned,tensor,"(8,)",torch.float32,cpu,94512644715648,0,32,32,32,,0
+DirBridge,cuda,init,state.oracle_features[5],method_owned,tensor,"(8,)",torch.float32,cpu,94512644716032,0,32,32,32,,0
+DirBridge,cuda,init,state.arrival_count,method_owned,list_metadata,,,,,,0,0,0,,104
+DirBridge,cuda,init,state.e2_client_last_arrival,method_owned,list_metadata,,,,,,0,0,0,,104
+DirBridge,cuda,init,state.e2_oracle_weights,method_owned,list_metadata,,,,,,0,0,0,,72
+DirBridge,cuda,init,state.prev_rebuild_centroids,method_owned,tensor,"(2, 8)",torch.float32,cpu,94512644737152,0,64,64,64,,0
+DirBridge,cuda,init,state.prev_rebuild_group_ids,method_owned,list_metadata,,,,,,0,0,0,,104
+DirBridge,cuda,after5,state.net_glob.weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052449792,0,32,32,32,,0
+DirBridge,cuda,after5,state.w_glob.weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052450304,0,32,32,32,,0
+DirBridge,cuda,after5,state.dataset_train,shared,list_metadata,,,,,,0,0,0,,104
+DirBridge,cuda,after5,state.dict_users.0,shared,list_metadata,,,,,,0,0,0,,64
+DirBridge,cuda,after5,state.dict_users.1,shared,list_metadata,,,,,,0,0,0,,64
+DirBridge,cuda,after5,state.dict_users.2,shared,list_metadata,,,,,,0,0,0,,64
+DirBridge,cuda,after5,state.dict_users.3,shared,list_metadata,,,,,,0,0,0,,64
+DirBridge,cuda,after5,state.dict_users.4,shared,list_metadata,,,,,,0,0,0,,64
+DirBridge,cuda,after5,state.dict_users.5,shared,list_metadata,,,,,,0,0,0,,64
+DirBridge,cuda,after5,state.num_samples,shared,list_metadata,,,,,,0,0,0,,104
+DirBridge,cuda,after5,state.delta,shared,list_metadata,,,,,,0,0,0,,120
+DirBridge,cuda,after5,state.delta[0].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052459008,0,32,32,32,,0
+DirBridge,cuda,after5,state.delta[1].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052455936,0,32,32,32,,0
+DirBridge,cuda,after5,state.delta[2].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052453888,0,32,32,32,,0
+DirBridge,cuda,after5,state.delta[3].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052456960,0,32,32,32,,0
+DirBridge,cuda,after5,state.delta[4].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052452352,0,32,32,32,,0
+DirBridge,cuda,after5,state.delta[5].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052452864,0,32,32,32,,0
+DirBridge,cuda,after5,state.stamp,shared,list_metadata,,,,,,0,0,0,,104
+DirBridge,cuda,after5,state.cost,shared,list_metadata,,,,,,0,0,0,,104
+DirBridge,cuda,after5,state.delays,shared,list_metadata,,,,,,0,0,0,,104
+DirBridge,cuda,after5,state.last_buffer_list,shared,list_metadata,,,,,,0,0,0,,72
+DirBridge,cuda,after5,state.last_selected_item_summary,shared,list_metadata,,,,,,0,0,0,,88
+DirBridge,cuda,after5,state.last_valid_buffer_list,shared,list_metadata,,,,,,0,0,0,,72
+DirBridge,cuda,after5,state.last_invalid_buffer_list,shared,list_metadata,,,,,,0,0,0,,56
+DirBridge,cuda,after5,state.client_delay_groups,method_owned,list_metadata,,,,,,0,0,0,,104
+DirBridge,cuda,after5,state.client_delay_group_probs,method_owned,list_metadata,,,,,,0,0,0,,88
+DirBridge,cuda,after5,state.group_ids,method_owned,list_metadata,,,,,,0,0,0,,104
+DirBridge,cuda,after5,state.count_sketch_plan,method_owned,list_metadata,,,,,,0,0,0,,88
+DirBridge,cuda,after5,state.count_sketch_plan[0],method_owned,tuple_metadata,,,,,,0,0,0,,64
+DirBridge,cuda,after5,state.count_sketch_plan[0][1],method_owned,tensor,"(8,)",torch.int64,cpu,94512644663872,0,64,64,64,,0
+DirBridge,cuda,after5,state.count_sketch_plan[0][2],method_owned,tensor,"(8,)",torch.int8,cpu,94512644673984,0,8,8,8,,0
+DirBridge,cuda,after5,state.group_centroids,method_owned,tensor,"(2, 8)",torch.float32,cpu,94512644831680,0,64,64,64,,0
+DirBridge,cuda,after5,state.group_cache,method_owned,list_metadata,,,,,,0,0,0,,88
+DirBridge,cuda,after5,state.group_cache[0].weight,method_owned,tensor,"(2, 4)",torch.float32,cuda:0,139915052459520,0,32,32,32,,0
+DirBridge,cuda,after5,state.group_cache[1].weight,method_owned,tensor,"(2, 4)",torch.float32,cuda:0,139915052450816,0,32,32,32,,0
+DirBridge,cuda,after5,state.group_cache_stamp,method_owned,list_metadata,,,,,,0,0,0,,72
+DirBridge,cuda,after5,state.group_cache_delay,method_owned,list_metadata,,,,,,0,0,0,,72
+DirBridge,cuda,after5,state.group_members,method_owned,list_metadata,,,,,,0,0,0,,88
+DirBridge,cuda,after5,state.group_members[0],method_owned,list_metadata,,,,,,0,0,0,,120
+DirBridge,cuda,after5,state.group_members[1],method_owned,list_metadata,,,,,,0,0,0,,56
+DirBridge,cuda,after5,state.group_counts,method_owned,list_metadata,,,,,,0,0,0,,72
+DirBridge,cuda,after5,state.group_weights,method_owned,list_metadata,,,,,,0,0,0,,72
+DirBridge,cuda,after5,state.client_features,method_owned,list_metadata,,,,,,0,0,0,,104
+DirBridge,cuda,after5,state.client_features[0],method_owned,tensor,"(8,)",torch.float32,cpu,94512644822080,0,32,32,32,,0
+DirBridge,cuda,after5,state.client_features[1],method_owned,tensor,"(8,)",torch.float32,cpu,94512644797120,0,32,32,32,,0
+DirBridge,cuda,after5,state.client_features[2],method_owned,tensor,"(8,)",torch.float32,cpu,94512644749120,0,32,32,32,,0
+DirBridge,cuda,after5,state.client_features[3],method_owned,tensor,"(8,)",torch.float32,cpu,94512644729856,0,32,32,32,,0
+DirBridge,cuda,after5,state.client_features[4],method_owned,tensor,"(8,)",torch.float32,cpu,94512644713088,0,32,32,32,,0
+DirBridge,cuda,after5,state.client_features[5],method_owned,tensor,"(8,)",torch.float32,cpu,94512644714880,0,32,32,32,,0
+DirBridge,cuda,after5,state.inflight.4.delta.weight,method_owned,tensor,"(2, 4)",torch.float32,cuda:0,139915052458496,0,32,32,32,,0
+DirBridge,cuda,after5,state.inflight.4.feature,method_owned,tensor,"(8,)",torch.float32,cpu,94512644799040,0,32,32,32,,0
+DirBridge,cuda,after5,state.inflight.5.delta.weight,method_owned,tensor,"(2, 4)",torch.float32,cuda:0,139915052457472,0,32,32,32,,0
+DirBridge,cuda,after5,state.inflight.5.feature,method_owned,tensor,"(8,)",torch.float32,cpu,94512644820032,0,32,32,32,,0
+DirBridge,cuda,after5,state.inflight.1.delta.weight,method_owned,tensor,"(2, 4)",torch.float32,cuda:0,139915052454912,0,32,32,32,,0
+DirBridge,cuda,after5,state.inflight.1.feature,method_owned,tensor,"(8,)",torch.float32,cpu,94512644840960,0,32,32,32,,0
+DirBridge,cuda,after5,state.inflight.3.delta.weight,method_owned,tensor,"(2, 4)",torch.float32,cuda:0,139915052455424,0,32,32,32,,0
+DirBridge,cuda,after5,state.inflight.3.feature,method_owned,tensor,"(8,)",torch.float32,cpu,94512644842816,0,32,32,32,,0
+DirBridge,cuda,after5,state.client_embeds,method_owned,list_metadata,,,,,,0,0,0,,104
+DirBridge,cuda,after5,state.client_embeds[0],method_owned,tensor,"(8,)",torch.float32,cpu,94512644823616,0,32,32,32,,0
+DirBridge,cuda,after5,state.client_embeds[1],method_owned,tensor,"(8,)",torch.float32,cpu,94512644825472,0,32,32,32,,0
+DirBridge,cuda,after5,state.client_embeds[2],method_owned,tensor,"(8,)",torch.float32,cpu,94512644832256,0,32,32,32,,0
+DirBridge,cuda,after5,state.client_embeds[3],method_owned,tensor,"(8,)",torch.float32,cpu,94512644832384,0,32,32,32,,0
+DirBridge,cuda,after5,state.client_embeds[4],method_owned,tensor,"(8,)",torch.float32,cpu,94512644832576,0,32,32,32,,0
+DirBridge,cuda,after5,state.client_embeds[5],method_owned,tensor,"(8,)",torch.float32,cpu,94512644832704,0,32,32,32,,0
+DirBridge,cuda,after5,state.oracle_features,method_owned,list_metadata,,,,,,0,0,0,,104
+DirBridge,cuda,after5,state.oracle_features[0],method_owned,tensor,"(8,)",torch.float32,cpu,94512644715008,0,32,32,32,,0
+DirBridge,cuda,after5,state.oracle_features[1],method_owned,tensor,"(8,)",torch.float32,cpu,94512644715200,0,32,32,32,,0
+DirBridge,cuda,after5,state.oracle_features[2],method_owned,tensor,"(8,)",torch.float32,cpu,94512644715328,0,32,32,32,,0
+DirBridge,cuda,after5,state.oracle_features[3],method_owned,tensor,"(8,)",torch.float32,cpu,94512644715520,0,32,32,32,,0
+DirBridge,cuda,after5,state.oracle_features[4],method_owned,tensor,"(8,)",torch.float32,cpu,94512644715648,0,32,32,32,,0
+DirBridge,cuda,after5,state.oracle_features[5],method_owned,tensor,"(8,)",torch.float32,cpu,94512644716032,0,32,32,32,,0
+DirBridge,cuda,after5,state.arrival_count,method_owned,list_metadata,,,,,,0,0,0,,104
+DirBridge,cuda,after5,state.e2_client_last_arrival,method_owned,list_metadata,,,,,,0,0,0,,104
+DirBridge,cuda,after5,state.e2_oracle_weights,method_owned,list_metadata,,,,,,0,0,0,,72
+DirBridge,cuda,after5,state.prev_rebuild_centroids,method_owned,tensor,"(2, 8)",torch.float32,cpu,94512644836864,0,64,64,64,,0
+DirBridge,cuda,after5,state.prev_rebuild_group_ids,method_owned,list_metadata,,,,,,0,0,0,,104
+FADAS,cuda,init,state.net_glob.weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052449792,0,32,32,32,,0
+FADAS,cuda,init,state.w_glob.weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052450304,0,32,32,32,,0
+FADAS,cuda,init,state.dataset_train,shared,list_metadata,,,,,,0,0,0,,104
+FADAS,cuda,init,state.dict_users.0,shared,list_metadata,,,,,,0,0,0,,64
+FADAS,cuda,init,state.dict_users.1,shared,list_metadata,,,,,,0,0,0,,64
+FADAS,cuda,init,state.dict_users.2,shared,list_metadata,,,,,,0,0,0,,64
+FADAS,cuda,init,state.dict_users.3,shared,list_metadata,,,,,,0,0,0,,64
+FADAS,cuda,init,state.dict_users.4,shared,list_metadata,,,,,,0,0,0,,64
+FADAS,cuda,init,state.dict_users.5,shared,list_metadata,,,,,,0,0,0,,64
+FADAS,cuda,init,state.num_samples,shared,list_metadata,,,,,,0,0,0,,104
+FADAS,cuda,init,state.delta,shared,list_metadata,,,,,,0,0,0,,120
+FADAS,cuda,init,state.delta[0].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052455936,0,32,32,32,,0
+FADAS,cuda,init,state.delta[1].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052451328,0,32,32,32,,0
+FADAS,cuda,init,state.delta[2].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052453376,0,32,32,32,,0
+FADAS,cuda,init,state.delta[3].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052452352,0,32,32,32,,0
+FADAS,cuda,init,state.delta[4].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052455424,0,32,32,32,,0
+FADAS,cuda,init,state.delta[5].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052456448,0,32,32,32,,0
+FADAS,cuda,init,state.stamp,shared,list_metadata,,,,,,0,0,0,,104
+FADAS,cuda,init,state.cost,shared,list_metadata,,,,,,0,0,0,,104
+FADAS,cuda,init,state.delays,shared,list_metadata,,,,,,0,0,0,,104
+FADAS,cuda,init,state.client_delay_groups,method_owned,list_metadata,,,,,,0,0,0,,104
+FADAS,cuda,init,state.client_delay_group_probs,method_owned,list_metadata,,,,,,0,0,0,,88
+FADAS,cuda,init,state.fadas_m.weight,method_owned,tensor,"(2, 4)",torch.float32,cuda:0,139915052453888,0,32,32,32,,0
+FADAS,cuda,init,state.fadas_v.weight,method_owned,tensor,"(2, 4)",torch.float32,cuda:0,139915052454400,0,32,32,32,,0
+FADAS,cuda,init,state.fadas_vhat.weight,method_owned,tensor,"(2, 4)",torch.float32,cuda:0,139915052454912,0,32,32,32,,0
+FADAS,cuda,after5,state.net_glob.weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052449792,0,32,32,32,,0
+FADAS,cuda,after5,state.w_glob.weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052450304,0,32,32,32,,0
+FADAS,cuda,after5,state.dataset_train,shared,list_metadata,,,,,,0,0,0,,104
+FADAS,cuda,after5,state.dict_users.0,shared,list_metadata,,,,,,0,0,0,,64
+FADAS,cuda,after5,state.dict_users.1,shared,list_metadata,,,,,,0,0,0,,64
+FADAS,cuda,after5,state.dict_users.2,shared,list_metadata,,,,,,0,0,0,,64
+FADAS,cuda,after5,state.dict_users.3,shared,list_metadata,,,,,,0,0,0,,64
+FADAS,cuda,after5,state.dict_users.4,shared,list_metadata,,,,,,0,0,0,,64
+FADAS,cuda,after5,state.dict_users.5,shared,list_metadata,,,,,,0,0,0,,64
+FADAS,cuda,after5,state.num_samples,shared,list_metadata,,,,,,0,0,0,,104
+FADAS,cuda,after5,state.delta,shared,list_metadata,,,,,,0,0,0,,120
+FADAS,cuda,after5,state.delta[0].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052451328,0,32,32,32,,0
+FADAS,cuda,after5,state.delta[1].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052455424,0,32,32,32,,0
+FADAS,cuda,after5,state.delta[2].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052452864,0,32,32,32,,0
+FADAS,cuda,after5,state.delta[3].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052456448,0,32,32,32,,0
+FADAS,cuda,after5,state.delta[4].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052456960,0,32,32,32,,0
+FADAS,cuda,after5,state.delta[5].weight,shared,tensor,"(2, 4)",torch.float32,cuda:0,139915052451840,0,32,32,32,,0
+FADAS,cuda,after5,state.stamp,shared,list_metadata,,,,,,0,0,0,,104
+FADAS,cuda,after5,state.cost,shared,list_metadata,,,,,,0,0,0,,104
+FADAS,cuda,after5,state.delays,shared,list_metadata,,,,,,0,0,0,,104
+FADAS,cuda,after5,state.last_buffer_list,shared,list_metadata,,,,,,0,0,0,,72
+FADAS,cuda,after5,state.last_valid_buffer_list,shared,list_metadata,,,,,,0,0,0,,72
+FADAS,cuda,after5,state.last_invalid_buffer_list,shared,list_metadata,,,,,,0,0,0,,56
+FADAS,cuda,after5,state.last_selected_item_summary,shared,list_metadata,,,,,,0,0,0,,56
+FADAS,cuda,after5,state.client_delay_groups,method_owned,list_metadata,,,,,,0,0,0,,104
+FADAS,cuda,after5,state.client_delay_group_probs,method_owned,list_metadata,,,,,,0,0,0,,88
+FADAS,cuda,after5,state.fadas_m.weight,method_owned,tensor,"(2, 4)",torch.float32,cuda:0,139915052453888,0,32,32,32,,0
+FADAS,cuda,after5,state.fadas_v.weight,method_owned,tensor,"(2, 4)",torch.float32,cuda:0,139915052454400,0,32,32,32,,0
+FADAS,cuda,after5,state.fadas_vhat.weight,method_owned,tensor,"(2, 4)",torch.float32,cuda:0,139915052452352,0,32,32,32,,0

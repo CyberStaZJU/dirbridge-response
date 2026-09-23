@@ -7,7 +7,7 @@
 - Worktree: dirty; uncommitted E1 validation implementation and local status/plan edits are present. They are outside this remaining-audit publication unless separately reviewed.
 - E2: completed and frozen; excluded from this task.
 - E1: validation-selected development matrices complete for CIFAR-10 and FEMNIST; no final five-seed evaluation launched in this task.
-- Remote Python: `/home/jczn2/.conda/envs/yibo/bin/python`; exact PyTorch/CUDA runtime version was not re-read in this resumed process.
+- Remote Python: `<REMOTE_PYTHON>`; exact PyTorch/CUDA runtime version was not re-read in this resumed process.
 - GPU: desktop GPU0 was available during the E1 FEMNIST run; current live allocation must be checked before any diagnostic launch.
 - E4 raw results/logs: external `$DIRBRIDGE_STATE_ROOT/e4_runs/profile_coupled_valid/fedscale_correct/{femnist,gspeech}`; accuracy, metrics, and scheduler logs are available.
 - E5 raw results/logs: external E5 CIFAR state tree used for the 65-run manifest; compact audit tables are in `revision_audit_non_e2/e5_final/`.

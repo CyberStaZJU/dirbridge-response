@@ -1,0 +1,17 @@
+method,run_device,phase,rss_bytes,cuda_allocated_bytes,cuda_reserved_bytes,cuda_max_allocated_bytes,cuda_max_reserved_bytes,peak_interval,sync
+FedBuff,cpu,init,520187904,,,,,reset before model/init,not applicable
+FedBuff,cpu,after5,520187904,,,,,reset before five events,not applicable
+CA2FL,cpu,init,520187904,,,,,reset before model/init,not applicable
+CA2FL,cpu,after5,520187904,,,,,reset before five events,not applicable
+DirBridge,cpu,init,526012416,,,,,reset before model/init,not applicable
+DirBridge,cpu,after5,528916480,,,,,reset before five events,not applicable
+FADAS,cpu,init,528916480,,,,,reset before model/init,not applicable
+FADAS,cpu,after5,528916480,,,,,reset before five events,not applicable
+FedBuff,cuda,init,693485568,4096,2097152,6144,2097152,reset before model/init,before reset and capture
+FedBuff,cuda,after5,708116480,4096,2097152,6656,2097152,reset before five events,before reset and capture
+CA2FL,cuda,init,708116480,7680,2097152,9728,2097152,reset before model/init,before reset and capture
+CA2FL,cuda,after5,708116480,6656,2097152,10240,2097152,reset before five events,before reset and capture
+DirBridge,cuda,init,713256960,5120,2097152,7168,2097152,reset before model/init,before reset and capture
+DirBridge,cuda,after5,714903552,7168,2097152,11264,2097152,reset before five events,before reset and capture
+FADAS,cuda,init,714903552,5632,2097152,7680,2097152,reset before model/init,before reset and capture
+FADAS,cuda,after5,831639552,5632,2097152,8192,2097152,reset before five events,before reset and capture

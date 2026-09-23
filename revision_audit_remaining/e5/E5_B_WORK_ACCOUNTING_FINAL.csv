@@ -1,0 +1,26 @@
+config,seed,B,threshold_rule_or_fixed,server_rounds,returned_updates_protocol_derived,accepted_valid_updates,simulated_wall_time,final_accuracy,tail10,status
+default_B10K7ds2048,1,10,rule,500,5000,NA,508.567047333,47.4000015259,48.1950000763,accepted-valid not logged; returned updates derived as B*t; exploratory fixed-server-round accounting
+default_B10K7ds2048,2,10,rule,500,5000,NA,506.562182707,45.7999992371,47.0039997101,accepted-valid not logged; returned updates derived as B*t; exploratory fixed-server-round accounting
+default_B10K7ds2048,3,10,rule,500,5000,NA,543.378246319,47.7700004578,48.1840003967,accepted-valid not logged; returned updates derived as B*t; exploratory fixed-server-round accounting
+default_B10K7ds2048,4,10,rule,500,5000,NA,517.880738893,48.4500007629,47.3819999695,accepted-valid not logged; returned updates derived as B*t; exploratory fixed-server-round accounting
+default_B10K7ds2048,5,10,rule,500,5000,NA,507.413112063,46.1300010681,46.3519996643,accepted-valid not logged; returned updates derived as B*t; exploratory fixed-server-round accounting
+B5_rule,1,5,rule:8,500,2500,NA,234.260914859,30.2999992371,31.8129995346,accepted-valid not logged; returned updates derived as B*t; exploratory fixed-server-round accounting
+B5_rule,2,5,rule:8,500,2500,NA,233.501138515,34.3699989319,31.545000267,accepted-valid not logged; returned updates derived as B*t; exploratory fixed-server-round accounting
+B5_rule,3,5,rule:8,500,2500,NA,252.432002336,34.5099983215,30.226999855,accepted-valid not logged; returned updates derived as B*t; exploratory fixed-server-round accounting
+B5_rule,4,5,rule:8,500,2500,NA,238.441981482,28.4799995422,30.4910003662,accepted-valid not logged; returned updates derived as B*t; exploratory fixed-server-round accounting
+B5_rule,5,5,rule:8,500,2500,NA,238.47300134,25.4200000763,23.3529996872,accepted-valid not logged; returned updates derived as B*t; exploratory fixed-server-round accounting
+B5_fixed,1,5,fixed:4,500,2500,NA,236.735562231,35.6300010681,36.736000061,accepted-valid not logged; returned updates derived as B*t; exploratory fixed-server-round accounting
+B5_fixed,2,5,fixed:4,500,2500,NA,233.046657443,38.6800003052,38.4759998322,accepted-valid not logged; returned updates derived as B*t; exploratory fixed-server-round accounting
+B5_fixed,3,5,fixed:4,500,2500,NA,251.689970825,36.4599990845,36.5579998016,accepted-valid not logged; returned updates derived as B*t; exploratory fixed-server-round accounting
+B5_fixed,4,5,fixed:4,500,2500,NA,239.572059911,38.8800010681,38.7180000305,accepted-valid not logged; returned updates derived as B*t; exploratory fixed-server-round accounting
+B5_fixed,5,5,fixed:4,500,2500,NA,238.667519173,34.6199989319,34.9169998169,accepted-valid not logged; returned updates derived as B*t; exploratory fixed-server-round accounting
+B20_rule,1,20,rule:2,500,10000,NA,1157.58725102,54.3100013733,54.3259994507,accepted-valid not logged; returned updates derived as B*t; exploratory fixed-server-round accounting
+B20_rule,2,20,rule:2,500,10000,NA,1145.91761543,53.7400016785,53.9480003357,accepted-valid not logged; returned updates derived as B*t; exploratory fixed-server-round accounting
+B20_rule,3,20,rule:2,500,10000,NA,1257.63978261,54.9300003052,55.2190002441,accepted-valid not logged; returned updates derived as B*t; exploratory fixed-server-round accounting
+B20_rule,4,20,rule:2,500,10000,NA,1181.32163989,54.1399993896,54.1240001678,accepted-valid not logged; returned updates derived as B*t; exploratory fixed-server-round accounting
+B20_rule,5,20,rule:2,500,10000,NA,1157.40553067,53.3699989319,53.1420001984,accepted-valid not logged; returned updates derived as B*t; exploratory fixed-server-round accounting
+B20_fixed,1,20,fixed:4,500,10000,NA,1154.70189182,54.5600013733,54.6259998322,accepted-valid not logged; returned updates derived as B*t; exploratory fixed-server-round accounting
+B20_fixed,2,20,fixed:4,500,10000,NA,1145.82591076,54.9099998474,54.7510005951,accepted-valid not logged; returned updates derived as B*t; exploratory fixed-server-round accounting
+B20_fixed,3,20,fixed:4,500,10000,NA,1245.30178716,54.9700012207,54.9739994049,accepted-valid not logged; returned updates derived as B*t; exploratory fixed-server-round accounting
+B20_fixed,4,20,fixed:4,500,10000,NA,1180.44673267,54.2599983215,53.9830001831,accepted-valid not logged; returned updates derived as B*t; exploratory fixed-server-round accounting
+B20_fixed,5,20,fixed:4,500,10000,NA,1151.14055919,54.2400016785,53.9520004272,accepted-valid not logged; returned updates derived as B*t; exploratory fixed-server-round accounting

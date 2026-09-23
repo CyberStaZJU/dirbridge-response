@@ -1,0 +1,9 @@
+method,field,ledger_sum,published,difference,result
+FedBuff,logical_bytes,40000,40000,0,PASS
+FedBuff,unique_physical_bytes,40000,40000,0,PASS
+CA2FL,logical_bytes,4040000,4040000,0,PASS
+CA2FL,unique_physical_bytes,4040000,4040000,0,PASS
+DirBridge,logical_bytes,1247400,1126400,121000,FAIL_EXPECTED
+DirBridge,unique_physical_bytes,1247400,1126400,121000,FAIL_EXPECTED
+FADAS,logical_bytes,120000,120000,0,PASS
+FADAS,unique_physical_bytes,120000,120000,0,PASS
