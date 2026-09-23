@@ -1,32 +1,27 @@
-# E1 final interpretation and confirmatory protocol
+# E1 confirmatory development result status
 
-## Existing E1 evidence
+## Execution status
 
-The historical E1 tuning is exploratory, not confirmatory. It used development seed 100 but selected configurations using tail-10 **test accuracy**. A different seed does not turn the test set into a validation set. Historical CIFAR command files contain 20 unique configurations per method; the FEMNIST command file contains 20 submitted entries per method in the intended design, but the broader audit found repeated effective configurations in other command sets. DirBridge retained previous defaults rather than receiving the same fresh search.
+The validation-path development matrix is complete for both principal settings:
 
-The existing formal CA2FL result is useful as a diagnosis of server-step sensitivity, not as a clean claim that a tuned baseline cannot compete. CA2FL with its original server step is a configuration-specific failure; the exposed server step substantially changes the observed behavior. FADAS low-step stalling and larger-step instability are empirical observations; the exact adaptive-state mechanism is not claimed beyond the recorded diagnostics.
+- CIFAR-10: 24/24 verified runs, 12 common learning-rate configurations × FedBuff/DirBridge;
+- FEMNIST: 24/24 verified runs, 12 common learning-rate configurations × FedBuff/DirBridge.
 
-## Confirmatory protocol now frozen as a plan
+Every run has 150 metric rows, return code 0, and a populated validation tail-10. The validation subset is derived from training data only; the test set is not used for configuration selection. The exact external run roots and source identity are recorded in the experiment handoff, while compact result tables are committed here.
 
-No new formal runs were launched in this task. A server-side validation split must first be constructed deterministically from training data only, with test data untouched and split indices recorded. The split must preserve the original client training task; if client-local splitting would materially alter the task, use a common server-side validation subset and document that choice.
+## Validation-selected configurations
 
-For each principal setting, FedBuff and DirBridge receive the same 12 local/server learning-rate configurations:
+| Setting | FedBuff | DirBridge |
+|---|---|---|
+| CIFAR-10 | local LR 0.03, server LR 0.5, validation tail-10 63.662 | local LR 0.03, server LR 0.5, validation tail-10 66.002 |
+| FEMNIST | local LR 0.05, server LR 1.0, validation tail-10 82.686 | local LR 0.05, server LR 1.0, validation tail-10 82.777 |
 
-```text
-local_lr ∈ {0.003, 0.01, 0.03, 0.05}
-server_lr ∈ {0.1, 0.5, 1.0}
-```
+The configurations are selected independently by validation tail-10 within the same 12-candidate grid. These are frozen development selections. They are not final test claims because the common five-seed evaluation has not yet been launched.
 
-Selection uses validation accuracy only on development seed(s). The selected configuration is then frozen and evaluated on five common seeds at 500 rounds. No evaluation-seed test accuracy is used to reselect a configuration.
+## Interpretation boundary
 
-CA2FL and FADAS require a separately approved equal-budget method-specific extension if they are included in the confirmatory comparison. They are not silently granted extra trials.
+The complete response surfaces show that server learning rate materially changes behavior and that several FedBuff settings are near chance, especially CIFAR-10 at server LR 1.0. Low accuracy is retained as an observed configuration outcome; it is not automatically labeled numerical collapse without corresponding health evidence.
 
-## Required work before formal execution
+At the validation-selection stage, DirBridge is higher by 2.340 points on CIFAR-10 and 0.091 points on FEMNIST. These are single-development-seed validation differences and must not be presented as significance or generalization. Final conclusions require the frozen five-seed evaluation.
 
-`E1_REQUIRED_RUNS.csv` enumerates the missing common-grid development runs. The file is a plan only: all rows are `planned_not_launched`. The confirmatory validation split is also not yet created, so no historical result is relabeled as validation-selected.
-
-The complete validation-selected test response surface, paired seed confidence intervals, and threshold sensitivity curve are intentionally marked unavailable until the protocol is executed. This is preferable to presenting test-guided historical tuning as a resolved fair comparison.
-
-## Claim boundary
-
-Current E1 evidence supports: baseline behavior is sensitive to server-step configuration; CA2FL's original near-chance behavior is not evidence of intrinsic incapacity; FADAS shows a measured stability/speed trade-off; and existing DirBridge gaps are conditional on the tested configurations. It does not support a confirmatory claim that DirBridge beats a uniformly and validation-tuned FedBuff.
+Historical E1 test-guided tuning remains exploratory and is not merged with this validation-selected surface.

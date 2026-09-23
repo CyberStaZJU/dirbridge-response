@@ -1,10 +1,28 @@
 {
-  "status": "not_yet_created",
-  "historical_protocol": "No independent validation split exists in the historical E1 runs.",
-  "selection_data": "test_set",
-  "selection_metric": "tail-10 test accuracy on development seed 100",
-  "test_set_touched_during_selection": true,
-  "confirmatory_policy": "Create a deterministic server-side validation subset from training data only, preserve client partitions, record indices, and never use evaluation-seed test accuracy for selection.",
-  "split_indices": null,
-  "reason": "This task produces the protocol and required-run plan; it does not silently launch a new confirmatory matrix."
+  "status": "created_and_used_in_verified_development_runs",
+  "datasets": {
+    "CIFAR-10": {
+      "source": "training split only",
+      "validation_fraction": 0.1,
+      "validation_seed": 20260922,
+      "selection_metric": "validation tail-10 accuracy",
+      "test_set_used_for_selection": false,
+      "runtime_note": "CIFAR smoke and 24 development runs used the validation path; exact runtime split manifest is retained in the external run root."
+    },
+    "FEMNIST": {
+      "source": "training split only",
+      "original_training_samples": 316238,
+      "validation_samples": 31624,
+      "retained_training_samples": 284614,
+      "all_clients_nonempty": true,
+      "minimum_retained_client_samples": 217,
+      "training_validation_overlap": 0,
+      "validation_seed": 20260922,
+      "selection_metric": "validation tail-10 accuracy",
+      "test_set_used_for_selection": false,
+      "cross_method_manifest_identical": true,
+      "exact_indices": "external run root split_test/ and per-job split manifests"
+    }
+  },
+  "final_evaluation": "not_started"
 }

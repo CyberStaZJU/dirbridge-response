@@ -1,7 +1,5 @@
-setting,method,selection_status,selected_local_lr,selected_server_lr,selection_metric,selection_data,evaluation_seeds,evaluation_rounds,notes
-CIFAR-10,FedBuff,not_selected,NA,NA,validation_accuracy,not_yet_created,1-5,500,requires confirmatory development grid
-CIFAR-10,DirBridge,not_selected,NA,NA,validation_accuracy,not_yet_created,1-5,500,requires confirmatory development grid
-FEMNIST,FedBuff,not_selected,NA,NA,validation_accuracy,not_yet_created,1-5,500,requires confirmatory development grid
-FEMNIST,DirBridge,not_selected,NA,NA,validation_accuracy,not_yet_created,1-5,500,requires confirmatory development grid
-CA2FL,FEMNIST,not_in_common_grid,NA,NA,validation_accuracy,not_yet_created,1-5,500,method-specific trial budget requires explicit approval
-FADAS,FEMNIST,not_in_common_grid,NA,NA,validation_accuracy,not_yet_created,1-5,500,method-specific trial budget requires explicit approval
+setting,method,selected_local_lr,selected_server_lr,validation_tail10,selection_status,final_evaluation_status
+CIFAR-10,FedBuff,0.03,0.5,63.662,validation_selected_from_12_grid,not_started
+CIFAR-10,DirBridge,0.03,0.5,66.002,validation_selected_from_12_grid,not_started
+FEMNIST,FedBuff,0.05,1.0,82.686,validation_selected_from_12_grid,not_started
+FEMNIST,DirBridge,0.05,1.0,82.777,validation_selected_from_12_grid,not_started
