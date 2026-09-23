@@ -268,6 +268,8 @@ def _add_optimization_args(parser):
     group.add_argument('--lr', type=float, default=0.01, help='local learning rate')
     group.add_argument('--global_lr', type=float, default=None, help='server/global learning rate')
     group.add_argument('--weight_decay', type=float, default=0.0, help='weight decay used by local SGD')
+    group.add_argument('--validation_fraction', type=float, default=0.0, help='server-side validation fraction drawn from training data')
+    group.add_argument('--validation_seed', type=int, default=0, help='seed for deterministic server-side validation indices')
 
 
 def _add_grouping_args(parser):

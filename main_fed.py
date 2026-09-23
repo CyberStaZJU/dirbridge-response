@@ -70,15 +70,18 @@ def configure_runtime(args):
 
 def build_training_state(args):
     init_start = time.perf_counter()
-    dataset_train, dataset_test, dict_users, num_samples, _ = build_dataset(args)
+    dataset_train, dataset_test, dict_users, num_samples, dataset_meta = build_dataset(args)
     net_glob, w_glob = build_model(args)
     state = {
         'net_glob': net_glob,
+        'dataset_meta': dataset_meta,
         'w_glob': w_glob,
         'dataset_train': dataset_train,
         'dict_users': dict_users,
         'num_samples': num_samples,
         'global_cost': 0,
+        'validation_dataset': dataset_meta.get('validation'),
+        'validation_indices': dataset_meta.get('validation_indices', []),
     }
     state = init_state(state, args)
     state['e2_init_time_sec'] = time.perf_counter() - init_start
@@ -200,6 +203,11 @@ def _system_metrics_fieldnames():
         'e2_online_bootstrap_time_sec',
         'e2_oracle_measurement_time_sec',
         'e2_init_cost_status',
+        'validation_accuracy',
+        'validation_loss',
+        'validation_loss_finite',
+        'validation_logits_finite',
+        'validation_predictions_valid',
     ]
 
 
@@ -281,6 +289,11 @@ def log_system_metrics(args, state, csv_path, train_start_time, round_runtime_se
         'e2_online_bootstrap_time_sec': state.get('e2_online_bootstrap_time_sec', ''),
         'e2_oracle_measurement_time_sec': state.get('e2_init_oracle_time_sec', ''),
         'e2_init_cost_status': state.get('e2_init_cost_status', 'not_measured'),
+        'validation_accuracy': state.get('last_validation_accuracy', ''),
+        'validation_loss': state.get('last_validation_loss', ''),
+        'validation_loss_finite': (state.get('last_validation_diagnostics') or {}).get('eval_loss_finite', ''),
+        'validation_logits_finite': (state.get('last_validation_diagnostics') or {}).get('eval_logits_finite', ''),
+        'validation_predictions_valid': (state.get('last_validation_diagnostics') or {}).get('eval_predictions_valid', ''),
     }
     with open(csv_path, 'a', newline='') as handle:
         writer = csv.DictWriter(handle, fieldnames=_system_metrics_fieldnames())
@@ -314,6 +327,18 @@ def log_evaluation(state, dataset_test, args, output_path):
     with open(output_path, 'a') as handle:
         handle.write(str(acc_test))
         handle.write('\n')
+    return acc_test, loss_test, diagnostics
+
+
+def log_validation_evaluation(state, args):
+    dataset = state.get('validation_dataset')
+    if dataset is None:
+        return {'accuracy': '', 'loss': '', 'diagnostics': {}}
+    accuracy, loss, diagnostics = evaluate_global_model(state, dataset, args)
+    state['last_validation_accuracy'] = accuracy
+    state['last_validation_loss'] = loss
+    state['last_validation_diagnostics'] = diagnostics
+    return {'accuracy': accuracy, 'loss': loss, 'diagnostics': diagnostics}
 
 
 def should_evaluate(state, args):
@@ -343,6 +368,8 @@ def run_training(
 
         if should_evaluate(state, args):
             log_evaluation(state, dataset_test, args, output_path)
+            if getattr(args, 'validation_fraction', 0.0):
+                log_validation_evaluation(state, args)
 
         # Evaluation diagnostics are written after the evaluation for the same
         # round, so the CSV row cannot be mistaken for the previous round.

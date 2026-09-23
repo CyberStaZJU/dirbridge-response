@@ -1,8 +1,11 @@
 # builders/dataset_builder.py
+import copy
 import json
 import os
 
 import numpy as np
+import torch
+from torch.utils.data import Subset
 
 from data_reader import femnist
 from data_reader.gspeech import FedScaleGSpeech
@@ -21,6 +24,34 @@ def _load_torchvision():
     except ImportError as exc:
         raise ImportError("Vision datasets require the optional package `torchvision`.") from exc
     return datasets, transforms
+
+
+def _remove_validation_from_clients(dict_users, validation_indices):
+    held_out = set(int(i) for i in validation_indices)
+    return {
+        int(client): np.asarray([int(i) for i in indices if int(i) not in held_out], dtype=np.int64)
+        for client, indices in dict_users.items()
+    }
+
+
+def _server_validation_subset(dataset_train, args, validation_transform=None):
+    fraction = float(getattr(args, 'validation_fraction', 0.0) or 0.0)
+    if fraction <= 0.0:
+        return None, []
+    if not 0.0 < fraction < 1.0:
+        raise ValueError('validation_fraction must be between 0 and 1')
+    count = max(1, int(round(len(dataset_train) * fraction)))
+    seed = int(getattr(args, 'validation_seed', 0))
+    generator = torch.Generator().manual_seed(seed)
+    perm = torch.randperm(len(dataset_train), generator=generator).tolist()
+    indices = sorted(perm[:count])
+    if hasattr(dataset_train, 'data') and hasattr(dataset_train, 'targets'):
+        validation_dataset = copy.copy(dataset_train)
+        validation_dataset.transform = copy.deepcopy(validation_transform if validation_transform is not None else getattr(dataset_train, 'transform', None))
+        validation_dataset.data = dataset_train.data[indices]
+        validation_dataset.targets = [dataset_train.targets[i] for i in indices]
+        return validation_dataset, indices
+    return Subset(dataset_train, indices), indices
 
 
 def _attach_dirichlet_direction_groups(dataset_train, dict_users, args):
@@ -185,8 +216,11 @@ def _build_cifar(args):
         transform=transforms.Compose([transforms.ToTensor(), normalize]),
     )
     dict_users = _partition_vision_dataset(dataset_train, args)
+    validation, validation_indices = _server_validation_subset(dataset_train, args, validation_transform=transforms.Compose([transforms.ToTensor(), normalize]))
+    if validation_indices:
+        dict_users = _remove_validation_from_clients(dict_users, validation_indices)
     num_samples = np.array([len(dict_users[i]) for i in dict_users])
-    return dataset_train, dataset_test, dict_users, num_samples, {"img_size": dataset_train[0][0].shape}
+    return dataset_train, dataset_test, dict_users, num_samples, {"img_size": dataset_train[0][0].shape, "validation": validation, "validation_indices": validation_indices}
 
 
 def _build_cifar100(args):
@@ -212,8 +246,11 @@ def _build_cifar100(args):
         transform=transforms.Compose([transforms.ToTensor(), normalize]),
     )
     dict_users = _partition_vision_dataset(dataset_train, args)
+    validation, validation_indices = _server_validation_subset(dataset_train, args, validation_transform=transforms.Compose([transforms.ToTensor(), normalize]))
+    if validation_indices:
+        dict_users = _remove_validation_from_clients(dict_users, validation_indices)
     num_samples = np.array([len(dict_users[i]) for i in dict_users])
-    return dataset_train, dataset_test, dict_users, num_samples, {"img_size": dataset_train[0][0].shape}
+    return dataset_train, dataset_test, dict_users, num_samples, {"img_size": dataset_train[0][0].shape, "validation": validation, "validation_indices": validation_indices}
 
 
 def _build_tinyimagenet(args):
@@ -273,6 +310,28 @@ def _build_femnist(args):
     if selected_client_ids is None:
         selected_client_ids = list(dataset_train.client_ids)
     args.num_users = len(selected_client_ids)
+    validation, validation_indices = _server_validation_subset(dataset_train, args)
+    if validation_indices:
+        dict_users = _remove_validation_from_clients(dict_users, validation_indices)
+        if any(len(indices) == 0 for indices in dict_users.values()):
+            raise ValueError('FEMNIST validation leaves an empty training client')
+        output_dir = os.path.abspath(args.output_dir)
+        os.makedirs(output_dir, exist_ok=True)
+        manifest = {
+            'dataset': 'femnist', 'source_split': 'train',
+            'data_path': data_path, 'validation_seed': args.validation_seed,
+            'validation_fraction': args.validation_fraction,
+            'sampling': 'torch.randperm',
+            'selected_client_ids': list(dataset_train.client_ids),
+            'validation_indices': validation_indices,
+            'training_indices_by_client': {
+                str(client): sorted(int(i) for i in indices)
+                for client, indices in dict_users.items()
+            },
+        }
+        manifest_path = os.path.join(output_dir, f'{args.run_tag}_validation_split.json')
+        with open(manifest_path, 'x') as handle:
+            json.dump(manifest, handle)
     num_samples = np.array([len(dict_users[i]) for i in range(args.num_users)])
     rc = getattr(args, 'random_cost', '')
     if rc in ('label_correlated_hierarchical', 'mild_label_correlated_hierarchical') or getattr(args, 'fedscale_profile_coupling', '') == 'label_group':
@@ -280,6 +339,8 @@ def _build_femnist(args):
     return dataset_train, dataset_test, dict_users, num_samples, {
         "img_size": dataset_train[0][0].shape,
         "selected_client_ids": selected_client_ids,
+        "validation": validation,
+        "validation_indices": validation_indices,
     }
 
 
