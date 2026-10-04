@@ -34,3 +34,11 @@
 - 完成新数据集后，再复核 CIFAR Dir-Skew 与 FEMNIST/GSpeech FedScale 主线是否仍可运行。
 - 建立本地 Git 仓库或关联远端后，做提交级一致性检查并记录 commit。
 
+
+
+## 2026-10-04 统一结果整理
+
+- 已将四算法正式结果整理到 `RESULTS_BN_ENDPOINT_REPAIR.md`。
+- 结果覆盖 CIFAR-10/CIFAR-100、alpha=0.1/0.5 和 seeds 1–5。
+- 报告省略批次代码身份，只保留统一实验维度和指标。
+- CA2FL 和 FADAS 的搜索过程表也已纳入报告。

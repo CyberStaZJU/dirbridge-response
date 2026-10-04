@@ -10,6 +10,16 @@ GitHub 公共仓库 `CyberStaZJU/dirbridge-artifact` 的公开结构与压缩包
 
 通过 SSH 检查了台式机 `$DIRBRIDGE_ROOT`。该目录不是 Git 仓库；其实际代码在 `$DIRBRIDGE_CODE_ROOT`，共有 67 个文件，并包含额外算法（如 FedAsync、FedAC、SAW、MASFL、OR-MO）、CelebA/GLUE 数据读取器、NPU 运行脚本和已有分析结果。它与 GitHub/压缩包不是同一版本或同一目录布局：台式机版本更大、功能更丰富，GitHub/压缩包则是经过整理的 61 文件 artifact 子集。因此结论是“三方不一致”，不能直接把任一版本当作另一版本的精确副本。
 
+## DirBridge BN endpoint repair 统一结果（2026-10-04）
+
+已整理 80 个正式实验，覆盖 CIFAR-10/CIFAR-100、alpha=0.1/0.5、FedBuff、DirBridge、CA2FL、FADAS 和 seeds 1–5。每个实验完成 500 rounds，统一使用 validation split（5000 samples，seed=20260922）和 `endpoint_mean` BatchNorm policy。
+
+- 统一 Markdown 报告：`RESULTS_BN_ENDPOINT_REPAIR.md`。
+- 统一结果按数据集、alpha、算法和 seed 展示。整理后的报告不保留批次代码身份。
+- CA2FL 搜索：12 个配置。FADAS 搜索：32 个配置。
+- 原始结果目录和外部审计证据保留在实验状态目录中。
+- 结果只表示 validation accuracy。它们不能直接表述为 test accuracy。
+
 ## 项目组成
 
 - 训练入口：`main_fed.py`。
