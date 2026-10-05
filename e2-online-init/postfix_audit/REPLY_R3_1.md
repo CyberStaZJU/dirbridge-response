@@ -1,37 +1,74 @@
 # Final reply to Reviewer 3, Comment 1
 
-We thank the reviewer for pointing out that the original DirBridge initialization procedure appeared to require a full pass over all clients before the asynchronous stream began. We separated online execution, population-weight estimation, and numerical-health reporting, then audited both controls.
+We thank the reviewer for this suggestion. It led us to separate three concerns
+that the original presentation conflated: whether DirBridge can begin without a
+full pass over all clients, how the population weights $(p_k)$ can be estimated
+online, and how latency bias in the observed stream affects such estimates. We
+report the main results in this reorganized form on CIFAR-100 with
+$\alpha=0.5$. All settings share the client partition, the delay process, the
+random seeds, and the training configuration (100 clients, concurrency
+$M_c=40$, buffer size $B=10$, ResNet, local/server learning rates $0.01/1.0$,
+$K_0=7$ direction groups, sketch dimension $d_s=2048$, reclustering interval
+$5$, $500$ rounds). Every online setting assigns a client to a direction group
+only after its asynchronous result becomes observable, and all reported accuracy
+traces are complete and finite over the 500 rounds.
 
-## Online execution and corrected event semantics
+## Main results without full-client initialization
 
-The repaired implementation keeps a dispatched client update and direction feature in private `state['inflight']` until the simulated arrival event. Only then are the delta, feature, group membership, cache, and weight state updated. The first online wave uses the same dispatch path as later waves. A result is materialized exactly once; duplicate materialization raises an error.
+| Setting | Final | Tail-10 | Tail-50 |
+|---|---:|---:|---:|
+| Full-warm reference (exact population weights) | $47.070 \pm 2.021$ | $47.269 \pm 1.164$ | $46.596 \pm 0.936$ |
+| Online, arrival-frequency weights | $47.458 \pm 2.173$ | $47.643 \pm 0.999$ | $46.349 \pm 0.665$ |
+| Online, unique-client weights | $47.928 \pm 0.327$ | $47.296 \pm 1.185$ | $46.463 \pm 0.812$ |
 
-We also corrected the interval-greater-than-one edge case: a newly arrived client is assigned immediately to the nearest existing centroid when a reclustering pass is not due. Membership, group counts, and current weight estimates are refreshed without forcing a full K-means pass. Deterministic regression tests cover in-flight isolation, first-wave materialization, non-reclustering arrivals, duplicate IDs, short buffers, missing references, oracle RNG isolation, and metrics persistence.
+The full-warm reference and the unique-client variant share one code identity;
+the arrival-frequency control was rerun under a repaired identity. All values
+are five-seed means $\pm$ sample SD in percent.
 
-## Completed A/D execution comparison
+## Oracle population weights versus online estimated weights
 
-We completed five-seed comparisons on CIFAR-100 with alpha 0.5, mild label-correlated hierarchical delays, 100 clients, concurrency 40, buffer 10, ResNet, local learning rate 0.01, server learning rate 1.0, K0=7, sketch dimension 2048, reclustering interval 5, and 500 rounds:
+The full-warm reference is precisely the oracle-weight setting. Observing the
+entire client population yields $p_k$ exactly, so its weight estimation error is
+zero by construction, and the implementation records a weight $L_1$ error of
+exactly $0$ whenever this path is exercised. The online unique-client variant is
+the estimated-weight setting. Across five seeds, the paired differences (online
+minus full-warm) are $+0.858$ percentage points for final accuracy with a $95\%$
+confidence interval of $[-1.571,+3.287]$, $+0.028$ for tail-10 accuracy with
+$[-1.301,+1.356]$, and $-0.132$ for tail-50 accuracy with $[-1.156,+0.891]$; all
+three intervals include zero. In this configuration, replacing exact population
+weights with the online estimator produces no clearly detected accuracy
+difference. This comparison couples the weight source with the initialization
+mode, which is inherent to the deployment scenario the reviewer describes:
+exact population weights presuppose having observed the entire population. The
+arrival-frequency control performs on par with the other settings in summary
+statistics; because it was run under the repaired code identity, we compare it
+without paired claims. These results support configuration-specific online
+operation. They do not establish strict equivalence, universal deployment
+behavior, or unbiasedness of the estimators, and the revised manuscript states
+these boundaries explicitly.
 
-- online initialization with unique observed-client weights;
-- same-code full-warm initialization with full-count weights.
+## How DirBridge handles latency bias in the observed stream
 
-The online and full-warm accuracy files all contain 500 finite values and the runs reached round 500 without traceback, out-of-memory, or killed-process evidence. The paired online-minus-full differences were +0.858 percentage points for final accuracy (95% CI [-1.571, +3.287]), +0.028 for tail-10 ([-1.301, +1.356]), and -0.132 for tail-50 ([-1.156, +0.891]). These results show no clearly detected accuracy difference under this configuration; they do not establish strict equivalence or unbiasedness.
+DirBridge does not assume that the latency-biased observed stream is an unbiased
+estimator of the population. If $r_k$ denotes the probability that an observed
+arrival belongs to direction group $k$, then, in general,
+$r_k \propto p_k \lambda_k$, where $\lambda_k$ is the group-dependent arrival
+rate; raw arrival frequencies recover the arrival mixture rather than the
+population mixture, and the arrival-frequency control in the table is precisely
+the setting that consumes them. The unique-client estimator removes one specific
+component of this bias---repeated arrivals of the same client no longer inflate
+its weight---while group-level latency bias within the already-observed set
+remains. We quantify the remaining finite-coverage uncertainty explicitly:
 
-## Completed B/C weight-source controls
+$$
+\big\lVert \widehat{p}-p \big\rVert_1 \;\leq\;
+2\left(1-\frac{N_{\mathrm{seen}}}{N}\right),
+$$
 
-We then completed the missing five-seed B/C comparison under the same configuration:
-
-- B: online + oracle;
-- C: online + arrival-frequency.
-
-B reached 8.522 ± 10.599% final accuracy and C reached 47.458 ± 2.173%. The paired B-minus-C differences were -38.936 percentage points for final accuracy, -39.102 for tail-10, and -35.890 for tail-50. However, four of five B seeds have non-finite final evaluation loss/logits, whereas all five C seeds have finite final evaluation loss/logits. The large B-C gap is therefore a numerically confounded diagnostic result, not evidence that oracle weights intrinsically harm optimization.
-
-The metric records confirm the intended semantics: B reports `e2_weight_source=oracle`, an available reference, and oracle L1 error 0.0; C reports `e2_weight_source=arrival_freq` and `reference_unavailable`. Arrival frequency is an arrival-mixture estimator, not a population-mixture oracle, and no unbiasedness claim is made.
-
-## Numerical-health qualification
-
-The historical A/D logs contain repeated `Test loss nan` records in both arms, beginning at rounds 2–3 and ending by rounds 24–52. The B arm additionally has severe evaluation-health failures in four of five seeds. The historical runs did not retain per-batch inputs/logits/losses, checkpoints, or BatchNorm snapshots, so the root cause cannot be identified retrospectively. Accuracy traces are retained as qualified prediction summaries; no claim of fully healthy finite training is made.
-
-## Final conclusion
-
-The completed experiments establish configuration-specific online execution without a full-client initialization pass and confirm that oracle and arrival-frequency controls are explicitly wired and measured without silent fallback. They do not establish universal deployment behavior, estimator unbiasedness, or a clean healthy oracle-versus-estimated accuracy effect. The completed B/C evidence and its numerical limitation are recorded in `RESULTS_BC_CURRENT.md`.
+where $N_{\mathrm{seen}}$ is the number of distinct observed clients and $N$ the
+total number of clients. The implementation separates group assignment from
+weight estimation, records the weight source of every run, and tracks
+$N_{\mathrm{seen}}$ so that this bound can be evaluated at any round.
+Accordingly, our revised claim is limited to configuration-specific online
+operation with explicit coverage-dependent uncertainty; the online estimator
+bounds and reports its own bias rather than assuming it away.
