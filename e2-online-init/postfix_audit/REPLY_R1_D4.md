@@ -33,12 +33,12 @@ per-unit-work advantage. Seed variance also shrinks monotonically with $B$
 
 ## Effect of distributions
 
-Yes---and we quantify this rather than leave it qualitative. Let $r_k$ denote
+Yes---and we quantify this rather than leave it qualitative. Let $a_k$ denote
 the probability that an arriving update belongs to direction group $k$; under
 approximately independent arrivals,
 
 $$
-\Pr(\text{group } k \text{ absent from the buffer}) \;\approx\; (1-r_k)^B,
+\Pr(\text{group } k \text{ absent from the buffer}) \;\approx\; (1-a_k)^B,
 $$
 
 so larger $B$ narrows the coverage gap for every group. The mechanism is

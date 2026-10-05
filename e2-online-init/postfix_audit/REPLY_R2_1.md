@@ -21,15 +21,15 @@ each entry states where the symbol is first used.
 | $G_k$ | Direction group $k$; defined at first use in Definition 1 before any later reference. (Sec. III) |
 | $p_k$ | Population mass of direction group $k$ over all $N$ clients. (Sec. III) |
 | $\widehat{p}_k$ | DirBridge's online estimate of $p_k$ (unique-client estimator by default). (Sec. IV-C) |
-| $\lambda_k$ | Group-dependent arrival rate; $r_k \propto p_k \lambda_k$ characterizes the latency bias of the arrival mixture. (Sec. V, analysis) |
-| $r_k$ | Probability that a newly arriving update belongs to group $k$. (Sec. V, analysis) |
+| $\nu_k$ | Group-dependent arrival rate; $a_k \propto p_k \nu_k$ characterizes the latency bias of the arrival mixture. (Sec. V, analysis) |
+| $a_k$ | Probability that a newly arriving update belongs to group $k$. (Sec. V, analysis) |
 | $c_k$ | Centroid of group $k$ in normalized sketch space, $c_k = \bar{v}_k / \lVert \bar{v}_k \rVert$; used for membership and assignment. (Sec. IV-C) |
 | $m_k$ | Model-space EMA memory of group $k$, the representative used in aggregation; refreshed by any arriving member. (Sec. IV-C) |
 | $\bar{\Delta}_k$ | Parameter-space mean of the valid deltas from group $k$ in the current buffer. (Sec. IV-C) |
 | $\beta$ | EMA coefficient of the group memory ($\beta = 0.9$). (Sec. IV-C) |
 | $\Phi_t$ | Buffer mixture-mismatch statistic at round $t$; reported with its finite-buffer sampling null. (Sec. V) |
 | $N_{\mathrm{seen}}$ | Number of distinct clients observed so far; yields the coverage bound $\lVert \widehat{p}-p \rVert_1 \leq 2(1 - N_{\mathrm{seen}}/N)$. (Sec. IV-C) |
-| $T_{\mathrm{rc}}$ | Reclustering interval in rounds (interval 5 in our experiments). (Sec. IV-C) |
+| $R$ | Reclustering interval in rounds, kept from the manuscript's existing notation (interval 5 in our experiments). (Sec. IV-C) |
 
 Beyond the table itself, we will make three consistency edits in the revision.
 First, $K_0$ will be used for the number of groups everywhere, and the bare

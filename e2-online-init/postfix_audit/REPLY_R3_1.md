@@ -50,9 +50,9 @@ these boundaries explicitly.
 ## How DirBridge handles latency bias in the observed stream
 
 DirBridge does not assume that the latency-biased observed stream is an unbiased
-estimator of the population. If $r_k$ denotes the probability that an observed
+estimator of the population. If $a_k$ denotes the probability that an observed
 arrival belongs to direction group $k$, then, in general,
-$r_k \propto p_k \lambda_k$, where $\lambda_k$ is the group-dependent arrival
+$a_k \propto p_k \nu_k$, where $\nu_k$ is the group-dependent arrival
 rate; raw arrival frequencies recover the arrival mixture rather than the
 population mixture, and the arrival-frequency control in the table is precisely
 the setting that consumes them. The unique-client estimator removes one specific
